@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+.transparent-navbar {
+    background: transparent !important;
+  }
+  .Nav-link{
+    color: white;
+    font-size: 16px;
+    padding-right: 40px;
+    padding-left: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: lighter;
+    font-family: 'Nunito', sans-serif;
+    transition: all 0.0s ease;
+
+    @media (max-width: 1028px) { /* 992px es el punto de interrupción para pantallas md en Bootstrap */
+        padding-right: 5px;
+        padding-left: 5px;
+        
+    }
+
+
+}
+@media (max-width: 769px) {
+  .Nav-link:hover {
+    background-color: #488457;
+  }
+  .active {
+    background-color: #488457;
+  }
+}
+@media (min-width: 770px) and (max-width: 1024px) {
+  .Nav-link:hover {
+    color: white;
+    padding-right: 15px;
+    padding-left: 15px;
+
+    background-color: #488457;
+    width: calc(100% + 40px); /* Adjusted to fit within parent */
+    height: calc(100% + 40px); /* Adjusted to fit within parent */
+    box-sizing: border-box;
+    position: relative;
+    margin-left: -20px;
+    margin-top: -20px; 
+
+    text-shadow: 2px 2px 4px #595959;
+  
+    border-bottom: 2px solid rgb(46, 88, 65); /* Simulates an underline */
+    padding-bottom: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .active{
+    color: white;
+    padding-right: 15px;
+    padding-left: 15px;
+
+    background-color: #488457;
+    width: calc(100% + 40px); /* Adjusted to fit within parent */
+    height: calc(100% + 40px); /* Adjusted to fit within parent */
+    box-sizing: border-box;
+    position: relative;
+    margin-left: -20px;
+    margin-top: -20px; 
+
+    text-shadow: 2px 2px 4px #595959;
+  
+    border-bottom: 2px solid rgb(46, 88, 65); /* Simulates an underline */
+    padding-bottom: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+@media (min-width: 1025px) {
+  .Nav-link:hover {
+    color: white;
+    padding-left:  50px;
+    padding-right: 50px;
+    padding-top: 5px;
+    padding-bottom: 15px;
+    background-color: #488457;
+    width: calc(100% + 40px); /* Añade el doble del padding del contenedor padre */
+    height: calc(100% + 40px); /* Añade el doble del padding del contenedor padre */
+    box-sizing: border-box;
+    position: relative;
+    margin-left: -20px; /* Negativo del padding del contenedor padre */
+    margin-top: -20px; /* Negativo del padding del contenedor padre */
+    text-shadow: 2px 2px 4px #595959;
+  
+    border-bottom: 2px solid rgb(46, 88, 65); /* Simula una línea de subrayado */
+    padding-bottom: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .active {
+    color: white;
+    padding-left:  50px;
+    padding-right: 50px;
+    padding-top: 5px;
+    padding-bottom: 15px;
+    background-color: #488457;
+    width: calc(100% + 40px); /* Añade el doble del padding del contenedor padre */
+    height: calc(100% + 40px); /* Añade el doble del padding del contenedor padre */
+    box-sizing: border-box;
+    position: relative;
+    margin-left: -20px; /* Negativo del padding del contenedor padre */
+    margin-top: -20px; /* Negativo del padding del contenedor padre */
+    text-shadow: 2px 2px 4px #595959;
+  
+    border-bottom: 2px solid rgb(46, 88, 65); /* Simula una línea de subrayado */
+    padding-bottom: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+
+.fondo{
+    background: rgba(98, 133, 102, 1);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+    z-index: 9999;
+
+    @media (max-width: 767px){
+        background: rgb(98, 133, 102, 1);
+        padding-top: 0px;
+    }
+
+    @media (max-width: 1028px){
+    }
+}
