@@ -7,6 +7,9 @@ import './navegador.css'
 import fondo from './assets/fondo.png'
 import VisualizarMesas from './PantallasAdmin/VistaMesas.jsx'
 import VisualizarUsuarios from './PantallasAdmin/VistaUsuarios.jsx'
+import VisualizarMenu from './PantallasAdmin/VistaMenu.jsx'
+import VisualizarPlatillos from './PantallasAdmin/VistaPlatillos.jsx'
+import VisualizarInsumos from './PantallasAdmin/VistaInsumos.jsx'
 
 function Navegador() {
   return (
@@ -45,9 +48,9 @@ function Navigation() {
         <Navbar.Collapse className="fondo" >
           <NavbarLink href="/visualizar-mesas" className={`Nav-link ${location.pathname === '/visualizar-mesas' ? 'active' : ''}`}> MESAS</NavbarLink>
           <NavbarLink href="/visualizar-usuarios" className={`Nav-link ${location.pathname === '/visualizar-usuarios' ? 'active' : ''}`}>USUARIOS</NavbarLink>
-          <NavbarLink href="#" className="Nav-link" >MENU</NavbarLink>
-          <NavbarLink href="#" className="Nav-link">PLATILLOS</NavbarLink>
-          <NavbarLink href="#" className="Nav-link">INSUMOS</NavbarLink>
+          <NavbarLink href="/visualizar-menus" className={`Nav-link ${location.pathname === '/visualizar-menus' ? 'active' : ''}`}>MENU</NavbarLink>
+          <NavbarLink href="/visualizar-platillos" className={`Nav-link ${location.pathname === '/visualizar-platillos' ? 'active' : ''}`}>PLATILLOS</NavbarLink>
+          <NavbarLink href="/visualizar-insumos" className={`Nav-link ${location.pathname === '/visualizar-insumos' ? 'active' : ''}`}>INSUMOS</NavbarLink>
         </Navbar.Collapse>
 
 
@@ -59,6 +62,9 @@ function Navigation() {
           <Routes>
             <Route path="/visualizar-mesas" element={<VisualizarMesas />} />
             <Route path="/visualizar-usuarios" element={<VisualizarUsuarios />} />
+            <Route path="/visualizar-menus" element={<VisualizarMenu />} />
+            <Route path="/visualizar-platillos" element={<VisualizarPlatillos />} />
+            <Route path="/visualizar-insumos" element={<VisualizarInsumos />} />
           </Routes>
         </div>
       </div>
