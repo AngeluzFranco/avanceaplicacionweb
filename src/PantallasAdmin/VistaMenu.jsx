@@ -101,9 +101,9 @@ function VistaMenu() {
                                     <option>Postre</option>
                                 </Select>
                                     <div className="mt-2 flex flex-wrap gap-2">
-                                        <span className="badge bg-blue-500 text-black p-2 rounded">Cilantro</span>
-                                        <span className="badge bg-blue-500 text-black p-2 rounded">Tomate</span>
-                                        <span className="badge bg-blue-500 text-black p-2 rounded">Cebolla</span>
+                                        <span className="badge bg-cyan-200 text-black p-2 rounded">Cilantro</span>
+                                        <span className="badge bg-cyan-200 text-black p-2 rounded">Tomate</span>
+                                        <span className="badge bg-cyan-200 text-black p-2 rounded">Cebolla</span>
                                     </div>
                                 </div>
                             </div>
@@ -111,9 +111,9 @@ function VistaMenu() {
                                 <div className="text-center mb-2 text-red-600">Platillos no disponibles</div>
                                 <div className="border bg-gray-100 rounded p-2">
                                     <div className="grid gap-2">
-                                        <span className="badge bg-red-500 text-black p-2 rounded">Rebanada</span>
-                                        <span className="badge bg-red-500 text-black p-2 rounded">Chile verde</span>
-                                        <span className="badge bg-red-500 text-black p-2 rounded">Salmón</span>
+                                        <span className="badge bg-red-400 text-black p-2 rounded">Rebanada</span>
+                                        <span className="badge bg-red-400 text-black p-2 rounded">Chile verde</span>
+                                        <span className="badge bg-red-400 text-black p-2 rounded">Salmón</span>
                                     </div>
                                 </div>
                             </div>
@@ -157,18 +157,18 @@ function VistaMenu() {
                                     <option>Postre</option>
                                 </Select>
                                 <div className="mt-2 flex flex-wrap gap-2">
-                                        <span className="badge bg-primary text-blue-500">Cilantro</span>
-                                        <span className="badge bg-primary text-blue-500">Tomate</span>
-                                        <span className="badge bg-primary text-blue-500">Cebolla</span>
+                                        <span className="badge bg-cyan-200 text-black p-2 rounded">Cilantro</span>
+                                        <span className="badge bg-cyan-200 text-black p-2 rounded">Tomate</span>
+                                        <span className="badge bg-cyan-200 text-black p-2 rounded">Cebolla</span>
                                     </div>
                             </div>
                             <div className="w-64 p-2 ">
                                 <Label htmlFor="ingredientesNoDisponibles" className="mb-2 text-red-500 flex justify-center w-full">Ingredientes no disponibles</Label>
                                 <div className="border bg-gray-100 rounded p-4 text-center">
                                     <div className="grid grid-cols-1 gap-2 mt-2">
-                                        <span className="badge bg-secondary text-blue-500">Rebanada</span>
-                                        <span className="badge bg-secondary text-blue-500">Chile verde</span>
-                                        <span className="badge bg-secondary text-blue-500">Salmón</span>
+                                        <span className="badge bg-red-400 text-black p-2 rounded">Rebanada</span>
+                                        <span className="badge bg-red-400 text-black p-2 rounded">Chile verde</span>
+                                        <span className="badge bg-red-400 text-black p-2 rounded">Salmón</span>
                                     </div>
                                 </div>
                             </div>
@@ -196,34 +196,34 @@ function VistaMenu() {
                     <div className="space-y-4">
                         <div className="border p-4 rounded">
                             <h3 className="text-lg mb-2 text-blue-500">Descripción</h3>
-                            <div className="p-4 bg-gray-500 rounded">
+                            <div className="p-4 border rounded">
                                 <p>Exquisitos y extravagantes mariscos para refrescar tu día</p>
                             </div>
                             <h3 className="text-lg font-bold mt-4">Platillos</h3>
                             <div className="grid grid-cols-3 gap-4 mt-2">
-                                <div className="p-4 bg-green-500 rounded">
+                                <div className="p-4 border rounded">
                                     <p className="font-bold">Nombre: Ceviche de camarón</p>
                                     <p>Precio: $200</p>
                                 </div>
-                                <div className="p-4 bg-green-500 rounded">
+                                <div className="p-4 border rounded">
                                     <p className="font-bold">Nombre: Ceviche de camarón</p>
                                     <p>Precio: $200</p>
                                 </div>
-                                <div className="p-4 bg-green-500 rounded">
+                                <div className="p-4 border rounded">
                                     <p className="font-bold">Nombre: Ceviche de camarón</p>
                                     <p>Precio: $200</p> 
                                 </div>
                             </div>
                             <div className="grid grid-cols-3 gap-4 mt-2">
-                                <div className="p-4 bg-green-500 rounded">
+                                <div className="p-4 border rounded">
                                     <p className="font-bold">Nombre: Ceviche de camarón</p>
                                     <p>Precio: $200</p>
                                 </div>
-                                <div className="p-4 bg-green-500 rounded">
+                                <div className="p-4 border rounded">
                                     <p className="font-bold">Nombre: Ceviche de camarón</p>
                                     <p>Precio: $200</p>
                                 </div>
-                                <div className="p-4 bg-green-500 rounded">
+                                <div className="p-4 border rounded">
                                     <p className="font-bold">Nombre: Ceviche de camarón</p>
                                     <p>Precio: $200</p> 
                                 </div>
