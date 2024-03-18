@@ -1,0 +1,15 @@
+/* Estilo para el contenedor del scroll */
+.divScroll::-webkit-scrollbar {
+    width: 3px;
+}
+
+/* Estilo para la barra del scroll */
+.divScroll::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+/* Estilo para la barra del scroll al pasar el mouse */
+.divScroll::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

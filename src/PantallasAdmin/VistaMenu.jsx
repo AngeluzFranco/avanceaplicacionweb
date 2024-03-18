@@ -3,6 +3,7 @@ import { Button, Navbar, Card, Table, Spinner, Modal, Label, Textarea, TextInput
 import fondo from '../assets/fondo.png';
 import imgMesa from '../assets/imgMesa.png';
 import CloseIcon from '@mui/icons-material/Close';
+import './menu.css';
 
 
 import IconButton from '@mui/material/IconButton';
@@ -21,6 +22,7 @@ import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
 import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
+
 
 
 
@@ -122,71 +124,8 @@ function VistaMenu() {
 
             {/* MODAL ACTUALIZAR MENU  */}
             <Modal show={actualizarModal} onClose={actualizarClose} size="4xl">
-                <Modal.Header>
-                    <h2 className="text-2xl font-semibold text-center">Actualiza tu menú</h2>
-                </Modal.Header>
-                <Modal.Body>
-                    <div className="space-y-6">
-                        <div className="flex justify-center gap-4">
-                        <div className="w-full max-w-md">
-                                <div className="border p-2 rounded">
-                                    <Textarea
-                                        id="description"
-                                        placeholder="Mariscada"
-                                    />
-                                </div>
-                            </div>
-                            <div className="w-full max-w-md">
-                                <div className="border p-2 rounded">
-                                    <Textarea
-                                        id="description"
-                                        placeholder="Exquisitos y extravagantes mariscos para refrescar tu día"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="flex justify-between gap-4">
-                            <div className="w-full lg:w-2/3">
-                                <div className="border bg-gray-100 rounded p-2">
-                                <Label htmlFor="categoria">Categoría del platillo</Label>
-                                <Select id="categoria">
-                                    <option>Platillos</option>
-                                    <option>Plato Fuerte</option>
-                                    <option>Postre</option>
-                                </Select>
-                                    <div className="mt-2 flex flex-wrap gap-2">
-                                        <span className="badge bg-cyan-200 text-black p-2 rounded">Cilantro</span>
-                                        <span className="badge bg-cyan-200 text-black p-2 rounded">Tomate</span>
-                                        <span className="badge bg-cyan-200 text-black p-2 rounded">Cebolla</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="w-64 p-2">
-                                <div className="text-center mb-2 text-red-600">Platillos no disponibles</div>
-                                <div className="border bg-gray-100 rounded p-2">
-                                    <div className="grid gap-2">
-                                        <span className="badge bg-red-400 text-black p-2 rounded">Rebanada</span>
-                                        <span className="badge bg-red-400 text-black p-2 rounded">Chile verde</span>
-                                        <span className="badge bg-red-400 text-black p-2 rounded">Salmón</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <div className="flex justify-center w-full">
-                        <Button color="blue" onClick={actualizarClose}>
-                            Actualizar
-                        </Button>
-                    </div>
-                </Modal.Footer>
-            </Modal>
-
-            {/* MODAL CREAR MENU */}
-            <Modal show={crearModal} onClose={crearClose} size="4xl">
-                <Modal.Header>
-                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-white text-center">Crea tu menú</h2>
+            <Modal.Header>
+                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-white text-center">Actualiza tu menú</h2>
                 </Modal.Header>
                 <Modal.Body>
                     <div className="space-y-4">
@@ -217,6 +156,7 @@ function VistaMenu() {
                                     input={<OutlinedInput label="Platillos" />}
                                     renderValue={(selected) => selected.join(', ')}
                                     MenuProps={MenuProps}
+                                    className='mb-3'
                                     >
                                     {names.map((name) => (
                                         <MenuItem key={name} value={name}>
@@ -226,7 +166,103 @@ function VistaMenu() {
                                     ))}
                                     </Select>
                                 </FormControl>
-                                <div className="mt-2 flex flex-wrap gap-2">
+                                <div className="mt-2 flex flex-wrap gap-2 overflow-y-auto max-h-36 divScroll">
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Enchiladas</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Sopita</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Filete de pescado empanizado</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Sopita</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Filete de pescado empanizado</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Sopita</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Filete de pescado empanizado</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Sopita</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Filete de pescado empanizado</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Sopita</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Filete de pescado empanizado</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Sopita</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Filete de pescado empanizado</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Enchiladas</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Sopita</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Filete de pescado </span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
                                         <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
                                             <span className="text-sm font-medium text-gray-700">Enchiladas</span>
                                             <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
@@ -252,11 +288,167 @@ function VistaMenu() {
                             <div className="w-64 p-2" style={{border: 'solid 1px #d6d6d6',borderRadius: '5px'}}>
                                 
                                 <div className=" rounded  text-center">
-                                    <div className="grid grid-cols-1 gap-2 mt-0">
+                                    <div className="grid grid-cols-1 gap-2 mt-0 overflow-y-auto divScroll" style={{maxHeight: 228}}>
+                                        <span className="badge text-black p-2 rounded line-through" style={{backgroundColor: '#ffcfcf'}}>Pescado empanizado</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{backgroundColor: '#ffcfcf'}}>Chilaquiles</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{backgroundColor: '#ffcfcf'}}>Salmón a la plancha</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{backgroundColor: '#ffcfcf'}}>Pescado empanizado</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{backgroundColor: '#ffcfcf'}}>Chilaquiles</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{backgroundColor: '#ffcfcf'}}>Salmón a la plancha</span>
                                         <span className="badge text-black p-2 rounded line-through" style={{backgroundColor: '#ffcfcf'}}>Pescado empanizado</span>
                                         <span className="badge text-black p-2 rounded line-through" style={{backgroundColor: '#ffcfcf'}}>Chilaquiles</span>
                                         <span className="badge text-black p-2 rounded line-through" style={{backgroundColor: '#ffcfcf'}}>Salmón a la plancha</span>
                                         
+                                        
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <div className="flex justify-center w-full">
+                        <Button outline gradientDuoTone="cyanToBlue" onClick={crearClose}>
+                            Actualizar
+                        </Button>
+                        
+                    </div>
+                </Modal.Footer>
+            </Modal>
+
+            {/* MODAL CREAR MENU */}
+            <Modal show={crearModal} onClose={crearClose} size="4xl">
+                <Modal.Header>
+                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-white text-center">Crea tu menú</h2>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="space-y-4">
+                        <div className="grid grid-cols-3 gap-4">
+                            <div>
+                                 <FloatingLabel variant="outlined" label="Nombre" />
+                            </div>
+                            <div>
+                                 <FloatingLabel variant="outlined" label="Descripción" />
+                            </div>
+                            <div className='flex items-end ' style={{marginBottom: -20}} > 
+                            <Label htmlFor="ingredientesNoDisponibles" className="mb-2 text-red-500 flex justify-center w-full">Platillos no disponibles</Label>
+                            </div>
+                            
+                        
+                        </div>
+                        
+                        <div className="flex justify-between gap-4">
+                            <div className="w-full lg:w-2/3 p-4 h-64" style={{border: 'solid 1px #d6d6d6',borderRadius: '5px'}} >
+                            <FormControl className='w-full'>
+                                    <InputLabel id="demo-multiple-checkbox-label">Platillos</InputLabel>
+                                    <Select
+                                    labelId="demo-multiple-checkbox-label"
+                                    id="demo-multiple-checkbox"
+                                    multiple
+                                    value={personName}
+                                    onChange={handleChange}
+                                    input={<OutlinedInput label="Platillos" />}
+                                    renderValue={(selected) => selected.join(', ')}
+                                    MenuProps={MenuProps}
+                                    className='mb-3'
+                                    >
+                                    {names.map((name) => (
+                                        <MenuItem key={name} value={name}>
+                                        <Checkbox checked={personName.indexOf(name) > -1} />
+                                        <ListItemText primary={name} />
+                                        </MenuItem>
+                                    ))}
+                                    </Select>
+                                </FormControl>
+                                <div className="mt-2 flex flex-wrap gap-2 overflow-y-auto max-h-36 divScroll">
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Enchiladas</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Sopita</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Filete de pescado empanizado</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Filete de pescado empanizado</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Filete de pescado empanizado</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Filete de pescado empanizado</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Filete de pescado empanizado</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Filete de pescado empanizado</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Filete de pescado empanizado</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Filete de pescado empanizado</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div><div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Filete de pescado empanizado</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div><div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Filete de pescado empanizado</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        
+                                        
+                                    
+                                        
+                                    </div>
+                                    
+                            </div>
+                            <div className="w-64 p-2" style={{border: 'solid 1px #d6d6d6',borderRadius: '5px'}}>
+                                
+                                <div className=" rounded  text-center">
+                                    <div className="grid grid-cols-1 gap-2 mt-0 overflow-y-auto divScroll" style={{maxHeight: 228}}>
+                                        <span className="badge text-black p-2 rounded line-through" style={{backgroundColor: '#ffcfcf'}}>Pescado empanizado</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{backgroundColor: '#ffcfcf'}}>Chilaquiles</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{backgroundColor: '#ffcfcf'}}>Salmón a la plancha</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{backgroundColor: '#ffcfcf'}}>Pescado empanizado</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{backgroundColor: '#ffcfcf'}}>Chilaquiles</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{backgroundColor: '#ffcfcf'}}>Salmón a la plancha</span>
 
                                     </div>
                                 </div>
