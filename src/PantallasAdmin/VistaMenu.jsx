@@ -1,9 +1,65 @@
 import React, {useState} from 'react';
-import { Button, Navbar, Card, Table, Spinner, Modal, Label, Select, Textarea, TextInput } from 'flowbite-react';
+import { Button, Navbar, Card, Table, Spinner, Modal, Label, Textarea, TextInput, FloatingLabel } from 'flowbite-react';
 import fondo from '../assets/fondo.png';
 import imgMesa from '../assets/imgMesa.png';
 
+
+import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
+
+import DeleteIcon from '@mui/icons-material/Delete';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import EditIcon from '@mui/icons-material/Edit';
+import DownloadIcon from '@mui/icons-material/Download';
+
+// SELECT CREAR MENU 
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import ListItemText from '@mui/material/ListItemText';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
+
+
+
 function VistaMenu() {
+
+    const ITEM_HEIGHT = 48;
+    const ITEM_PADDING_TOP = 8;
+    const MenuProps = {
+    PaperProps: {
+        style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250,
+        },
+    },
+    };
+
+    const names = [
+    'Enchiladas',
+    'Sopita',
+    'Camarones',
+    'Filete de pescado',
+    'Ceviche de camarón',
+    'Ceviche de pescado',
+    'Filete de pescado a la plancha',
+    'Filete de pescado empanizado',
+    ];
+
+    const [personName, setPersonName] = React.useState([]);
+
+    const handleChange = (event) => {
+      const {
+        target: { value },
+      } = event;
+      setPersonName(
+        // On autofill we get a stringified value.
+        typeof value === 'string' ? value.split(',') : value,
+      );
+    };
+
+    
     const [showSpinner, setShowSpinner] = useState(false);
 
     const [actualizarModal, setactualizarModal] = useState(false);
@@ -40,23 +96,20 @@ function VistaMenu() {
                                 <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
                                 <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
                                 <Table.Cell className='flex items-center justify-end'>
-                                <svg onClick={() => setmostrarOpen(true)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#333333" className="w-6 h-6 cursor-pointer">
-                                    <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-                                    <path fillRule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 0 1 0-1.113ZM17.25 12a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z" clipRule="evenodd" />
-                                </svg>
-
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#333333" className="w-6 h-6">
-                                  <path fillRule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z" clipRule="evenodd" />
-                                </svg>
-
-                                <svg onClick={() => setactualizarModal(true)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#333333" className="w-6 h-6">
-                                   <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
-                                  <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
-                                </svg>
-
-                                <svg onClick={() => setShowSpinner(true)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#333333" className="w-6 h-6">
-                                 <path fillRule="evenodd" d="M12 2.25a.75.75 0 0 1 .75.75v11.69l3.22-3.22a.75.75 0 1 1 1.06 1.06l-4.5 4.5a.75.75 0 0 1-1.06 0l-4.5-4.5a.75.75 0 1 1 1.06-1.06l3.22 3.22V3a.75.75 0 0 1 .75-.75Zm-9 13.5a.75.75 0 0 1 .75.75v2.25a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5V16.5a.75.75 0 0 1 1.5 0v2.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V16.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
-                                </svg>
+                                    <Stack direction="row" spacing={0}>
+                                        <IconButton aria-label="VisibilityIcon" sx={{color: '#000000'}} onClick={() => setmostrarOpen(true)}>
+                                            <VisibilityIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="delete" sx={{color: '#000000'}}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="EditIcon" sx={{color: '#000000'}} onClick={() => setactualizarModal(true)}>
+                                            <EditIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="DownloadIcon" sx={{color: '#000000'}} onClick={() => setShowSpinner(true)}>
+                                            <DownloadIcon />
+                                        </IconButton>
+                                    </Stack>
                                 {showSpinner && <Spinner aria-label="Default status example" />}
 
                                 </Table.Cell>
@@ -137,38 +190,55 @@ function VistaMenu() {
                 <Modal.Body>
                     <div className="space-y-4">
                         <div className="grid grid-cols-3 gap-4">
-                            <TextInput 
-                                id="menuName" 
-                                placeholder="Nombre del menú" 
-                                required
-                            />
-                            <TextInput 
-                                id="menuDescription" 
-                                placeholder="Descripción del menú" 
-                                required
-                            />
+                            <div>
+                                 <FloatingLabel variant="outlined" label="Nombre" />
+                            </div>
+                            <div>
+                                 <FloatingLabel variant="outlined" label="Descripción" />
+                            </div>
+                            <div className='flex items-end ' style={{marginBottom: -20}} > 
+                            <Label htmlFor="ingredientesNoDisponibles" className="mb-2 text-red-500 flex justify-center w-full">Platillos no disponibles</Label>
+                            </div>
+                            
+                        
                         </div>
+                        
                         <div className="flex justify-between gap-4">
-                            <div className="w-full lg:w-2/3">
-                                <Label htmlFor="categoria">Categoría del platillo</Label>
-                                <Select id="categoria">
-                                    <option>Platillos</option>
-                                    <option>Plato Fuerte</option>
-                                    <option>Postre</option>
-                                </Select>
+                            <div className="w-full lg:w-2/3 p-4" style={{border: 'solid 1px #d6d6d6',borderRadius: '5px'}}>
+                            <FormControl className='w-full'>
+                                    <InputLabel id="demo-multiple-checkbox-label">Platillos</InputLabel>
+                                    <Select
+                                    labelId="demo-multiple-checkbox-label"
+                                    id="demo-multiple-checkbox"
+                                    multiple
+                                    value={personName}
+                                    onChange={handleChange}
+                                    input={<OutlinedInput label="Platillos" />}
+                                    renderValue={(selected) => selected.join(', ')}
+                                    MenuProps={MenuProps}
+                                    >
+                                    {names.map((name) => (
+                                        <MenuItem key={name} value={name}>
+                                        <Checkbox checked={personName.indexOf(name) > -1} />
+                                        <ListItemText primary={name} />
+                                        </MenuItem>
+                                    ))}
+                                    </Select>
+                                </FormControl>
                                 <div className="mt-2 flex flex-wrap gap-2">
                                         <span className="badge bg-cyan-200 text-black p-2 rounded">Cilantro</span>
                                         <span className="badge bg-cyan-200 text-black p-2 rounded">Tomate</span>
                                         <span className="badge bg-cyan-200 text-black p-2 rounded">Cebolla</span>
                                     </div>
+                                    
                             </div>
-                            <div className="w-64 p-2 ">
-                                <Label htmlFor="ingredientesNoDisponibles" className="mb-2 text-red-500 flex justify-center w-full">Ingredientes no disponibles</Label>
-                                <div className="border bg-gray-100 rounded p-4 text-center">
-                                    <div className="grid grid-cols-1 gap-2 mt-2">
-                                        <span className="badge bg-red-400 text-black p-2 rounded">Rebanada</span>
-                                        <span className="badge bg-red-400 text-black p-2 rounded">Chile verde</span>
-                                        <span className="badge bg-red-400 text-black p-2 rounded">Salmón</span>
+                            <div className="w-64 p-2" style={{border: 'solid 1px #d6d6d6',borderRadius: '5px'}}>
+                                
+                                <div className=" rounded  text-center">
+                                    <div className="grid grid-cols-1 gap-2 mt-0">
+                                        <span className="badge text-black p-2 rounded line-through" style={{backgroundColor: '#ffcfcf'}}>Pescado empanizado</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{backgroundColor: '#ffcfcf'}}>Chilaquiles</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{backgroundColor: '#ffcfcf'}}>Salmón a la plancha</span>
                                     </div>
                                 </div>
                             </div>
@@ -177,12 +247,10 @@ function VistaMenu() {
                 </Modal.Body>
                 <Modal.Footer>
                     <div className="flex justify-center w-full">
-                        <Button 
-                            color="blue" 
-                            onClick={crearClose} 
-                        >
+                        <Button outline gradientDuoTone="cyanToBlue" onClick={crearClose}>
                             Crear
                         </Button>
+                        
                     </div>
                 </Modal.Footer>
             </Modal>

@@ -57,9 +57,11 @@ function VistaMesas() {
 
 
       <Modal show={crearOpen} onClose={() => setcrearOpen(false)} size="md" position="center">
-        <Modal.Header>
-          <h5 className="text-xl font-medium text-gray-900 dark:text-white text-center w-full">Crea tu mesa</h5>
-        </Modal.Header>
+<Modal.Header style={{ padding: 0 }}>
+  <div className="flex items-center justify-center w-full">
+    <h5 className="text-xl font-medium text-gray-900 dark:text-white text-center">Crea tu mesa</h5>
+  </div>
+</Modal.Header>
         <Modal.Body>
           <div className="text-center">
             <form>

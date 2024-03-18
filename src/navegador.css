@@ -126,13 +126,18 @@
     padding-bottom: 20px;
     padding-right: 20px;
     padding-left: 20px;
-    z-index: 9999;
+   
 
     @media (max-width: 767px){
         background: rgb(98, 133, 102, 1);
         padding-top: 0px;
+        z-index: 9999;
     }
 
     @media (max-width: 1028px){
     }
+}
+
+.prueba{
+  color: #000000;
 }
