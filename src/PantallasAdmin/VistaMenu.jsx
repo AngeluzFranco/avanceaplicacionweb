@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { Button, Navbar, Card, Table, Spinner, Modal, Label, Textarea, TextInput, FloatingLabel } from 'flowbite-react';
 import fondo from '../assets/fondo.png';
 import imgMesa from '../assets/imgMesa.png';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 import IconButton from '@mui/material/IconButton';
@@ -226,9 +227,25 @@ function VistaMenu() {
                                     </Select>
                                 </FormControl>
                                 <div className="mt-2 flex flex-wrap gap-2">
-                                        <span className="badge bg-cyan-200 text-black p-2 rounded">Cilantro</span>
-                                        <span className="badge bg-cyan-200 text-black p-2 rounded">Tomate</span>
-                                        <span className="badge bg-cyan-200 text-black p-2 rounded">Cebolla</span>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Enchiladas</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Sopita</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                            <span className="text-sm font-medium text-gray-700">Filete de pescado empanizado</span>
+                                            <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                        
                                     </div>
                                     
                             </div>
@@ -239,6 +256,8 @@ function VistaMenu() {
                                         <span className="badge text-black p-2 rounded line-through" style={{backgroundColor: '#ffcfcf'}}>Pescado empanizado</span>
                                         <span className="badge text-black p-2 rounded line-through" style={{backgroundColor: '#ffcfcf'}}>Chilaquiles</span>
                                         <span className="badge text-black p-2 rounded line-through" style={{backgroundColor: '#ffcfcf'}}>Salmón a la plancha</span>
+                                        
+
                                     </div>
                                 </div>
                             </div>
