@@ -15,12 +15,12 @@ function VistaInsumos() {
 
     const handleClose = () => setactualizarModal(false);
     return (
-        <div className="h-screen bg-cover" style={{ backgroundImage: `url(${fondo})` }}>
+        <div className="h-screen ">
             <div className="container-table flex items-center justify-center flex-wrap">
-                <div className="overflow-x-auto bg-white p-4 rounded-lg shadow-lg" style={{ width: "60%" }}>
-                    <div className="flex justify-between items-center mb-4">
+                <div className="overflow-x-auto bg-white p-4 rounded-lg shadow-2xl" style={{ width: "60%", border: 'solid 1px #ebebeb' }}>
+                    <div className="flex justify-between items-center mb-6">
                         <h1 className="text-2xl font-bold">Lista de insumos</h1>
-                        <Button onClick={() => setcrearModal(true)} className="btn btn-primary">Agregar</Button>
+                        <Button onClick={() => setcrearModal(true)} className="agregar">Agregar</Button>
                     </div>
                     <Table>
                         <Table.Head>

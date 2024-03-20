@@ -11,6 +11,9 @@ import VisualizarMenu from './PantallasAdmin/VistaMenu.jsx'
 import VisualizarPlatillos from './PantallasAdmin/VistaPlatillos.jsx'
 import VisualizarInsumos from './PantallasAdmin/VistaInsumos.jsx'
 
+import IconButton from '@mui/material/IconButton';
+import LogoutIcon from '@mui/icons-material/Logout';
+
 function Navegador() {
   return (
     <Router >
@@ -33,13 +36,17 @@ function Navigation() {
         <div className="flex justify-center " style={{ flex: '1', marginRight: 20, }}>
           <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
             <img src={imgLogo} className="mr-1 h-12 md:h-12 sm:h-12" alt="Gastro Manager" />
-            <div className="self-center text-base sm:text-base md:text-base font-semibold text-white" style={{ overflow: 'hidden' }}>Gastro Manager</div>
+            <div className="self-center text-base sm:text-base md:text-base font-semibold text-white" style={{ overflow: 'hidden', color: '#E25500' }}>Gastro Manager</div>
           </div>
         </div>
 
         <div className="flex md:order-2 justify-center" style={{ flex: '1' }}>
           <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%' }}>
-            <Button>Cerrar sesión</Button>
+            <Button className="cerrar p-0 h-12">
+              <IconButton aria-label="delete" className="p-0" sx={{ color: '#FF8E4A' }} >
+                <LogoutIcon />
+              </IconButton> <span className="text-sm">Cerrar sesión</span> 
+            </Button>
             <Navbar.Toggle />
           </div>
         </div>
@@ -56,6 +63,7 @@ function Navigation() {
 
       </Navbar>
 
+      <hr style={{ marginBottom: 50, borderTop: "3px solid #FFDEB6" }} />
 
       <div className="auth-wrapper">
         <div className="auth-inner h-screen overflow-hidden items-center">

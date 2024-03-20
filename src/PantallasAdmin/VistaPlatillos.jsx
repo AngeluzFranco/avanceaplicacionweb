@@ -1,5 +1,5 @@
 
-import { Button, Navbar, Card, Table, Modal, Label, Select, TextInput } from 'flowbite-react';
+import { Button, Navbar, Card, Table, Modal, Label, TextInput, FloatingLabel } from 'flowbite-react';
 import fondo from '../assets/fondo.png';
 import imgMesa from '../assets/imgMesa.png';
 import React, { useState } from 'react';
@@ -12,9 +12,59 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
 
+// SELECT CREAR PLATILLO
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import ListItemText from '@mui/material/ListItemText';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
+
 
 
 function VistaPlatillos() {
+    const ITEM_HEIGHT = 48;
+    const ITEM_PADDING_TOP = 8;
+    const MenuProps = {
+        PaperProps: {
+            style: {
+                maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+                width: 250,
+            },
+        },
+    };
+
+    const names = [
+        'Enchiladas',
+        'Sopita',
+        'Camarones',
+        'Filete de pescado',
+        'Ceviche de camarón',
+        'Ceviche de pescado',
+        'Filete de pescado a la plancha',
+        'Filete de pescado empanizado',
+    ];
+
+    const [personName, setPersonName] = React.useState([]);
+
+    const handleChange = (event) => {
+        const {
+            target: { value },
+        } = event;
+        setPersonName(
+            // On autofill we get a stringified value.
+            typeof value === 'string' ? value.split(',') : value,
+        );
+    };
+
+    const [age, setAge] = React.useState('');
+
+    const handleChangeAge = (event) => {
+      setAge(event.target.value);
+    };
+
+
     const [mostrarOpen, setmostrarOpen] = useState(false);
     const closeModal = () => setmostrarOpen(false);
 
@@ -24,12 +74,12 @@ function VistaPlatillos() {
     const [crearOpen, setcrearOpen] = useState(false);
 
     return (
-        <div className="h-screen bg-cover" style={{ backgroundImage: `url(${fondo})` }}>
+        <div className="h-screen">
             <div className="container-table flex items-center justify-center flex-wrap">
-                <div className="overflow-x-auto bg-white p-4 rounded-lg shadow-lg" style={{ width: "60%" }}>
-                    <div className="flex justify-between items-center mb-4">
+                <div className="overflow-x-auto bg-white p-4 rounded-lg shadow-2xl" style={{ width: "60%", border: 'solid 1px #ebebeb' }}>
+                    <div className="flex justify-between items-center mb-6">
                         <h1 className="text-2xl font-bold">Lista de platillos</h1>
-                        <Button onClick={() => setcrearOpen(true)} className="btn btn-primary">Agregar</Button>
+                        <Button onClick={() => setcrearOpen(true)} className="agregar">Agregar</Button>
                     </div>
                     <Table>
                         <Table.Head>
@@ -160,22 +210,59 @@ function VistaPlatillos() {
                 <Modal.Body>
                     <div className="space-y-4">
                         <div className="grid grid-cols-3 gap-4">
-                            <TextInput placeholder="Enchiladas" sizing="md" />
+                            <div>
+                                <FloatingLabel variant="outlined" label="Nombre" sizing='sm'/>
+                            </div>
+                            
                             <Select id="categoria">
                                 <option>Entrada</option>
                                 <option>Plato Fuerte</option>
                                 <option>Postre</option>
                             </Select>
-                            <TextInput placeholder="Precio $" sizing="md" />
+                            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+        <InputLabel id="demo-simple-select-standard-label">Age</InputLabel>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={age}
+          onChange={handleChange}
+          label="Age"
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+      </FormControl>
+                            <div>
+                                <FloatingLabel variant="outlined" label="Precio $" sizing='sm'/>
+                            </div>
                         </div>
                         <div className="flex justify-between gap-4">
                             <div className="w-full lg:w-2/3">
-                                <Label htmlFor="categoria">Categoría del platillo</Label>
-                                <Select id="categoria">
-                                    <option>Platillos</option>
-                                    <option>Plato Fuerte</option>
-                                    <option>Postre</option>
-                                </Select>
+                                <FormControl className='w-full'>
+                                    <InputLabel id="demo-multiple-checkbox-label">Platillos</InputLabel>
+                                    <Select
+                                        labelId="demo-multiple-checkbox-label"
+                                        id="demo-multiple-checkbox"
+                                        multiple
+                                        value={personName}
+                                        onChange={handleChange}
+                                        input={<OutlinedInput label="Platillos" />}
+                                        renderValue={(selected) => selected.join(', ')}
+                                        MenuProps={MenuProps}
+                                        className='mb-3'
+                                    >
+                                        {names.map((name) => (
+                                            <MenuItem key={name} value={name}>
+                                                <Checkbox checked={personName.indexOf(name) > -1} />
+                                                <ListItemText primary={name} />
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
                                 <div className="mt-2 flex flex-wrap gap-2">
                                     <span className="badge bg-primary text-blue-500">Cilantro</span>
                                     <span className="badge bg-primary text-blue-500">Tomate</span>

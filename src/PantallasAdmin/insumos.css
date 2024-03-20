@@ -1,0 +1,16 @@
+.agregar {
+    background-color: #F58500;
+    box-shadow: none !important;
+  }
+  
+  .agregar:hover {
+    background-color: #db4d00 !important; /* Cambia esto al color que quieras cuando el mouse esté sobre el elemento */
+  }
+  
+  .agregar:active {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5) !important; /* Ajusta esto para cambiar el aspecto de la sombra */
+  }
+
+  .asdsa{
+    color: #ea4242;
+  }

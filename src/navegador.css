@@ -13,6 +13,9 @@
     font-weight: lighter;
     font-family: 'Nunito', sans-serif;
     transition: all 0.0s ease;
+    border-right: solid 1px #ededed;
+      
+    
 
     @media (max-width: 1028px) { /* 992px es el punto de interrupción para pantallas md en Bootstrap */
         padding-right: 5px;
@@ -24,10 +27,10 @@
 }
 @media (max-width: 769px) {
   .Nav-link:hover {
-    background-color: #488457;
+    background-color: #F58500;
   }
   .active {
-    background-color: #488457;
+    background-color: #F58500;
   }
 }
 @media (min-width: 770px) and (max-width: 1024px) {
@@ -36,7 +39,7 @@
     padding-right: 15px;
     padding-left: 15px;
 
-    background-color: #488457;
+    background-color: #F58500;
     width: calc(100% + 40px); /* Adjusted to fit within parent */
     height: calc(100% + 40px); /* Adjusted to fit within parent */
     box-sizing: border-box;
@@ -46,7 +49,7 @@
 
     text-shadow: 2px 2px 4px #595959;
   
-    border-bottom: 2px solid rgb(46, 88, 65); /* Simulates an underline */
+    border-bottom: 2px solid #db7900; /* Simulates an underline */
     padding-bottom: 3px;
     display: flex;
     justify-content: center;
@@ -57,7 +60,7 @@
     padding-right: 15px;
     padding-left: 15px;
 
-    background-color: #488457;
+    background-color: #F58500;
     width: calc(100% + 40px); /* Adjusted to fit within parent */
     height: calc(100% + 40px); /* Adjusted to fit within parent */
     box-sizing: border-box;
@@ -67,7 +70,7 @@
 
     text-shadow: 2px 2px 4px #595959;
   
-    border-bottom: 2px solid rgb(46, 88, 65); /* Simulates an underline */
+    border-bottom: 2px solid #db7900; /* Simulates an underline */
     padding-bottom: 3px;
     display: flex;
     justify-content: center;
@@ -81,7 +84,7 @@
     padding-right: 50px;
     padding-top: 5px;
     padding-bottom: 15px;
-    background-color: #488457;
+    background-color: #F58500;
     width: calc(100% + 40px); /* Añade el doble del padding del contenedor padre */
     height: calc(100% + 40px); /* Añade el doble del padding del contenedor padre */
     box-sizing: border-box;
@@ -90,7 +93,7 @@
     margin-top: -20px; /* Negativo del padding del contenedor padre */
     text-shadow: 2px 2px 4px #595959;
   
-    border-bottom: 2px solid rgb(46, 88, 65); /* Simula una línea de subrayado */
+    border-bottom: 2px solid #db7900; /* Simula una línea de subrayado */
     padding-bottom: 3px;
     display: flex;
     justify-content: center;
@@ -102,7 +105,7 @@
     padding-right: 50px;
     padding-top: 5px;
     padding-bottom: 15px;
-    background-color: #488457;
+    background-color: #F58500;
     width: calc(100% + 40px); /* Añade el doble del padding del contenedor padre */
     height: calc(100% + 40px); /* Añade el doble del padding del contenedor padre */
     box-sizing: border-box;
@@ -111,7 +114,7 @@
     margin-top: -20px; /* Negativo del padding del contenedor padre */
     text-shadow: 2px 2px 4px #595959;
   
-    border-bottom: 2px solid rgb(46, 88, 65); /* Simula una línea de subrayado */
+    border-bottom: 3px solid #db7900; /* Simula una línea de subrayado */
     padding-bottom: 3px;
     display: flex;
     justify-content: center;
@@ -121,7 +124,7 @@
 
 
 .fondo{
-    background: rgba(98, 133, 102, 1);
+    background: #FFA841;
     padding-top: 20px;
     padding-bottom: 20px;
     padding-right: 20px;
@@ -129,7 +132,7 @@
    
 
     @media (max-width: 767px){
-        background: rgb(98, 133, 102, 1);
+        background: #FFA841;
         padding-top: 0px;
         z-index: 9999;
     }
@@ -138,6 +141,15 @@
     }
 }
 
-.prueba{
-  color: #000000;
+.cerrar {
+  background-color: #EE2F2F;
+  box-shadow: none !important;
+}
+
+.cerrar:hover {
+  background-color: #c50000 !important; /* Cambia esto al color que quieras cuando el mouse esté sobre el elemento */
+}
+
+.cerrar:active {
+  box-shadow: 0 0 10px rgba(100, 100, 100, 0.5) !important; /* Ajusta esto para cambiar el aspecto de la sombra */
 }

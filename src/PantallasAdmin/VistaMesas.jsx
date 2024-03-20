@@ -6,10 +6,10 @@ import imgMesa from '../assets/imgMesa.png';
 function VistaMesas() {
   const [crearOpen, setcrearOpen] = useState(false);
   return (
-    <div className="h-screen bg-cover" style={{ backgroundImage: `url(${fondo})` }}>
+    <div className="h-screen ">
 <div className='flex justify-center mt-3 mb-5'>
     <div className='w-9/12 m-2 flex justify-between'>
-        <Button onClick={() => setcrearOpen(true)} className='justify-start' size="xl" outline gradientDuoTone="greenToBlue"> Agregar  +  </Button>
+        <Button onClick={() => setcrearOpen(true)} className='justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' size="xl" outline > Agregar  +  </Button>
         <Dropdown label="TODAS">
             <Dropdown.Item>Ocupadas</Dropdown.Item>
             <Dropdown.Divider />
@@ -19,7 +19,7 @@ function VistaMesas() {
 </div>
 
       <div className="container-cards flex items-center justify-center flex-wrap">
-      <Card href="#" className="max-w-sm mx-5 my-5" style={{ background: 'rgba(9, 43, 90, 1)' }}>
+      <Card href="#" className="max-w-sm mx-5 my-5" style={{ background: '#ea4242' }}>
           <div class="flex items-center gap-4">
             <div className='mx-2'>
               <div className='flex flex-row'>
@@ -49,7 +49,7 @@ function VistaMesas() {
             </div>
             <div class="flex flex-col items-center">
               <img src={imgMesa} class="mb-2 h-20 md:h-20 sm:h-20" alt="imagen mesa" />
-              <Button className="btn btn-primary mt-4" style={{ width: 30 }}></Button>
+              <Button className=" mt-4  text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800" style={{ width: 50 }}>estado</Button>
             </div>
           </div>
         </Card>
