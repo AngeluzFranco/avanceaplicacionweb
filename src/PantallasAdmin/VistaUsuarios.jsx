@@ -1,5 +1,8 @@
-import React from 'react';
-import { Button, Navbar, Card, Table,Modal, TextInput, Label, Select, FloatingLabel } from 'flowbite-react';
+import React, { useState } from 'react';
+import { Button, Navbar, Card, Table, Modal, TextInput, Label, Select, FloatingLabel } from 'flowbite-react';
+import { InputAdornment, OutlinedInput, FormControl, InputLabel } from '@mui/material';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import fondo from '../assets/fondo.png';
 import imgMesa from '../assets/imgMesa.png';
 import './usuarios.css'
@@ -12,64 +15,90 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 function VistaUsuarios() {
-    const [crearOpen, setcrearOpen] = React.useState(false);
-    const [actualizarOpen, setactualizarOpen] = React.useState(false);
+  const [crearOpen, setcrearOpen] = React.useState(false);
+  const [actualizarOpen, setactualizarOpen] = React.useState(false);
 
-    const handleClose = () => setcrearOpen(false);
-    return (
-        <div className="h-screen " >
-            <div className="container-table flex items-center justify-center flex-wrap">
-                <div className="overflow-x-auto bg-white p-4 rounded-lg shadow-2xl" style={{ width: "60%", border: 'solid 1px #ebebeb' }}>
-                    <div className="flex justify-between items-center mb-6">
-                        <h1 className="text-2xl font-bold">Lista de usuarios</h1>
-                        <Button onClick={() => setcrearOpen(true)} className="agregar">Agregar</Button>
-                    </div>
-                    <Table>
-                        <Table.Head>
-                            <Table.HeadCell className='border-r border-b border-gray-300'>Name</Table.HeadCell>
-                            <Table.HeadCell className='border-r border-b border-gray-300'>Rol</Table.HeadCell>
-                            <Table.HeadCell className='border-r border-b border-gray-300'>password</Table.HeadCell>
-                            <Table.HeadCell className='border-b border-gray-300'>
-                                <span className="sr-only">Edit</span>
-                            </Table.HeadCell>
-                        </Table.Head>
-                        <Table.Body className="divide-y">
-                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                <Table.Cell className="border-r border-gray-300whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                    Angeluz
-                                </Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Admin</Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>1234</Table.Cell>
-                                <Table.Cell className='flex items-center justify-end'>
-                                <Stack direction="row" spacing={0}>
-                                        <IconButton aria-label="delete" sx={{color: '#000000'}} >
-                                            <DeleteIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="EditIcon" sx={{color: '#000000'}} onClick={() => setactualizarOpen(true)}>
-                                            <EditIcon />
-                                        </IconButton>
-                                    </Stack>
-                                </Table.Cell>
-                            </Table.Row>
-                        </Table.Body>
-                    </Table>
-                </div>
-            </div>
+  const [showPasswordC, setShowPasswordC] = useState(false);
+  const [showPasswordU, setShowPasswordU] = useState(false);
 
-                {/* MODAL CREAR USUARIO */}
-            <Modal show={crearOpen} onClose={handleClose} size="xl">
+  const handleClickShowPassword = () => {
+    setShowPasswordC(!showPasswordC);
+  };
+  const handleClickShowPasswordU = () => {
+    setShowPasswordU(!showPasswordU);
+  };
+
+  const handleClose = () => setcrearOpen(false);
+  return (
+    <div className="h-screen " >
+      <div className="container-table flex items-center justify-center flex-wrap">
+        <div className="overflow-x-auto bg-white p-4 rounded-lg shadow-2xl" style={{ width: "60%", border: 'solid 1px #ebebeb' }}>
+          <div className="flex justify-between items-center mb-6">
+            <h1 className="text-2xl font-bold">Lista de usuarios</h1>
+            <Button onClick={() => setcrearOpen(true)} className="agregar">Agregar</Button>
+          </div>
+          <Table>
+            <Table.Head>
+              <Table.HeadCell className='border-r border-b border-gray-300'>Name</Table.HeadCell>
+              <Table.HeadCell className='border-r border-b border-gray-300'>Rol</Table.HeadCell>
+              <Table.HeadCell className='border-r border-b border-gray-300'>password</Table.HeadCell>
+              <Table.HeadCell className='border-b border-gray-300'>
+                <span className="sr-only">Edit</span>
+              </Table.HeadCell>
+            </Table.Head>
+            <Table.Body className="divide-y">
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="border-r border-gray-300whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  Angeluz
+                </Table.Cell>
+                <Table.Cell className='border-r border-gray-300'>Admin</Table.Cell>
+                <Table.Cell className='border-r border-gray-300'>1234</Table.Cell>
+                <Table.Cell className='flex items-center justify-end'>
+                  <Stack direction="row" spacing={0}>
+                    <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                      <DeleteIcon />
+                    </IconButton>
+                    <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                      <EditIcon />
+                    </IconButton>
+                  </Stack>
+                </Table.Cell>
+              </Table.Row>
+            </Table.Body>
+          </Table>
+        </div>
+      </div>
+
+      {/* MODAL CREAR USUARIO */}
+      <Modal show={crearOpen} onClose={handleClose} size="xl">
         <Modal.Header>
-          <h5 className="text-2xl font-medium dark:text-white" >
+          <h5 className="text-2xl font-medium text-gray-900 dark:text-white text-center" >
             Crea tu usuario
           </h5>
         </Modal.Header>
         <Modal.Body>
           <div className="space-y-6">
             <div>
-            <FloatingLabel variant="outlined" label="Usuario" />
+              <FloatingLabel variant="outlined" label="Usuario" />
             </div>
             <div>
-              <FloatingLabel variant="outlined" label="Contraseña" type='password' required />
+            <div style={{ position: 'relative' }}>
+                <FloatingLabel
+                  variant="outlined"
+                  label="Contraseña"
+                  required
+                  id="outlined-adornment-password"
+                  type={showPasswordC ? 'text' : 'password'}
+                />
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  edge="end"
+                  style={{ position: 'absolute', top: '10%', right: '3%' }}
+                >
+                  {showPasswordC ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </div>
             </div>
             <div>
               <Select id="role">
@@ -82,7 +111,7 @@ function VistaUsuarios() {
           </div>
         </Modal.Body>
         <Modal.Footer className='justify-center'>
-          <Button className='w-40 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' outline  size="md" onClick={() => console.log('Crear usuario')}>
+          <Button className='w-40 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' outline size="md" onClick={() => console.log('Crear usuario')}>
             Crear
           </Button>
         </Modal.Footer>
@@ -92,38 +121,54 @@ function VistaUsuarios() {
       {/* MODAL ACTUALIZAR USUARIO */}
       <Modal show={actualizarOpen} onClose={() => setactualizarOpen(false)} size="xl">
         <Modal.Header>
-          <h5 className="text-xl font-medium text-gray-900 dark:text-white">
+          <h5 className="text-2xl font-medium text-gray-900 dark:text-white text-center" >
             Actualiza tu usuario
           </h5>
         </Modal.Header>
         <Modal.Body>
-          <form>
-            <div className="mb-4">
-              <Label htmlFor="username-update">Nombre de Usuario Actual</Label>
-              <TextInput id="username-update" type='text' placeholder="JaimePro" />
+          <div className="space-y-6">
+            <div>
+              <FloatingLabel variant="outlined" label="Usuario" value={"Jaime"} />
             </div>
-            <div className="mb-4">
-              <Label htmlFor="username-new">Nuevo Nombre de Usuario</Label>
-              <TextInput id="username-new" placeholder="JaimeGOD" />
+            <div>
+              <div style={{ position: 'relative' }}>
+                <FloatingLabel
+                  variant="outlined"
+                  label="Contraseña"
+                  required
+                  id="outlined-adornment-password"
+                  type={showPasswordU ? 'text' : 'password'}
+                  value={"JaimeRoot"}
+                />
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPasswordU}
+                  edge="end"
+                  style={{ position: 'absolute', top: '10%', right: '3%' }}
+                >
+                  {showPasswordU ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </div>
+
             </div>
-            <div className="mb-4">
-              <Label htmlFor="role-update">Rol del Usuario</Label>
-              <Select id="role-update">
-                <option value="admin">ADMIN</option>
-                <option value="user">USER</option>
-                <option value="guest">GUEST</option>
+            <div>
+              <Select id="role">
+                <option value="">Selecciona un rol</option>
+                <option value="admin">Admin</option>
+                <option value="user">Usuario</option>
+                <option value="guest">Invitado</option>
               </Select>
             </div>
-          </form>
+          </div>
         </Modal.Body>
         <Modal.Footer className='justify-center'>
-          <Button className='w-40 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' outline size="md" onClick={() => console.log('Actualizar usuario')}>
+          <Button className='w-40 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' outline size="md" onClick={() => console.log('Crear usuario')}>
             Actualizar
           </Button>
         </Modal.Footer>
       </Modal>
-        </div>
-    );
+    </div>
+  );
 }
 
 export default VistaUsuarios;

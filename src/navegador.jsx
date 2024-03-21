@@ -34,10 +34,12 @@ function Navigation() {
       <Navbar className="h-40  items-center  transparent-navbar" style={{ paddingTop: 30 }} >
 
         <div className="flex justify-center " style={{ flex: '1', marginRight: 20, }}>
-          <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
-            <img src={imgLogo} className="mr-1 h-12 md:h-12 sm:h-12" alt="Gastro Manager" />
-            <div className="self-center text-base sm:text-base md:text-base font-semibold text-white" style={{ overflow: 'hidden', color: '#E25500' }}>Gastro Manager</div>
-          </div>
+            <Link to="/visualizar-usuarios" style={{ textDecoration: 'none', color: 'inherit'}} className="gastro">
+                <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
+                    <img src={imgLogo} className="mr-1 h-12 md:h-12 sm:h-12" alt="Gastro Manager" />
+                    <div className="self-center text-base sm:text-base md:text-base font-semibold text-white" style={{ overflow: 'hidden', color: '#E25500' }}>Gastro Manager</div>
+                </div>
+            </Link>
         </div>
 
         <div className="flex md:order-2 justify-center" style={{ flex: '1' }}>
