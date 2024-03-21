@@ -1,8 +1,10 @@
 
-import { Button, Navbar, Card, Table, Modal, Label, TextInput, FloatingLabel } from 'flowbite-react';
+import { Button, Navbar, Card, Table, Modal, Label,Select as SelectFlow, TextInput, FloatingLabel } from 'flowbite-react';
 import fondo from '../assets/fondo.png';
 import imgMesa from '../assets/imgMesa.png';
 import React, { useState } from 'react';
+import CloseIcon from '@mui/icons-material/Close';
+import './platillos.css'
 
 
 import IconButton from '@mui/material/IconButton';
@@ -36,14 +38,14 @@ function VistaPlatillos() {
     };
 
     const names = [
-        'Enchiladas',
-        'Sopita',
-        'Camarones',
-        'Filete de pescado',
-        'Ceviche de camarón',
-        'Ceviche de pescado',
-        'Filete de pescado a la plancha',
-        'Filete de pescado empanizado',
+        'Cilantro',
+        'Ajo',
+        'Cebolla',
+        'Tomate',
+        'Chile',
+        'Pescado',
+        'Salmón',
+        'Zanahoria',
     ];
 
     const [personName, setPersonName] = React.useState([]);
@@ -203,9 +205,9 @@ function VistaPlatillos() {
             </Modal>
 
             {/* MODAL CREAR PLATILLO */}
-            <Modal show={crearOpen} onClose={() => setcrearOpen(false)} size="4xl">
-                <Modal.Header>
-                    <h3 className="text-xl font-semibold text-center">Crea tu platillo</h3>
+            <Modal show={crearOpen} onClose={() => setcrearOpen(false)} size="7xl">
+            <Modal.Header>
+                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-white text-center">Crea tu menú</h2>
                 </Modal.Header>
                 <Modal.Body>
                     <div className="space-y-4">
@@ -213,44 +215,34 @@ function VistaPlatillos() {
                             <div>
                                 <FloatingLabel variant="outlined" label="Nombre" sizing='sm'/>
                             </div>
-                            
-                            <Select id="categoria">
+                            <div className="max-w-md">
+                            <SelectFlow id="countries" required>
+                                <option selected disabled >Categoria</option>
                                 <option>Entrada</option>
-                                <option>Plato Fuerte</option>
+                                <option>Fuerte</option>
                                 <option>Postre</option>
-                            </Select>
-                            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="demo-simple-select-standard-label">Age</InputLabel>
-        <Select
-          labelId="demo-simple-select-standard-label"
-          id="demo-simple-select-standard"
-          value={age}
-          onChange={handleChange}
-          label="Age"
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-                            <div>
+                            </SelectFlow>
+                            </div>
+                            <div className='grid-cols-2'>
                                 <FloatingLabel variant="outlined" label="Precio $" sizing='sm'/>
                             </div>
+
+
+
                         </div>
+                        
+
                         <div className="flex justify-between gap-4">
-                            <div className="w-full lg:w-2/3">
+                            <div className="w-full lg:w-4/5 p-4 h-100" style={{ border: 'solid 1px #d6d6d6', borderRadius: '5px' }} >
                                 <FormControl className='w-full'>
-                                    <InputLabel id="demo-multiple-checkbox-label">Platillos</InputLabel>
+                                    <InputLabel id="demo-multiple-checkbox-label">Ingredientes</InputLabel>
                                     <Select
                                         labelId="demo-multiple-checkbox-label"
                                         id="demo-multiple-checkbox"
                                         multiple
                                         value={personName}
                                         onChange={handleChange}
-                                        input={<OutlinedInput label="Platillos" />}
+                                        input={<OutlinedInput label="Ingredientes" />}
                                         renderValue={(selected) => selected.join(', ')}
                                         MenuProps={MenuProps}
                                         className='mb-3'
@@ -263,19 +255,124 @@ function VistaPlatillos() {
                                         ))}
                                     </Select>
                                 </FormControl>
-                                <div className="mt-2 flex flex-wrap gap-2">
-                                    <span className="badge bg-primary text-blue-500">Cilantro</span>
-                                    <span className="badge bg-primary text-blue-500">Tomate</span>
-                                    <span className="badge bg-primary text-blue-500">Cebolla</span>
+                                <div className="mt-2 flex flex-wrap gap-2 overflow-y-auto max-h-64 divScroll">
+ 
+
+<div className="relative m-3">
+    <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{backgroundColor:'#16eab9', border:'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield'}} />
+    <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+        <span className="text-lg font-medium text-gray-700">Pescado</span>
+        <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+            <CloseIcon />
+        </button>
+    </div>
+</div>
+<div className="relative m-3">
+    <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{backgroundColor:'#16eab9', border:'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield'}} />
+    <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+        <span className="text-lg font-medium text-gray-700">Camaron</span>
+        <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+            <CloseIcon />
+        </button>
+    </div>
+</div>
+<div className="relative m-3">
+    <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{backgroundColor:'#16eab9', border:'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield'}} />
+    <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+        <span className="text-lg font-medium text-gray-700">Cilantro</span>
+        <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+            <CloseIcon />
+        </button>
+    </div>
+</div>
+<div className="relative m-3">
+    <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{backgroundColor:'#16eab9', border:'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield'}} />
+    <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+        <span className="text-lg font-medium text-gray-700">Zanahoria</span>
+        <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+            <CloseIcon />
+        </button>
+    </div>
+</div>
+<div className="relative m-3">
+    <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{backgroundColor:'#16eab9', border:'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield'}} />
+    <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+        <span className="text-lg font-medium text-gray-700">Ajo</span>
+        <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+            <CloseIcon />
+        </button>
+    </div>
+</div>
+<div className="relative m-3">
+    <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{backgroundColor:'#16eab9', border:'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield'}} />
+    <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+        <span className="text-lg font-medium text-gray-700">Oregano</span>
+        <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+            <CloseIcon />
+        </button>
+    </div>
+</div>
+<div className="relative m-3">
+    <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{backgroundColor:'#16eab9', border:'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield'}} />
+    <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+        <span className="text-lg font-medium text-gray-700">Sal</span>
+        <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+            <CloseIcon />
+        </button>
+    </div>
+</div>
+<div className="relative m-3">
+    <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{backgroundColor:'#16eab9', border:'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield'}} />
+    <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+        <span className="text-lg font-medium text-gray-700">Agua</span>
+        <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+            <CloseIcon />
+        </button>
+    </div>
+</div>
+<div className="relative m-3">
+    <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{backgroundColor:'#16eab9', border:'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield'}} />
+    <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+        <span className="text-lg font-medium text-gray-700">Pescado</span>
+        <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+            <CloseIcon />
+        </button>
+    </div>
+</div>
+<div className="relative m-3">
+    <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{backgroundColor:'#16eab9', border:'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield'}} />
+    <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+        <span className="text-lg font-medium text-gray-700">Pescado</span>
+        <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+            <CloseIcon />
+        </button>
+    </div>
+</div>
+
+
+
+
+
+
                                 </div>
+
                             </div>
-                            <div className="w-64 p-2 ">
+                            <div className="w-64 p-2" style={{ border: 'solid 1px #d6d6d6', borderRadius: '5px' }}>
+
                                 <Label htmlFor="ingredientesNoDisponibles" className="mb-2 text-red-500 flex justify-center w-full">Ingredientes no disponibles</Label>
-                                <div className="border bg-gray-100 rounded p-4 text-center">
-                                    <div className="grid grid-cols-1 gap-2 mt-2">
-                                        <span className="badge bg-secondary text-blue-500">Rebanada</span>
-                                        <span className="badge bg-secondary text-blue-500">Chile verde</span>
-                                        <span className="badge bg-secondary text-blue-500">Salmón</span>
+
+                                <div className=" rounded  text-center">
+                                    <div className="grid grid-cols-1 gap-2 mt-0 overflow-y-auto divScroll" style={{ maxHeight: 210 }}>
+                                        <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Cilantro</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Rabano</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Ajo</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Chile</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Ajo</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Chile</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Ajo</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Chile</span>
+                       
+
                                     </div>
                                 </div>
                             </div>
@@ -284,11 +381,10 @@ function VistaPlatillos() {
                 </Modal.Body>
                 <Modal.Footer>
                     <div className="flex justify-center w-full">
-                        <Button
-                            color="blue"
-                        >
+                        <Button outline className='justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800'>
                             Crear
                         </Button>
+
                     </div>
                 </Modal.Footer>
             </Modal>
