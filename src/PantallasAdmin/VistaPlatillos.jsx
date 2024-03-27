@@ -21,6 +21,8 @@ import ListItemText from '@mui/material/ListItemText';
 import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 
+import {API_BASE_URL} from '../backend.js';
+
 
 
 function VistaPlatillos() {
@@ -29,7 +31,7 @@ function VistaPlatillos() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://192.168.100.29:8080/api/gastromanager/platillo/');
+                const response = await fetch(`${API_BASE_URL}/platillo/`);
                 if (!response.ok) {
                     throw new Error('Hubo un error en la petición');
                 }

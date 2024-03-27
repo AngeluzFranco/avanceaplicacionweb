@@ -8,13 +8,15 @@ import Stack from '@mui/material/Stack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
+import {API_BASE_URL} from '../backend.js';
+
 function VistaInsumos() {
     const [data, setData] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://192.168.100.29:8080/api/gastromanager/ingredientes/');
+                const response = await fetch(`${API_BASE_URL}/ingredientes/`);
                 if (!response.ok) {
                     throw new Error('Hubo un error en la petición');
                 }

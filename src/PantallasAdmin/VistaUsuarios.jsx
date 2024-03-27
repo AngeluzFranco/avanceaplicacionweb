@@ -17,7 +17,7 @@ function VistaUsuarios() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://192.168.100.29:8080/api/gastromanager/usuario/');
+        const response = await fetch('http://192.168.56.1:8080/api/gastromanager/usuario/');
         if (!response.ok) {
           throw new Error('Hubo un error en la petición');
         }

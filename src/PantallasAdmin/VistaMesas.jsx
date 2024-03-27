@@ -3,6 +3,7 @@ import { Button, Card, Modal, Dropdown, FloatingLabel } from 'flowbite-react';
 import imgMesa from '../assets/imgMesa.png';
 import './mesas.css';
 import { Select } from 'antd';
+import {API_BASE_URL} from '../backend.js';
 
 function VistaMesas() {
   const [data, setData] = useState(null);
@@ -11,7 +12,7 @@ function VistaMesas() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://192.168.100.29:8080/api/gastromanager/mesas/');
+        const response = await fetch(`${API_BASE_URL}/mesas/`);
         if (!response.ok) {
           throw new Error('Hubo un error en la petición');
         }
@@ -36,7 +37,7 @@ function VistaMesas() {
     <Button onClick={handleOpen} className='justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' size="xl" outline > Agregar  +  </Button>
     {isOpen && (
         <div className="absolute rollIn top-full m-3">
-            <div className="space-y-6 snake-border rotating-border bg-white p-5 w-60 shadow-lg">
+            <div className="space-y-6 rotating-border bg-white p-5 w-60 shadow-lg ">
                 <h5 className="text-2xl font-medium text-gray-900 dark:text-white text-center">
                     Crea tu mesa
                 </h5>
@@ -50,7 +51,7 @@ function VistaMesas() {
                 </div>
                 
                 <div className="flex justify-center w-full">
-                    <Button className='w-40 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' outline size="md" onClick={() => console.log('Crear usuario')}>
+                    <Button className='w-40 z-10 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' outline size="md" onClick={() => console.log('Crear usuario')}>
                         Crear
                     </Button>
                 </div>
