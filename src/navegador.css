@@ -13,14 +13,16 @@ body {
   .Nav-link{
     color: white;
     font-size: 16px;
-    padding-right: 40px;
-    padding-left: 40px;
+    padding-right: 48px;
+    padding-left: 48px;
     padding-top: 5px;
     padding-bottom: 5px;
     font-weight: lighter;
     font-family: 'Nunito', sans-serif;
     transition: all 0.0s ease;
     border-right: solid 1px #ededed;
+    margin-right: -16px;
+    margin-left: -16px;
       
     
 
@@ -79,6 +81,7 @@ body {
     text-shadow: 2px 2px 4px #595959;
   
     border-bottom: 2px solid #db7900; /* Simulates an underline */
+    border-right: none;
     padding-bottom: 3px;
     display: flex;
     justify-content: center;
@@ -123,6 +126,7 @@ body {
     text-shadow: 2px 2px 4px #595959;
   
     border-bottom: 3px solid #db7900; /* Simula una línea de subrayado */
+    border-right: none;
     padding-bottom: 3px;
     display: flex;
     justify-content: center;
@@ -168,6 +172,7 @@ body {
     text-shadow: 2px 2px 4px #595959;
   
     border-bottom: 3px solid #db7900; /* Simula una línea de subrayado */
+    border-right: none;
     padding-bottom: 3px;
     display: flex;
     justify-content: center;
