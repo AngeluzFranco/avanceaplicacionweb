@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Card, Modal, TextInput, Dropdown } from 'flowbite-react';
+import { Button, Card, Modal, Dropdown, FloatingLabel } from 'flowbite-react';
 import imgMesa from '../assets/imgMesa.png';
 
 function VistaMesas() {
@@ -36,7 +36,7 @@ function VistaMesas() {
       </div>
 
       <div className="container-cards flex items-center justify-center flex-wrap">
-      {data && data.map((item, index) => (
+        {data && data.map((item, index) => (
           <Card href="#" className="max-w-sm mx-5 my-5" style={{ background: '#fff', border: '1px solid orange' }} key={index}>
             <div className="flex items-center gap-4">
               <div className='mx-2'>
@@ -63,28 +63,28 @@ function VistaMesas() {
       </div>
 
 
-      <Modal show={crearOpen} onClose={() => setcrearOpen(false)} size="md" position="center">
-        <Modal.Header style={{ padding: 0 }}>
-          <div className="flex items-center justify-center w-full">
-            <h5 className="text-xl font-medium text-gray-900 dark:text-white text-center">Crea tu mesa</h5>
-          </div>
+      <Modal show={crearOpen} onClose={() => setcrearOpen(false)} size="xl" position="center">
+        <Modal.Header>
+          <h5 className="text-2xl font-medium text-gray-900 dark:text-white text-center">
+            Crea tu mesa
+          </h5>
         </Modal.Header>
         <Modal.Body>
-          <div className="text-center">
-            <form>
-              <div className="mb-4">
-                <TextInput id="table-number" placeholder="Número de mesa:" />
-              </div>
-              <div className="mb-4">
-                <TextInput id="chair-number" placeholder="Número de sillas:" />
-              </div>
-            </form>
+          <div className="space-y-6">
+            <div>
+              <FloatingLabel variant="outlined" label="Número de mesa" />
+            </div>
+            <div>
+              <FloatingLabel variant="outlined" label="Número de sillas" />
+            </div>
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button color="success" size="sm" onClick={() => console.log('Crear mesa')}>
-            Crear
-          </Button>
+          <div className="flex justify-center w-full">
+            <Button className='w-40 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' outline size="md" onClick={() => console.log('Crear usuario')}>
+              Crear
+            </Button>
+          </div>
         </Modal.Footer>
       </Modal>
     </div>
