@@ -151,13 +151,7 @@ function VistaPlatillos() {
                     </h5>
                 </Modal.Header>
                 <Modal.Body>
-<<<<<<< Updated upstream
-                    <div className="space-y-4">
-                        <div className="grid grid-cols-2 gap-4">
 
-                            <div className="max-w-md">
-                                <SelectFlow id="countries" required>
-=======
                 <div className="space-y-4">
                 <div className="flex justify-content gap-4 ">
                             <div className='w-6/12'>
@@ -165,7 +159,6 @@ function VistaPlatillos() {
                             </div>
                             <div className='w-6/12 text-base'>
                                 <SelectFlow id="countries" style={{fontSize: 16, height:52}} required>
->>>>>>> Stashed changes
                                     <option selected disabled >Categoria</option>
                                     <option>Entrada</option>
                                     <option>Fuerte</option>
@@ -175,12 +168,7 @@ function VistaPlatillos() {
                             <div className='w-1/12'>
                                 <FloatingLabel variant="outlined" label="Precio $" sizing='sm' className='text-base'/>
                             </div>
-
-
-
                         </div>
-
-
                         <div className="flex justify-between gap-4">
                             <div className="w-full  p-4 h-100" style={{ border: 'solid 1px #d6d6d6', borderRadius: '5px' }} >
                                 <h3 className="text-3xl mb-3  text-center p-2" style={{ color: '#005D48' }}>Ingredientes</h3>
@@ -353,17 +341,11 @@ function VistaPlatillos() {
                     <h3 className="text-xl font-medium text-gray-900 dark:text-white text-center">Actualiza tu platillo</h3>
                 </Modal.Header>
                 <Modal.Body>
-<<<<<<< Updated upstream
-                    <div className="space-y-4">
-                        <div className="grid grid-cols-3 gap-4">
-                            <div>
-                                <FloatingLabel variant="outlined" label="Nombre" sizing='sm' />
-=======
+
                 <div className="space-y-4">
                         <div className="flex justify-content gap-4">
                             <div className='w-6/12'>
                                 <FloatingLabel variant="outlined" label="Nombre" sizing='sm' className='text-base' />
->>>>>>> Stashed changes
                             </div>
                             <div className='w-6/12 text-base'>
                                 <SelectFlow id="countries" style={{fontSize: 16, height:52}} required>

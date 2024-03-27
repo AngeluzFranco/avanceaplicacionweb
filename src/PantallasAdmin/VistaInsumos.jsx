@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Button, Table, Modal, Select } from 'flowbite-react';
-
+import { Button, Table, Modal, Select, FloatingLabel } from 'flowbite-react';
 
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
@@ -82,41 +81,34 @@ function VistaInsumos() {
             </div>
 
             {/* MODAL ACTUALIZAR INSUMO  */}
-            <Modal show={actualizarModal} onClose={handleClose} size="md">
+            <Modal show={actualizarModal} onClose={handleClose} size="xl">
                 <Modal.Header>
-                    <h5 className="text-xl font-medium text-gray-900 dark:text-white text-center">
+                    <h5 className="text-2xl font-medium text-gray-900 dark:text-white text-center">
                         Actualiza tu insumo
                     </h5>
                 </Modal.Header>
                 <Modal.Body>
                     <div className="space-y-6">
-                        <div className="flex justify-center">
-                            <div className="w-full max-w-xs">
-                                <Label htmlFor="productName">Nombre del producto</Label>
-                                <TextInput id="productName" type="text" placeholder="Tomates" required />
-                            </div>
+                        <div>
+
+                            <FloatingLabel variant="outlined" label="Nombre" className='text-base' />
                         </div>
-                        <div className="flex justify-center">
-                            <div className="w-full max-w-xs">
-                                <Label htmlFor="productQuantity">Cantidad</Label>
-                                <TextInput id="productQuantity" type="number" placeholder="6" required />
-                            </div>
+                        <div>
+                            <FloatingLabel variant="outlined" label="Cantidad" className='text-base' />
                         </div>
-                        <div className="flex justify-center">
-                            <div className="w-full max-w-xs">
-                                <Label htmlFor="productCategory">Categoría</Label>
-                                <Select id="productCategory" className="w-full max-w-xs form-select">
-                                    <option selected>Selecciona un tipo</option>
-                                    <option value="vegetables">Verduras</option>
-                                    <option value="fruits">Frutas</option>
-                                </Select>
-                            </div>
+                        <div>
+                            <Select id="role" style={{ fontSize: 16, height: 52 }}>
+                                <option value="">Selecciona el tipo de insumo</option>
+                                <option value="verduras">Verduras</option>
+                                <option value="postres">Postres</option>
+                                <option value="carnes">Carnes</option>
+                            </Select>
                         </div>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <div className="flex justify-center w-full">
-                        <Button color="success" onClick={() => console.log('Actualizar insumo')}>
+                        <Button className='w-40 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' outline size="md" onClick={() => console.log('Crear usuario')}>
                             Actualizar
                         </Button>
                     </div>
@@ -125,39 +117,36 @@ function VistaInsumos() {
 
 
             {/* MODAL CREAR INSUMO */}
-            <Modal show={crearModal} onClose={() => setcrearModal(false)} size="md">
+            <Modal show={crearModal} onClose={() => setcrearModal(false)} size="xl">
                 <Modal.Header>
-                    <h5 className="text-xl font-medium text-gray-900 dark:text-white text-center">
+                    <h5 className="text-2xl font-medium text-gray-900 dark:text-white text-center">
                         Crea tu insumo
                     </h5>
                 </Modal.Header>
                 <Modal.Body>
                     <div className="space-y-6">
                         <div>
-                            <div className="mb-2">
-                                <Label htmlFor="productName">Nombre</Label>
-                            </div>
-                            <TextInput id="productName" type="text" placeholder="Nombre del producto" required />
+
+                            <FloatingLabel variant="outlined" label="Nombre" className='text-base' />
                         </div>
-                        <div>
-                            <div className="mb-2">
-                                <Label htmlFor="productQuantity">Cantidad</Label>
+                        <div className='flex justify-content gap-4'>
+                            <div className='w-1/4'>
+                                <FloatingLabel variant="outlined" label="Cantidad" className='text-base' />
                             </div>
-                            <TextInput id="productQuantity" type="number" placeholder="Cantidad" required />
-                        </div>
-                        <div>
-                            <Label htmlFor="productCategory">Tipo</Label>
-                            <Select id="productCategory">
-                                <option selected>Selecciona un tipo</option>
-                                <option value="vegetables">Verduras</option>
-                                <option value="fruits">Frutas</option>
-                            </Select>
+                            <div className='w-3/4'>
+                                <Select id="role" style={{ fontSize: 16, height: 52 }}>
+                                    <option value="">Selecciona el tipo de insumo</option>
+                                    <option value="verduras">Verduras</option>
+                                    <option value="postres">Postres</option>
+                                    <option value="carnes">Carnes</option>
+                                </Select>
+                            </div>
                         </div>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <div className="flex justify-center w-full">
-                        <Button color="success" onClick={() => console.log('Crear insumo')}>
+                        <Button className='w-40 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' outline size="md" onClick={() => console.log('Crear usuario')}>
                             Crear
                         </Button>
                     </div>
