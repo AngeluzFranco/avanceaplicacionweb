@@ -1,0 +1,24 @@
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) .ant-select-item-option-content {
+    color: #e28b00;
+  }
+
+  /* Cambia el color de fondo de la opción al pasar el mouse */
+.ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+    background-color: #ff0000;
+  }
+
+  /* Cambia el color de texto de la opción al pasar el mouse */
+.ant-select-item-option-active:not(.ant-select-item-option-disabled) .ant-select-item-option-content {
+    color: #e28b00;
+  }
+
+  /* Cambia el color de fondo de la opción seleccionada */
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+    background-color: #ff0000;
+  }
+
+  /* Cambia el color de fondo de la opción seleccionada */
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+    background-color: #ffe9d4 !important;
+  }
+  

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Table, Spinner, Modal, Label, FloatingLabel } from 'flowbite-react';
 import CloseIcon from '@mui/icons-material/Close';
-import './menu.css';
 
+import './menu.css';
 
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
@@ -150,17 +150,22 @@ function VistaMenu() {
                     <h2 className="text-2xl font-semibold text-gray-900 dark:text-white text-center">Actualiza tu menú</h2>
                 </Modal.Header>
                 <Modal.Body>
+<<<<<<< Updated upstream
                     <div className="space-y-4">
                         <div className="grid grid-cols-3 gap-4">
                             <div>
                                 <FloatingLabel variant="outlined" label="Nombre" />
+=======
+                <div className="space-y-4">
+                        <div className="flex justify-between gap-4">
+                            <div className='w-1/3'>
+                                <FloatingLabel variant="outlined" label="Nombre" className='text-base' />
+>>>>>>> Stashed changes
                             </div>
-                            <div>
-                                <FloatingLabel variant="outlined" label="Descripción" />
+                            <div className='w-2/3'>
+                                <FloatingLabel variant="outlined" label="Descripción" className='text-base'/>
                             </div>
-                            <div className='flex items-end ' style={{ marginBottom: -20 }} >
-                                <Label htmlFor="ingredientesNoDisponibles" className="mb-2 text-red-500 flex justify-center w-full">Platillos no disponibles</Label>
-                            </div>
+                
 
 
                         </div>
@@ -249,6 +254,75 @@ function VistaMenu() {
                                             <CloseIcon />
                                         </button>
                                     </div>
+<<<<<<< Updated upstream
+=======
+                                    <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                        <span className="text-sm font-medium text-gray-700">Sopita</span>
+                                        <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                            <CloseIcon />
+                                        </button>
+                                    </div>
+                                    <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                        <span className="text-sm font-medium text-gray-700">Filete de pescado empanizado</span>
+                                        <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                            <CloseIcon />
+                                        </button>
+                                    </div>
+                                    <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                        <span className="text-sm font-medium text-gray-700">Enchiladas</span>
+                                        <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                            <CloseIcon />
+                                        </button>
+                                    </div>
+                                    <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                        <span className="text-sm font-medium text-gray-700">Sopita</span>
+                                        <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                            <CloseIcon />
+                                        </button>
+                                    </div>
+                                    <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                        <span className="text-sm font-medium text-gray-700">Filete de pescado empanizado</span>
+                                        <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                            <CloseIcon />
+                                        </button>
+                                    </div>
+                                    <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                        <span className="text-sm font-medium text-gray-700">Enchiladas</span>
+                                        <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                            <CloseIcon />
+                                        </button>
+                                    </div>
+                                    <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                        <span className="text-sm font-medium text-gray-700">Sopita</span>
+                                        <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                            <CloseIcon />
+                                        </button>
+                                    </div>
+                                    <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                        <span className="text-sm font-medium text-gray-700">Filete de pescado empanizado</span>
+                                        <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                            <CloseIcon />
+                                        </button>
+                                    </div>
+                                    <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                        <span className="text-sm font-medium text-gray-700">Enchiladas</span>
+                                        <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                            <CloseIcon />
+                                        </button>
+                                    </div>
+                                    <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                        <span className="text-sm font-medium text-gray-700">Sopita</span>
+                                        <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                            <CloseIcon />
+                                        </button>
+                                    </div>
+                                    <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                        <span className="text-sm font-medium text-gray-700">Filete de pescado empanizado</span>
+                                        <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                            <CloseIcon />
+                                        </button>
+                                    </div>
+>>>>>>> Stashed changes
 
 
 
@@ -258,10 +332,11 @@ function VistaMenu() {
                                 </div>
 
                             </div>
-                            <div className="w-64 p-2" style={{ border: 'solid 1px #d6d6d6', borderRadius: '5px' }}>
-
-                                <div className=" rounded  text-center">
-                                    <div className="grid grid-cols-1 gap-2 mt-0 overflow-y-auto divScroll" style={{ maxHeight: 228 }}>
+                            <div className="w-64">
+                            <Label htmlFor="ingredientesNoDisponibles" className="mb-2 text-red-500 flex justify-center w-full">Ingredientes no disponibles</Label>
+                            <div className='pb-4 px-2 pt-2' style={{ border: 'solid 1px #d6d6d6', borderRadius: '5px' }}>
+                            <div className=" rounded  text-center">
+                                    <div className="grid grid-cols-1 gap-2 mt-0 overflow-y-auto divScroll" style={{ maxHeight: 200 }}>
                                         <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Pescado empanizado</span>
                                         <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Chilaquiles</span>
                                         <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Salmón a la plancha</span>
@@ -271,6 +346,8 @@ function VistaMenu() {
 
                                     </div>
                                 </div>
+                            </div>
+                               
                             </div>
                         </div>
                     </div>
@@ -292,16 +369,14 @@ function VistaMenu() {
                 </Modal.Header>
                 <Modal.Body>
                     <div className="space-y-4">
-                        <div className="grid grid-cols-3 gap-4">
-                            <div>
-                                <FloatingLabel variant="outlined" label="Nombre" />
+                        <div className="flex justify-between gap-4">
+                            <div className='w-1/3'>
+                                <FloatingLabel variant="outlined" label="Nombre" className='text-base'/>
                             </div>
-                            <div>
-                                <FloatingLabel variant="outlined" label="Descripción" />
+                            <div className='w-2/3'>
+                                <FloatingLabel variant="outlined" label="Descripción" className='text-base'/>
                             </div>
-                            <div className='flex items-end ' style={{ marginBottom: -20 }} >
-                                <Label htmlFor="ingredientesNoDisponibles" className="mb-2 text-red-500 flex justify-center w-full">Platillos no disponibles</Label>
-                            </div>
+                
 
 
                         </div>
@@ -465,10 +540,11 @@ function VistaMenu() {
                                 </div>
 
                             </div>
-                            <div className="w-64 p-2" style={{ border: 'solid 1px #d6d6d6', borderRadius: '5px' }}>
-
-                                <div className=" rounded  text-center">
-                                    <div className="grid grid-cols-1 gap-2 mt-0 overflow-y-auto divScroll" style={{ maxHeight: 228 }}>
+                            <div className="w-64">
+                            <Label htmlFor="ingredientesNoDisponibles" className="mb-2 text-red-500 flex justify-center w-full">Ingredientes no disponibles</Label>
+                            <div className='pb-4 px-2 pt-2' style={{ border: 'solid 1px #d6d6d6', borderRadius: '5px' }}>
+                            <div className=" rounded  text-center">
+                                    <div className="grid grid-cols-1 gap-2 mt-0 overflow-y-auto divScroll" style={{ maxHeight: 200 }}>
                                         <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Pescado empanizado</span>
                                         <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Chilaquiles</span>
                                         <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Salmón a la plancha</span>
@@ -478,6 +554,8 @@ function VistaMenu() {
 
                                     </div>
                                 </div>
+                            </div>
+                               
                             </div>
                         </div>
                     </div>

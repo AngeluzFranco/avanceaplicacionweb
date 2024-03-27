@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Card, Modal, Dropdown, FloatingLabel } from 'flowbite-react';
 import imgMesa from '../assets/imgMesa.png';
+import './mesas.css';
+import { Select } from 'antd';
 
 function VistaMesas() {
   const [data, setData] = useState(null);
@@ -22,18 +24,64 @@ function VistaMesas() {
     fetchData();
   }, []);
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpen = () => setIsOpen(!isOpen);
+
   return (
     <div className="h-screen ">
       <div className='flex justify-center mt-3 mb-5'>
         <div className='w-9/12 m-2 flex justify-between'>
-          <Button onClick={() => setcrearOpen(true)} className='justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' size="xl" outline > Agregar  +  </Button>
-          <Dropdown label="TODAS">
-            <Dropdown.Item>Ocupadas</Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item>Desocupadas</Dropdown.Item>
-          </Dropdown>
+        <div className="relative flex justify-center">
+    <Button onClick={handleOpen} className='justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' size="xl" outline > Agregar  +  </Button>
+    {isOpen && (
+        <div className="absolute rollIn top-full m-3">
+            <div className="space-y-6 snake-border rotating-border bg-white p-5 w-60 shadow-lg">
+                <h5 className="text-2xl font-medium text-gray-900 dark:text-white text-center">
+                    Crea tu mesa
+                </h5>
+                <div className='flex justify-content gap-4'>
+                <div>
+                    <FloatingLabel variant="outlined" label="# Mesa" className='text-base' />
+                </div>
+                <div>
+                    <FloatingLabel variant="outlined" label="# Sillas" className='text-base' />
+                </div>
+                </div>
+                
+                <div className="flex justify-center w-full">
+                    <Button className='w-40 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' outline size="md" onClick={() => console.log('Crear usuario')}>
+                        Crear
+                    </Button>
+                </div>
+            </div>
+        </div>
+    )}
+</div>
+      
+         
+            
+      
+
+              <Select 
+              size="large"
+              status="warning"
+              
+              
+              className='customSelect'
+      defaultValue="Todas"
+      style={{ width: 140}}
+      options={[
+        { value: 'Todas', label: 'Todas' },
+        { value: 'Ocupadas', label: 'Ocupadas' },
+        { value: 'Desocupadas', label: 'Desocupadas' },
+
+      ]}
+    />
         </div>
       </div>
+
+     
 
       <div className="container-cards flex items-center justify-center flex-wrap">
         {data && data.map((item, index) => (
@@ -72,10 +120,10 @@ function VistaMesas() {
         <Modal.Body>
           <div className="space-y-6">
             <div>
-              <FloatingLabel variant="outlined" label="Número de mesa" />
+              <FloatingLabel variant="outlined" label="Número de mesa" className='text-base'/>
             </div>
             <div>
-              <FloatingLabel variant="outlined" label="Número de sillas" />
+              <FloatingLabel variant="outlined" label="Número de sillas" className='text-base'/>
             </div>
           </div>
         </Modal.Body>

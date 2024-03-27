@@ -100,7 +100,7 @@ function VistaUsuarios() {
         <Modal.Body>
           <div className="space-y-6">
             <div>
-              <FloatingLabel variant="outlined" label="Usuario" />
+              <FloatingLabel variant="outlined" label="Usuario" className='text-base' />
             </div>
             <div>
             <div style={{ position: 'relative' }}>
@@ -110,6 +110,7 @@ function VistaUsuarios() {
                   required
                   id="outlined-adornment-password"
                   type={showPasswordC ? 'text' : 'password'}
+                  className='text-base'
                 />
                 <IconButton
                   aria-label="toggle password visibility"
@@ -122,7 +123,7 @@ function VistaUsuarios() {
               </div>
             </div>
             <div>
-              <Select id="role">
+              <Select id="role" style={{fontSize: 16, height:52}}>
                 <option value="">Selecciona un rol</option>
                 <option value="admin">Admin</option>
                 <option value="user">Usuario</option>
@@ -149,7 +150,7 @@ function VistaUsuarios() {
         <Modal.Body>
           <div className="space-y-6">
             <div>
-              <FloatingLabel variant="outlined" label="Usuario" value={"Jaime"} />
+              <FloatingLabel variant="outlined" label="Usuario" value={"Jaime"} className='text-base'/>
             </div>
             <div>
               <div style={{ position: 'relative' }}>
@@ -160,6 +161,7 @@ function VistaUsuarios() {
                   id="outlined-adornment-password"
                   type={showPasswordU ? 'text' : 'password'}
                   value={"JaimeRoot"}
+                  className='text-base'
                 />
                 <IconButton
                   aria-label="toggle password visibility"
@@ -173,7 +175,7 @@ function VistaUsuarios() {
 
             </div>
             <div>
-              <Select id="role">
+              <Select id="role" style={{fontSize: 16, height:52}}>
                 <option value="">Selecciona un rol</option>
                 <option value="admin">Admin</option>
                 <option value="user">Usuario</option>

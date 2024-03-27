@@ -1,7 +1,14 @@
+<<<<<<< Updated upstream
 import React, { useState, useEffect } from 'react';
 
 import { Button, Table, Modal, Select, FloatingLabel } from 'flowbite-react';
 
+=======
+import React, { useState } from 'react';
+import { Button, Navbar, Card, Table, Modal, TextInput, Label, Select, FloatingLabel } from 'flowbite-react';
+import fondo from '../assets/fondo.png';
+import imgMesa from '../assets/imgMesa.png';
+>>>>>>> Stashed changes
 
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
@@ -52,6 +59,7 @@ function VistaInsumos() {
                                 </Table.HeadCell>
                             </Table.Head>
                             <Table.Body className="divide-y">
+<<<<<<< Updated upstream
                                 {data && data.map((item, index) => (
                                     <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                                         <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
@@ -73,6 +81,329 @@ function VistaInsumos() {
                                         </Table.Cell>
                                     </Table.Row>
                                 ))}
+=======
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Tomates
+                                    </Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">6</Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">Verduras</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Tomates
+                                    </Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">6</Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">Verduras</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Tomates
+                                    </Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">6</Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">Verduras</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Tomates
+                                    </Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">6</Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">Verduras</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Tomates
+                                    </Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">6</Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">Verduras</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Tomates
+                                    </Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">6</Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">Verduras</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Tomates
+                                    </Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">6</Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">Verduras</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Tomates
+                                    </Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">6</Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">Verduras</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Tomates
+                                    </Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">6</Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">Verduras</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Tomates
+                                    </Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">6</Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">Verduras</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Tomates
+                                    </Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">6</Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">Verduras</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Tomates
+                                    </Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">6</Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">Verduras</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Tomates
+                                    </Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">6</Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">Verduras</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Tomates
+                                    </Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">6</Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">Verduras</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Tomates
+                                    </Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">6</Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">Verduras</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Tomates
+                                    </Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">6</Table.Cell>
+                                    <Table.Cell className="border-r border-gray-300">Verduras</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+
+>>>>>>> Stashed changes
                             </Table.Body>
                         </Table>
                     </div>
@@ -91,6 +422,7 @@ function VistaInsumos() {
                 <Modal.Body>
                     <div className="space-y-6">
                         <div>
+<<<<<<< Updated upstream
                             <FloatingLabel variant="outlined" label="Nombre" />
                         </div>
                         <div>
@@ -98,6 +430,15 @@ function VistaInsumos() {
                         </div>
                         <div>
                             <Select id="role">
+=======
+                            <FloatingLabel variant="outlined" label="Nombre" className='text-base' />
+                        </div>
+                        <div>
+                            <FloatingLabel variant="outlined" label="Cantidad" className='text-base' />
+                        </div>
+                        <div>
+                            <Select id="role" style={{ fontSize: 16, height: 52 }}>
+>>>>>>> Stashed changes
                                 <option value="">Selecciona el tipo de insumo</option>
                                 <option value="verduras">Verduras</option>
                                 <option value="postres">Postres</option>
@@ -126,6 +467,7 @@ function VistaInsumos() {
                 <Modal.Body>
                     <div className="space-y-6">
                         <div>
+<<<<<<< Updated upstream
                             <FloatingLabel variant="outlined" label="Nombre" />
                         </div>
                         <div>
@@ -133,12 +475,30 @@ function VistaInsumos() {
                         </div>
                         <div>
                             <Select id="role">
+=======
+                            <FloatingLabel variant="outlined" label="Nombre" className='text-base' />
+                        </div>
+                        <div className='flex justify-content gap-4'>
+                            <div className='w-1/4'>
+                            <FloatingLabel variant="outlined" label="Cantidad" className='text-base' />
+                            </div>
+                            <div className='w-3/4'>
+                            <Select id="role" style={{ fontSize: 16, height: 52 }}>
+>>>>>>> Stashed changes
                                 <option value="">Selecciona el tipo de insumo</option>
                                 <option value="verduras">Verduras</option>
                                 <option value="postres">Postres</option>
                                 <option value="carnes">Carnes</option>
                             </Select>
+<<<<<<< Updated upstream
                         </div>
+=======
+                            </div>
+                            
+                            
+                        </div>
+                    
+>>>>>>> Stashed changes
                     </div>
                 </Modal.Body>
                 <Modal.Footer>

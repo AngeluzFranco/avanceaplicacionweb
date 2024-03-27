@@ -144,26 +144,36 @@ function VistaPlatillos() {
 
 
             {/* MODAL MAS INFORMACION DEL PLATILLO */}
-            <Modal show={mostrarOpen} onClose={closeModal} size="5xl">
+            <Modal show={mostrarOpen} onClose={closeModal} size="6xl">
                 <Modal.Header>
                     <h5 className="text-xl font-medium leading-normal text-gray-800 dark:text-white">
-                        Información del platillo Enchiladas
+                        Información del platillo
                     </h5>
                 </Modal.Header>
                 <Modal.Body>
+<<<<<<< Updated upstream
                     <div className="space-y-4">
                         <div className="grid grid-cols-2 gap-4">
 
                             <div className="max-w-md">
                                 <SelectFlow id="countries" required>
+=======
+                <div className="space-y-4">
+                <div className="flex justify-content gap-4 ">
+                            <div className='w-6/12'>
+                                <FloatingLabel variant="outlined" label="Nombre" sizing='sm' className='text-base' />
+                            </div>
+                            <div className='w-6/12 text-base'>
+                                <SelectFlow id="countries" style={{fontSize: 16, height:52}} required>
+>>>>>>> Stashed changes
                                     <option selected disabled >Categoria</option>
                                     <option>Entrada</option>
                                     <option>Fuerte</option>
                                     <option>Postre</option>
                                 </SelectFlow>
-                            </div>
-                            <div className='grid-cols-2'>
-                                <FloatingLabel variant="outlined" label="Precio $" sizing='sm' />
+                            </div >
+                            <div className='w-1/12'>
+                                <FloatingLabel variant="outlined" label="Precio $" sizing='sm' className='text-base'/>
                             </div>
 
 
@@ -177,6 +187,24 @@ function VistaPlatillos() {
                                 <div className="mt-2 flex flex-wrap gap-2 overflow-y-auto max-h-72 min-h-72 divScroll justify-center">
 
 
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
                                     <div className="relative m-3">
                                         <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
                                         <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
@@ -325,21 +353,28 @@ function VistaPlatillos() {
                     <h3 className="text-xl font-medium text-gray-900 dark:text-white text-center">Actualiza tu platillo</h3>
                 </Modal.Header>
                 <Modal.Body>
+<<<<<<< Updated upstream
                     <div className="space-y-4">
                         <div className="grid grid-cols-3 gap-4">
                             <div>
                                 <FloatingLabel variant="outlined" label="Nombre" sizing='sm' />
+=======
+                <div className="space-y-4">
+                        <div className="flex justify-content gap-4">
+                            <div className='w-6/12'>
+                                <FloatingLabel variant="outlined" label="Nombre" sizing='sm' className='text-base' />
+>>>>>>> Stashed changes
                             </div>
-                            <div className="max-w-md">
-                                <SelectFlow id="countries" required>
+                            <div className='w-6/12 text-base'>
+                                <SelectFlow id="countries" style={{fontSize: 16, height:52}} required>
                                     <option selected disabled >Categoria</option>
                                     <option>Entrada</option>
                                     <option>Fuerte</option>
                                     <option>Postre</option>
                                 </SelectFlow>
-                            </div>
-                            <div className='grid-cols-2'>
-                                <FloatingLabel variant="outlined" label="Precio $" sizing='sm' />
+                            </div >
+                            <div className='w-1/12'>
+                                <FloatingLabel variant="outlined" label="Precio $" sizing='sm' className='text-base'/>
                             </div>
 
 
@@ -548,20 +583,20 @@ function VistaPlatillos() {
                 </Modal.Header>
                 <Modal.Body>
                     <div className="space-y-4">
-                        <div className="grid grid-cols-3 gap-4">
-                            <div>
-                                <FloatingLabel variant="outlined" label="Nombre" sizing='sm' />
+                        <div className="flex justify-content gap-4">
+                            <div className='w-6/12'>
+                                <FloatingLabel variant="outlined" label="Nombre" sizing='sm' className='text-base' />
                             </div>
-                            <div className="max-w-md">
-                                <SelectFlow id="countries" required>
+                            <div className='w-6/12 text-base'>
+                                <SelectFlow id="countries" style={{fontSize: 16, height:52}} required>
                                     <option selected disabled >Categoria</option>
                                     <option>Entrada</option>
                                     <option>Fuerte</option>
                                     <option>Postre</option>
                                 </SelectFlow>
-                            </div>
-                            <div className='grid-cols-2'>
-                                <FloatingLabel variant="outlined" label="Precio $" sizing='sm' />
+                            </div >
+                            <div className='w-1/12'>
+                                <FloatingLabel variant="outlined" label="Precio $" sizing='sm' className='text-base'/>
                             </div>
 
 
