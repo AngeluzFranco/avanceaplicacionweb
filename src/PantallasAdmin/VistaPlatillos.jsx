@@ -1,8 +1,6 @@
+import React, { useState, useEffect } from 'react';
 
-import { Button, Navbar, Card, Table, Modal, Label, Select as SelectFlow, TextInput, FloatingLabel } from 'flowbite-react';
-import fondo from '../assets/fondo.png';
-import imgMesa from '../assets/imgMesa.png';
-import React, { useState } from 'react';
+import { Button, Table, Modal, Label, Select as SelectFlow, FloatingLabel } from 'flowbite-react';
 import CloseIcon from '@mui/icons-material/Close';
 import './platillos.css'
 
@@ -26,6 +24,24 @@ import Checkbox from '@mui/material/Checkbox';
 
 
 function VistaPlatillos() {
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://192.168.100.29:8080/api/gastromanager/platillo/');
+                if (!response.ok) {
+                    throw new Error('Hubo un error en la petición');
+                }
+                const jsonData = await response.json();
+                setData(jsonData.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchData();
+    }, []);
+
     const ITEM_HEIGHT = 48;
     const ITEM_PADDING_TOP = 8;
     const MenuProps = {
@@ -95,447 +111,30 @@ function VistaPlatillos() {
                                 </Table.HeadCell>
                             </Table.Head>
                             <Table.Body className="divide-y">
-                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                        Enchiladas
-                                    </Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
-                                    <Table.Cell >
+                                {data && data.map((item, index) => (
+                                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                        <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                            {item.nombre}
+                                        </Table.Cell>
+                                        <Table.Cell className='border-r border-gray-300'>{item.categoria}</Table.Cell>
+                                        <Table.Cell className='border-r border-gray-300'>${item.precio}</Table.Cell>
+                                        <Table.Cell >
 
-                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                                <VisibilityIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                                <DeleteIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Stack>
+                                            <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                                <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                                    <VisibilityIcon />
+                                                </IconButton>
+                                                <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                                <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                                                    <EditIcon />
+                                                </IconButton>
+                                            </Stack>
 
-                                    </Table.Cell>
-                                </Table.Row>
-
-                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                        Enchiladas
-                                    </Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
-                                    <Table.Cell >
-
-                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                                <VisibilityIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                                <DeleteIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Stack>
-
-                                    </Table.Cell>
-                                </Table.Row>
-
-                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                        Enchiladas
-                                    </Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
-                                    <Table.Cell >
-
-                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                                <VisibilityIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                                <DeleteIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Stack>
-
-                                    </Table.Cell>
-                                </Table.Row>
-
-                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                        Enchiladas
-                                    </Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
-                                    <Table.Cell >
-
-                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                                <VisibilityIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                                <DeleteIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Stack>
-
-                                    </Table.Cell>
-                                </Table.Row>
-
-                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                        Enchiladas
-                                    </Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
-                                    <Table.Cell >
-
-                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                                <VisibilityIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                                <DeleteIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Stack>
-
-                                    </Table.Cell>
-                                </Table.Row>
-
-                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                        Enchiladas
-                                    </Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
-                                    <Table.Cell >
-
-                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                                <VisibilityIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                                <DeleteIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Stack>
-
-                                    </Table.Cell>
-                                </Table.Row>
-
-                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                        Enchiladas
-                                    </Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
-                                    <Table.Cell >
-
-                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                                <VisibilityIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                                <DeleteIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Stack>
-
-                                    </Table.Cell>
-                                </Table.Row>
-
-                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                        Enchiladas
-                                    </Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
-                                    <Table.Cell >
-
-                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                                <VisibilityIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                                <DeleteIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Stack>
-
-                                    </Table.Cell>
-                                </Table.Row>
-
-                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                        Enchiladas
-                                    </Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
-                                    <Table.Cell >
-
-                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                                <VisibilityIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                                <DeleteIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Stack>
-
-                                    </Table.Cell>
-                                </Table.Row>
-
-                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                        Enchiladas
-                                    </Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
-                                    <Table.Cell >
-
-                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                                <VisibilityIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                                <DeleteIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Stack>
-
-                                    </Table.Cell>
-                                </Table.Row>
-
-                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                        Enchiladas
-                                    </Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
-                                    <Table.Cell >
-
-                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                                <VisibilityIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                                <DeleteIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Stack>
-
-                                    </Table.Cell>
-                                </Table.Row>
-
-                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                        Enchiladas
-                                    </Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
-                                    <Table.Cell >
-
-                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                                <VisibilityIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                                <DeleteIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Stack>
-
-                                    </Table.Cell>
-                                </Table.Row>
-
-                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                        Enchiladas
-                                    </Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
-                                    <Table.Cell >
-
-                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                                <VisibilityIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                                <DeleteIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Stack>
-
-                                    </Table.Cell>
-                                </Table.Row>
-
-                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                        Enchiladas
-                                    </Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
-                                    <Table.Cell >
-
-                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                                <VisibilityIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                                <DeleteIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Stack>
-
-                                    </Table.Cell>
-                                </Table.Row>
-
-                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                        Enchiladas
-                                    </Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
-                                    <Table.Cell >
-
-                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                                <VisibilityIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                                <DeleteIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Stack>
-
-                                    </Table.Cell>
-                                </Table.Row>
-
-                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                        Enchiladas
-                                    </Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
-                                    <Table.Cell >
-
-                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                                <VisibilityIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                                <DeleteIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Stack>
-
-                                    </Table.Cell>
-                                </Table.Row>
-
-                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                        Enchiladas
-                                    </Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
-                                    <Table.Cell >
-
-                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                                <VisibilityIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                                <DeleteIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Stack>
-
-                                    </Table.Cell>
-                                </Table.Row>
-
-                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                        Enchiladas
-                                    </Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
-                                    <Table.Cell >
-
-                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                                <VisibilityIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                                <DeleteIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Stack>
-
-                                    </Table.Cell>
-                                </Table.Row>
-
-                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                        Enchiladas
-                                    </Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
-                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
-                                    <Table.Cell >
-
-                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                                <VisibilityIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                                <DeleteIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Stack>
-
-                                    </Table.Cell>
-                                </Table.Row>
-
-
-
-
-
+                                        </Table.Cell>
+                                    </Table.Row>
+                                ))}
                             </Table.Body>
                         </Table>
                     </div>
@@ -552,9 +151,9 @@ function VistaPlatillos() {
                     </h5>
                 </Modal.Header>
                 <Modal.Body>
-                <div className="space-y-4">
+                    <div className="space-y-4">
                         <div className="grid grid-cols-2 gap-4">
-                        
+
                             <div className="max-w-md">
                                 <SelectFlow id="countries" required>
                                     <option selected disabled >Categoria</option>
@@ -574,7 +173,7 @@ function VistaPlatillos() {
 
                         <div className="flex justify-between gap-4">
                             <div className="w-full  p-4 h-100" style={{ border: 'solid 1px #d6d6d6', borderRadius: '5px' }} >
-                            <h3 className="text-3xl mb-3  text-center p-2" style={{ color: '#005D48' }}>Ingredientes</h3>
+                                <h3 className="text-3xl mb-3  text-center p-2" style={{ color: '#005D48' }}>Ingredientes</h3>
                                 <div className="mt-2 flex flex-wrap gap-2 overflow-y-auto max-h-72 min-h-72 divScroll justify-center">
 
 
@@ -704,7 +303,7 @@ function VistaPlatillos() {
                                             </button>
                                         </div>
                                     </div>
-                                    
+
 
 
 
@@ -714,7 +313,7 @@ function VistaPlatillos() {
                                 </div>
 
                             </div>
-                            
+
                         </div>
                     </div>
                 </Modal.Body>
@@ -726,7 +325,7 @@ function VistaPlatillos() {
                     <h3 className="text-xl font-medium text-gray-900 dark:text-white text-center">Actualiza tu platillo</h3>
                 </Modal.Header>
                 <Modal.Body>
-                <div className="space-y-4">
+                    <div className="space-y-4">
                         <div className="grid grid-cols-3 gap-4">
                             <div>
                                 <FloatingLabel variant="outlined" label="Nombre" sizing='sm' />
@@ -900,7 +499,7 @@ function VistaPlatillos() {
                                             </button>
                                         </div>
                                     </div>
-                                    
+
 
 
 
@@ -933,7 +532,7 @@ function VistaPlatillos() {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                <div className="flex justify-center w-full">
+                    <div className="flex justify-center w-full">
                         <Button outline className='w-40 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800'>
                             Actualizar
                         </Button>
@@ -1122,7 +721,7 @@ function VistaPlatillos() {
                                             </button>
                                         </div>
                                     </div>
-                                    
+
 
 
 

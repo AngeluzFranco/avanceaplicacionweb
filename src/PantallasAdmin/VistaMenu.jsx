@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-import { Button, Navbar, Card, Table, Spinner, Modal, Label, Textarea, TextInput, FloatingLabel } from 'flowbite-react';
-import fondo from '../assets/fondo.png';
-import imgMesa from '../assets/imgMesa.png';
+import React, { useState, useEffect } from 'react';
+import { Button, Table, Spinner, Modal, Label, FloatingLabel } from 'flowbite-react';
 import CloseIcon from '@mui/icons-material/Close';
 import './menu.css';
 
@@ -27,6 +25,23 @@ import Checkbox from '@mui/material/Checkbox';
 
 
 function VistaMenu() {
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://192.168.100.29:8080/api/gastromanager/menus/');
+                if (!response.ok) {
+                    throw new Error('Hubo un error en la petición');
+                }
+                const jsonData = await response.json();
+                setData(jsonData.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchData();
+    }, []);
 
     const ITEM_HEIGHT = 48;
     const ITEM_PADDING_TOP = 8;
@@ -83,336 +98,49 @@ function VistaMenu() {
                         <Button onClick={() => setcrearModal(true)} className="agregar">Agregar</Button>
                     </div>
 
-                    <div className=' overflow-y-auto divScroll' style={{ maxHeight: '65vh'}}>
-                    <Table>
-                        <Table.Head style={{ position: 'sticky', top: 0, zIndex:1 }}>
-                            <Table.HeadCell className="border-r border-b border-gray-300">#</Table.HeadCell>
-                            <Table.HeadCell className="border-r border-b border-gray-300">Nombre</Table.HeadCell>
-                            <Table.HeadCell className="border-r border-b border-gray-300">Descripcion</Table.HeadCell>
-                            <Table.HeadCell className="border-b border-gray-300">
-                                <span className="sr-only">Edit</span>
-                            </Table.HeadCell>
-                        </Table.Head>
-                        <Table.Body className="divide-y">
-                            
+                    <div className=' overflow-y-auto divScroll' style={{ maxHeight: '65vh' }}>
+                        <Table>
+                            <Table.Head style={{ position: 'sticky', top: 0, zIndex: 1 }}>
+                                <Table.HeadCell className="border-r border-b border-gray-300">#</Table.HeadCell>
+                                <Table.HeadCell className="border-r border-b border-gray-300">Nombre</Table.HeadCell>
+                                <Table.HeadCell className="border-r border-b border-gray-300">Descripcion</Table.HeadCell>
+                                <Table.HeadCell className="border-b border-gray-300">
+                                    <span className="sr-only">Edit</span>
+                                </Table.HeadCell>
+                            </Table.Head>
+                            <Table.Body className="divide-y">
+                                {data && data.map((item, index) => (
 
-                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                    1
-                                </Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
-                                <Table.Cell >
-                                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                        <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                            <VisibilityIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                            <DeleteIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
-                                            <EditIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={() => setShowSpinner(true)}>
-                                            <DownloadIcon />
-                                        </IconButton>
-                                    </Stack>
-                                    {showSpinner && <Spinner aria-label="Default status example" />}
+                                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                        <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                            {item.idMenu}
+                                        </Table.Cell>
+                                        <Table.Cell className='border-r border-gray-300'>{item.nombre}</Table.Cell>
+                                        <Table.Cell className='border-r border-gray-300'>{item.descripcion}</Table.Cell>
+                                        <Table.Cell >
+                                            <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                                <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                                    <VisibilityIcon />
+                                                </IconButton>
+                                                <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                                <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                                    <EditIcon />
+                                                </IconButton>
+                                                <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={() => setShowSpinner(true)}>
+                                                    <DownloadIcon />
+                                                </IconButton>
+                                            </Stack>
+                                            {showSpinner && <Spinner aria-label="Default status example" />}
 
-                                </Table.Cell>
-                            </Table.Row>
-
-                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                    1
-                                </Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
-                                <Table.Cell >
-                                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                        <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                            <VisibilityIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                            <DeleteIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
-                                            <EditIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={() => setShowSpinner(true)}>
-                                            <DownloadIcon />
-                                        </IconButton>
-                                    </Stack>
-                                    {showSpinner && <Spinner aria-label="Default status example" />}
-
-                                </Table.Cell>
-                            </Table.Row>
-
-                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                    1
-                                </Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
-                                <Table.Cell >
-                                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                        <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                            <VisibilityIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                            <DeleteIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
-                                            <EditIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={() => setShowSpinner(true)}>
-                                            <DownloadIcon />
-                                        </IconButton>
-                                    </Stack>
-                                    {showSpinner && <Spinner aria-label="Default status example" />}
-
-                                </Table.Cell>
-                            </Table.Row>
-
-                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                    1
-                                </Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
-                                <Table.Cell >
-                                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                        <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                            <VisibilityIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                            <DeleteIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
-                                            <EditIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={() => setShowSpinner(true)}>
-                                            <DownloadIcon />
-                                        </IconButton>
-                                    </Stack>
-                                    {showSpinner && <Spinner aria-label="Default status example" />}
-
-                                </Table.Cell>
-                            </Table.Row>
-
-                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                    1
-                                </Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
-                                <Table.Cell >
-                                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                        <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                            <VisibilityIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                            <DeleteIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
-                                            <EditIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={() => setShowSpinner(true)}>
-                                            <DownloadIcon />
-                                        </IconButton>
-                                    </Stack>
-                                    {showSpinner && <Spinner aria-label="Default status example" />}
-
-                                </Table.Cell>
-                            </Table.Row>
-
-                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                    1
-                                </Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
-                                <Table.Cell >
-                                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                        <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                            <VisibilityIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                            <DeleteIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
-                                            <EditIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={() => setShowSpinner(true)}>
-                                            <DownloadIcon />
-                                        </IconButton>
-                                    </Stack>
-                                    {showSpinner && <Spinner aria-label="Default status example" />}
-
-                                </Table.Cell>
-                            </Table.Row>
-
-                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                    1
-                                </Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
-                                <Table.Cell >
-                                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                        <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                            <VisibilityIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                            <DeleteIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
-                                            <EditIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={() => setShowSpinner(true)}>
-                                            <DownloadIcon />
-                                        </IconButton>
-                                    </Stack>
-                                    {showSpinner && <Spinner aria-label="Default status example" />}
-
-                                </Table.Cell>
-                            </Table.Row>
-
-                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                    1
-                                </Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
-                                <Table.Cell >
-                                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                        <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                            <VisibilityIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                            <DeleteIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
-                                            <EditIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={() => setShowSpinner(true)}>
-                                            <DownloadIcon />
-                                        </IconButton>
-                                    </Stack>
-                                    {showSpinner && <Spinner aria-label="Default status example" />}
-
-                                </Table.Cell>
-                            </Table.Row>
-
-                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                    1
-                                </Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
-                                <Table.Cell >
-                                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                        <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                            <VisibilityIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                            <DeleteIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
-                                            <EditIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={() => setShowSpinner(true)}>
-                                            <DownloadIcon />
-                                        </IconButton>
-                                    </Stack>
-                                    {showSpinner && <Spinner aria-label="Default status example" />}
-
-                                </Table.Cell>
-                            </Table.Row>
-
-                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                    1
-                                </Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
-                                <Table.Cell >
-                                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                        <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                            <VisibilityIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                            <DeleteIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
-                                            <EditIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={() => setShowSpinner(true)}>
-                                            <DownloadIcon />
-                                        </IconButton>
-                                    </Stack>
-                                    {showSpinner && <Spinner aria-label="Default status example" />}
-
-                                </Table.Cell>
-                            </Table.Row>
-
-                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                    1
-                                </Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
-                                <Table.Cell >
-                                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                        <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                            <VisibilityIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                            <DeleteIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
-                                            <EditIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={() => setShowSpinner(true)}>
-                                            <DownloadIcon />
-                                        </IconButton>
-                                    </Stack>
-                                    {showSpinner && <Spinner aria-label="Default status example" />}
-
-                                </Table.Cell>
-                            </Table.Row>
-
-                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                    1
-                                </Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
-                                <Table.Cell >
-                                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                        <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
-                                            <VisibilityIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="delete" sx={{ color: '#000000' }}>
-                                            <DeleteIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
-                                            <EditIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={() => setShowSpinner(true)}>
-                                            <DownloadIcon />
-                                        </IconButton>
-                                    </Stack>
-                                    {showSpinner && <Spinner aria-label="Default status example" />}
-
-                                </Table.Cell>
-                            </Table.Row>
-
-                           
-                        </Table.Body>
-                    </Table>
+                                        </Table.Cell>
+                                    </Table.Row>
+                                ))}
+                            </Table.Body>
+                        </Table>
                     </div>
-                   
+
                 </div>
             </div>
 
@@ -422,7 +150,7 @@ function VistaMenu() {
                     <h2 className="text-2xl font-semibold text-gray-900 dark:text-white text-center">Actualiza tu menú</h2>
                 </Modal.Header>
                 <Modal.Body>
-                <div className="space-y-4">
+                    <div className="space-y-4">
                         <div className="grid grid-cols-3 gap-4">
                             <div>
                                 <FloatingLabel variant="outlined" label="Nombre" />
@@ -521,7 +249,7 @@ function VistaMenu() {
                                             <CloseIcon />
                                         </button>
                                     </div>
-                                    
+
 
 
 
@@ -817,7 +545,7 @@ function VistaMenu() {
                 <Modal.Footer>
                     <div className="flex justify-center w-full">
                         <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={mostrarClose}>
-                            <DownloadIcon fontSize='large'/>
+                            <DownloadIcon fontSize='large' />
                         </IconButton>
 
                     </div>
