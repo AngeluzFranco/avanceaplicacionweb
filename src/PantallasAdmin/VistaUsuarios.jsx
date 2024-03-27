@@ -30,18 +30,20 @@ function VistaUsuarios() {
 
   const handleClose = () => setcrearOpen(false);
   return (
-    <div className="h-screen " >
+    <div className="h-full" >
       <div className="container-table flex items-center justify-center flex-wrap">
         <div className="overflow-x-auto bg-white p-4 rounded-lg shadow-2xl" style={{ width: "60%", border: 'solid 1px #ebebeb' }}>
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-2xl font-bold">Lista de usuarios</h1>
             <Button onClick={() => setcrearOpen(true)} className="agregar">Agregar</Button>
           </div>
-          <Table>
-            <Table.Head>
-              <Table.HeadCell className='border-r border-b border-gray-300'>Name</Table.HeadCell>
+          
+          <div className=' overflow-y-auto divScroll' style={{ maxHeight: '65vh' }} >
+          <Table >
+            <Table.Head style={{ position: 'sticky', top: 0, zIndex:1 }}>
+              <Table.HeadCell className='border-r border-b border-gray-300'>Usuario</Table.HeadCell>
               <Table.HeadCell className='border-r border-b border-gray-300'>Rol</Table.HeadCell>
-              <Table.HeadCell className='border-r border-b border-gray-300'>password</Table.HeadCell>
+              <Table.HeadCell className='border-r border-b border-gray-300'>Contraseña</Table.HeadCell>
               <Table.HeadCell className='border-b border-gray-300'>
                 <span className="sr-only">Edit</span>
               </Table.HeadCell>
@@ -53,8 +55,8 @@ function VistaUsuarios() {
                 </Table.Cell>
                 <Table.Cell className='border-r border-gray-300'>Admin</Table.Cell>
                 <Table.Cell className='border-r border-gray-300'>1234</Table.Cell>
-                <Table.Cell className='flex items-center justify-end'>
-                  <Stack direction="row" spacing={0}>
+                <Table.Cell >
+                  <Stack direction="row" spacing={0} className='flex items-center justify-end'>
                     <IconButton aria-label="delete" sx={{ color: '#000000' }} >
                       <DeleteIcon />
                     </IconButton>
@@ -64,8 +66,211 @@ function VistaUsuarios() {
                   </Stack>
                 </Table.Cell>
               </Table.Row>
+
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="border-r border-gray-300whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  Angeluz
+                </Table.Cell>
+                <Table.Cell className='border-r border-gray-300'>Admin</Table.Cell>
+                <Table.Cell className='border-r border-gray-300'>1234</Table.Cell>
+                <Table.Cell >
+                  <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                    <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                      <DeleteIcon />
+                    </IconButton>
+                    <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                      <EditIcon />
+                    </IconButton>
+                  </Stack>
+                </Table.Cell>
+              </Table.Row>
+
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="border-r border-gray-300whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  Angeluz
+                </Table.Cell>
+                <Table.Cell className='border-r border-gray-300'>Admin</Table.Cell>
+                <Table.Cell className='border-r border-gray-300'>1234</Table.Cell>
+                <Table.Cell >
+                  <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                    <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                      <DeleteIcon />
+                    </IconButton>
+                    <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                      <EditIcon />
+                    </IconButton>
+                  </Stack>
+                </Table.Cell>
+              </Table.Row>
+
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="border-r border-gray-300whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  Angeluz
+                </Table.Cell>
+                <Table.Cell className='border-r border-gray-300'>Admin</Table.Cell>
+                <Table.Cell className='border-r border-gray-300'>1234</Table.Cell>
+                <Table.Cell >
+                  <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                    <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                      <DeleteIcon />
+                    </IconButton>
+                    <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                      <EditIcon />
+                    </IconButton>
+                  </Stack>
+                </Table.Cell>
+              </Table.Row>
+
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="border-r border-gray-300whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  Angeluz
+                </Table.Cell>
+                <Table.Cell className='border-r border-gray-300'>Admin</Table.Cell>
+                <Table.Cell className='border-r border-gray-300'>1234</Table.Cell>
+                <Table.Cell >
+                  <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                    <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                      <DeleteIcon />
+                    </IconButton>
+                    <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                      <EditIcon />
+                    </IconButton>
+                  </Stack>
+                </Table.Cell>
+              </Table.Row>
+
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="border-r border-gray-300whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  Angeluz
+                </Table.Cell>
+                <Table.Cell className='border-r border-gray-300'>Admin</Table.Cell>
+                <Table.Cell className='border-r border-gray-300'>1234</Table.Cell>
+                <Table.Cell >
+                  <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                    <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                      <DeleteIcon />
+                    </IconButton>
+                    <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                      <EditIcon />
+                    </IconButton>
+                  </Stack>
+                </Table.Cell>
+              </Table.Row>
+
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="border-r border-gray-300whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  Angeluz
+                </Table.Cell>
+                <Table.Cell className='border-r border-gray-300'>Admin</Table.Cell>
+                <Table.Cell className='border-r border-gray-300'>1234</Table.Cell>
+                <Table.Cell >
+                  <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                    <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                      <DeleteIcon />
+                    </IconButton>
+                    <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                      <EditIcon />
+                    </IconButton>
+                  </Stack>
+                </Table.Cell>
+              </Table.Row>
+
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="border-r border-gray-300whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  Angeluz
+                </Table.Cell>
+                <Table.Cell className='border-r border-gray-300'>Admin</Table.Cell>
+                <Table.Cell className='border-r border-gray-300'>1234</Table.Cell>
+                <Table.Cell >
+                  <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                    <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                      <DeleteIcon />
+                    </IconButton>
+                    <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                      <EditIcon />
+                    </IconButton>
+                  </Stack>
+                </Table.Cell>
+              </Table.Row>
+
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="border-r border-gray-300whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  Angeluz
+                </Table.Cell>
+                <Table.Cell className='border-r border-gray-300'>Admin</Table.Cell>
+                <Table.Cell className='border-r border-gray-300'>1234</Table.Cell>
+                <Table.Cell >
+                  <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                    <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                      <DeleteIcon />
+                    </IconButton>
+                    <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                      <EditIcon />
+                    </IconButton>
+                  </Stack>
+                </Table.Cell>
+              </Table.Row>
+
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="border-r border-gray-300whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  Angeluz
+                </Table.Cell>
+                <Table.Cell className='border-r border-gray-300'>Admin</Table.Cell>
+                <Table.Cell className='border-r border-gray-300'>1234</Table.Cell>
+                <Table.Cell >
+                  <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                    <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                      <DeleteIcon />
+                    </IconButton>
+                    <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                      <EditIcon />
+                    </IconButton>
+                  </Stack>
+                </Table.Cell>
+              </Table.Row>
+
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="border-r border-gray-300whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  Angeluz
+                </Table.Cell>
+                <Table.Cell className='border-r border-gray-300'>Admin</Table.Cell>
+                <Table.Cell className='border-r border-gray-300'>1234</Table.Cell>
+                <Table.Cell >
+                  <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                    <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                      <DeleteIcon />
+                    </IconButton>
+                    <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                      <EditIcon />
+                    </IconButton>
+                  </Stack>
+                </Table.Cell>
+              </Table.Row>
+
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="border-r border-gray-300whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  Angeluz
+                </Table.Cell>
+                <Table.Cell className='border-r border-gray-300'>Admin</Table.Cell>
+                <Table.Cell className='border-r border-gray-300'>1234</Table.Cell>
+                <Table.Cell >
+                  <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                    <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                      <DeleteIcon />
+                    </IconButton>
+                    <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                      <EditIcon />
+                    </IconButton>
+                  </Stack>
+                </Table.Cell>
+              </Table.Row>
+
+              
+              
             </Table.Body>
           </Table>
+          </div>
+          
         </div>
       </div>
 

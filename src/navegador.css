@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
+body {
+  min-height: 100vh;
+  background-image: url('./assets/fondo.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .transparent-navbar {
     background: transparent !important;
   }
@@ -31,6 +38,7 @@
   }
   .active {
     background-color: #F58500;
+    
   }
 }
 @media (min-width: 770px) and (max-width: 999px) {
@@ -185,8 +193,7 @@
         z-index: 9999;
     }
 
-    @media (max-width: 1028px){
-    }
+
 }
 
 .cerrar {

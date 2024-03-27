@@ -82,8 +82,10 @@ function VistaMenu() {
                         <h1 className="text-2xl font-bold">Menus disponibles</h1>
                         <Button onClick={() => setcrearModal(true)} className="agregar">Agregar</Button>
                     </div>
+
+                    <div className=' overflow-y-auto divScroll' style={{ maxHeight: '65vh'}}>
                     <Table>
-                        <Table.Head>
+                        <Table.Head style={{ position: 'sticky', top: 0, zIndex:1 }}>
                             <Table.HeadCell className="border-r border-b border-gray-300">#</Table.HeadCell>
                             <Table.HeadCell className="border-r border-b border-gray-300">Nombre</Table.HeadCell>
                             <Table.HeadCell className="border-r border-b border-gray-300">Descripcion</Table.HeadCell>
@@ -92,14 +94,16 @@ function VistaMenu() {
                             </Table.HeadCell>
                         </Table.Head>
                         <Table.Body className="divide-y">
+                            
+
                             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                                 <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
                                     1
                                 </Table.Cell>
                                 <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
                                 <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
-                                <Table.Cell className='flex items-center justify-end'>
-                                    <Stack direction="row" spacing={0}>
+                                <Table.Cell >
+                                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
                                         <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
                                             <VisibilityIcon />
                                         </IconButton>
@@ -117,8 +121,298 @@ function VistaMenu() {
 
                                 </Table.Cell>
                             </Table.Row>
+
+                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                    1
+                                </Table.Cell>
+                                <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
+                                <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
+                                <Table.Cell >
+                                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                        <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                            <VisibilityIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                            <EditIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={() => setShowSpinner(true)}>
+                                            <DownloadIcon />
+                                        </IconButton>
+                                    </Stack>
+                                    {showSpinner && <Spinner aria-label="Default status example" />}
+
+                                </Table.Cell>
+                            </Table.Row>
+
+                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                    1
+                                </Table.Cell>
+                                <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
+                                <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
+                                <Table.Cell >
+                                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                        <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                            <VisibilityIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                            <EditIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={() => setShowSpinner(true)}>
+                                            <DownloadIcon />
+                                        </IconButton>
+                                    </Stack>
+                                    {showSpinner && <Spinner aria-label="Default status example" />}
+
+                                </Table.Cell>
+                            </Table.Row>
+
+                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                    1
+                                </Table.Cell>
+                                <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
+                                <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
+                                <Table.Cell >
+                                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                        <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                            <VisibilityIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                            <EditIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={() => setShowSpinner(true)}>
+                                            <DownloadIcon />
+                                        </IconButton>
+                                    </Stack>
+                                    {showSpinner && <Spinner aria-label="Default status example" />}
+
+                                </Table.Cell>
+                            </Table.Row>
+
+                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                    1
+                                </Table.Cell>
+                                <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
+                                <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
+                                <Table.Cell >
+                                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                        <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                            <VisibilityIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                            <EditIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={() => setShowSpinner(true)}>
+                                            <DownloadIcon />
+                                        </IconButton>
+                                    </Stack>
+                                    {showSpinner && <Spinner aria-label="Default status example" />}
+
+                                </Table.Cell>
+                            </Table.Row>
+
+                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                    1
+                                </Table.Cell>
+                                <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
+                                <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
+                                <Table.Cell >
+                                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                        <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                            <VisibilityIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                            <EditIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={() => setShowSpinner(true)}>
+                                            <DownloadIcon />
+                                        </IconButton>
+                                    </Stack>
+                                    {showSpinner && <Spinner aria-label="Default status example" />}
+
+                                </Table.Cell>
+                            </Table.Row>
+
+                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                    1
+                                </Table.Cell>
+                                <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
+                                <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
+                                <Table.Cell >
+                                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                        <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                            <VisibilityIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                            <EditIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={() => setShowSpinner(true)}>
+                                            <DownloadIcon />
+                                        </IconButton>
+                                    </Stack>
+                                    {showSpinner && <Spinner aria-label="Default status example" />}
+
+                                </Table.Cell>
+                            </Table.Row>
+
+                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                    1
+                                </Table.Cell>
+                                <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
+                                <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
+                                <Table.Cell >
+                                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                        <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                            <VisibilityIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                            <EditIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={() => setShowSpinner(true)}>
+                                            <DownloadIcon />
+                                        </IconButton>
+                                    </Stack>
+                                    {showSpinner && <Spinner aria-label="Default status example" />}
+
+                                </Table.Cell>
+                            </Table.Row>
+
+                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                    1
+                                </Table.Cell>
+                                <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
+                                <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
+                                <Table.Cell >
+                                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                        <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                            <VisibilityIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                            <EditIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={() => setShowSpinner(true)}>
+                                            <DownloadIcon />
+                                        </IconButton>
+                                    </Stack>
+                                    {showSpinner && <Spinner aria-label="Default status example" />}
+
+                                </Table.Cell>
+                            </Table.Row>
+
+                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                    1
+                                </Table.Cell>
+                                <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
+                                <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
+                                <Table.Cell >
+                                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                        <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                            <VisibilityIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                            <EditIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={() => setShowSpinner(true)}>
+                                            <DownloadIcon />
+                                        </IconButton>
+                                    </Stack>
+                                    {showSpinner && <Spinner aria-label="Default status example" />}
+
+                                </Table.Cell>
+                            </Table.Row>
+
+                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                    1
+                                </Table.Cell>
+                                <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
+                                <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
+                                <Table.Cell >
+                                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                        <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                            <VisibilityIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                            <EditIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={() => setShowSpinner(true)}>
+                                            <DownloadIcon />
+                                        </IconButton>
+                                    </Stack>
+                                    {showSpinner && <Spinner aria-label="Default status example" />}
+
+                                </Table.Cell>
+                            </Table.Row>
+
+                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                    1
+                                </Table.Cell>
+                                <Table.Cell className='border-r border-gray-300'>Platillo pa llenarte</Table.Cell>
+                                <Table.Cell className='border-r border-gray-300'>Sopita, Guizado con tortillas, Refresco o agua, postre del dia</Table.Cell>
+                                <Table.Cell >
+                                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                        <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                            <VisibilityIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                            <EditIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="DownloadIcon" sx={{ color: '#000000' }} onClick={() => setShowSpinner(true)}>
+                                            <DownloadIcon />
+                                        </IconButton>
+                                    </Stack>
+                                    {showSpinner && <Spinner aria-label="Default status example" />}
+
+                                </Table.Cell>
+                            </Table.Row>
+
+                           
                         </Table.Body>
                     </Table>
+                    </div>
+                   
                 </div>
             </div>
 
@@ -128,7 +422,7 @@ function VistaMenu() {
                     <h2 className="text-2xl font-semibold text-gray-900 dark:text-white text-center">Actualiza tu menú</h2>
                 </Modal.Header>
                 <Modal.Body>
-                    <div className="space-y-4">
+                <div className="space-y-4">
                         <div className="grid grid-cols-3 gap-4">
                             <div>
                                 <FloatingLabel variant="outlined" label="Nombre" />
@@ -144,7 +438,7 @@ function VistaMenu() {
                         </div>
 
                         <div className="flex justify-between gap-4">
-                            <div className="w-full lg:w-2/3 p-4" style={{ border: 'solid 1px #d6d6d6', borderRadius: '5px' }}>
+                            <div className="w-full lg:w-2/3 p-4 h-64" style={{ border: 'solid 1px #d6d6d6', borderRadius: '5px' }} >
                                 <FormControl className='w-full'>
                                     <InputLabel id="demo-multiple-checkbox-label">Platillos</InputLabel>
                                     <Select
@@ -185,6 +479,52 @@ function VistaMenu() {
                                             <CloseIcon />
                                         </button>
                                     </div>
+                                    <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                        <span className="text-sm font-medium text-gray-700">Enchiladas</span>
+                                        <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                            <CloseIcon />
+                                        </button>
+                                    </div>
+                                    <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                        <span className="text-sm font-medium text-gray-700">Sopita</span>
+                                        <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                            <CloseIcon />
+                                        </button>
+                                    </div>
+                                    <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                        <span className="text-sm font-medium text-gray-700">Filete de pescado empanizado</span>
+                                        <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                            <CloseIcon />
+                                        </button>
+                                    </div>
+                                    <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                        <span className="text-sm font-medium text-gray-700">Enchiladas</span>
+                                        <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                            <CloseIcon />
+                                        </button>
+                                    </div>
+                                    <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                        <span className="text-sm font-medium text-gray-700">Sopita</span>
+                                        <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                            <CloseIcon />
+                                        </button>
+                                    </div>
+                                    <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                        <span className="text-sm font-medium text-gray-700">Filete de pescado empanizado</span>
+                                        <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                            <CloseIcon />
+                                        </button>
+                                    </div>
+                                    <div className="inline-flex items-center rounded-md bg-gray-100 px-2 py-2">
+                                        <span className="text-sm font-medium text-gray-700">Enchiladas</span>
+                                        <button className="ml-3 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                            <CloseIcon />
+                                        </button>
+                                    </div>
+                                    
+
+
+
 
 
                                 </div>
@@ -200,9 +540,7 @@ function VistaMenu() {
                                         <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Pescado empanizado</span>
                                         <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Chilaquiles</span>
                                         <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Salmón a la plancha</span>
-                                        <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Pescado empanizado</span>
-                                        <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Chilaquiles</span>
-                                        <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Salmón a la plancha</span>
+
                                     </div>
                                 </div>
                             </div>
@@ -211,7 +549,7 @@ function VistaMenu() {
                 </Modal.Body>
                 <Modal.Footer>
                     <div className="flex justify-center w-full">
-                        <Button outline className='justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' onClick={crearClose}>
+                        <Button outline className='w-40 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' onClick={crearClose}>
                             Actualizar
                         </Button>
 
@@ -418,7 +756,7 @@ function VistaMenu() {
                 </Modal.Body>
                 <Modal.Footer>
                     <div className="flex justify-center w-full">
-                        <Button outline className='justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' onClick={crearClose}>
+                        <Button outline className='w-40 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' onClick={crearClose}>
                             Crear
                         </Button>
 
@@ -439,65 +777,37 @@ function VistaMenu() {
                                 <p >Exquisitos y extravagantes mariscos para refrescar tu día</p>
                             </div>
                             <h3 className="text-2xl mt-4 text-center p-5" style={{ color: '#005D48' }}>Platillos</h3>
-                            <div className="grid grid-cols-3 gap-4 mt-2 overflow-y-auto max-h-72 divScroll">
-                                <div className="p-6 m-3 rounded fondoVerde text-center" >
-                                    <p className='p-1'>Nombre: Ceviche de camarón</p>
+                            <div className="grid grid-cols-3  gap-4 mt-2 overflow-y-auto max-h-72 min-h-72 divScroll">
+                                <div className="p-6 m-3 h-28 rounded fondoVerde text-center divScroll overflow-y-auto" >
+                                    <p className='p-1'>Nombre: Ceviche de camarón  </p>
                                     <p className='p-1'>Precio: $200</p>
                                 </div>
-                                <div className="p-6 m-3 fondoVerde rounded text-center">
-                                <p className='p-1'>Nombre: Ceviche de camarón</p>
+                                <div className="p-6 m-3 h-28 rounded fondoVerde text-center divScroll overflow-y-auto" >
+                                    <p className='p-1'>Nombre: Ceviche de camarón  </p>
                                     <p className='p-1'>Precio: $200</p>
                                 </div>
-                                <div className="p-6 m-3 fondoVerde rounded text-center">
-                                <p className='p-1'>Nombre: Ceviche de camarón</p>
+                                <div className="p-6 m-3 h-28 rounded fondoVerde text-center divScroll overflow-y-auto" >
+                                    <p className='p-1'>Nombre: Ceviche de camarón  </p>
                                     <p className='p-1'>Precio: $200</p>
                                 </div>
-                                <div className="p-6 m-3 rounded fondoVerde text-center" >
-                                    <p className='p-1'>Nombre: Ceviche de camarón</p>
+                                <div className="p-6 m-3 h-28 rounded fondoVerde text-center divScroll overflow-y-auto" >
+                                    <p className='p-1'>Nombre: Ceviche de camarón  </p>
                                     <p className='p-1'>Precio: $200</p>
                                 </div>
-                                <div className="p-6 m-3 fondoVerde rounded text-center">
-                                <p className='p-1'>Nombre: Ceviche de camarón</p>
+                                <div className="p-6 m-3 h-28 rounded fondoVerde text-center divScroll overflow-y-auto" >
+                                    <p className='p-1'>Nombre: Ceviche de camarón  </p>
                                     <p className='p-1'>Precio: $200</p>
                                 </div>
-                                <div className="p-6 m-3 fondoVerde rounded text-center">
-                                <p className='p-1'>Nombre: Ceviche de camarón</p>
+                                <div className="p-6 m-3 h-28 rounded fondoVerde text-center divScroll overflow-y-auto" >
+                                    <p className='p-1'>Nombre: Ceviche de camarón  </p>
                                     <p className='p-1'>Precio: $200</p>
                                 </div>
-                                <div className="p-6 m-3 rounded fondoVerde text-center" >
-                                    <p className='p-1'>Nombre: Ceviche de camarón</p>
+                                <div className="p-6 m-3 h-28 rounded fondoVerde text-center divScroll overflow-y-auto" >
+                                    <p className='p-1'>Nombre: Ceviche de camarón  </p>
                                     <p className='p-1'>Precio: $200</p>
                                 </div>
-                                <div className="p-6 m-3 fondoVerde rounded text-center">
-                                <p className='p-1'>Nombre: Ceviche de camarón</p>
-                                    <p className='p-1'>Precio: $200</p>
-                                </div>
-                                <div className="p-6 m-3 fondoVerde rounded text-center">
-                                <p className='p-1'>Nombre: Ceviche de camarón</p>
-                                    <p className='p-1'>Precio: $200</p>
-                                </div>
-                                <div className="p-6 m-3 rounded fondoVerde text-center" >
-                                    <p className='p-1'>Nombre: Ceviche de camarón</p>
-                                    <p className='p-1'>Precio: $200</p>
-                                </div>
-                                <div className="p-6 m-3 fondoVerde rounded text-center">
-                                <p className='p-1'>Nombre: Ceviche de camarón</p>
-                                    <p className='p-1'>Precio: $200</p>
-                                </div>
-                                <div className="p-6 m-3 fondoVerde rounded text-center">
-                                <p className='p-1'>Nombre: Ceviche de camarón</p>
-                                    <p className='p-1'>Precio: $200</p>
-                                </div>
-                                <div className="p-6 m-3 rounded fondoVerde text-center" >
-                                    <p className='p-1'>Nombre: Ceviche de camarón</p>
-                                    <p className='p-1'>Precio: $200</p>
-                                </div>
-                                <div className="p-6 m-3 fondoVerde rounded text-center">
-                                <p className='p-1'>Nombre: Ceviche de camarón</p>
-                                    <p className='p-1'>Precio: $200</p>
-                                </div>
-                                <div className="p-6 m-3 fondoVerde rounded text-center">
-                                <p className='p-1'>Nombre: Ceviche de camarón</p>
+                                <div className="p-6 m-3 h-28 rounded fondoVerde text-center divScroll overflow-y-auto" >
+                                    <p className='p-1'>Nombre: Ceviche de camarón  </p>
                                     <p className='p-1'>Precio: $200</p>
                                 </div>
                             </div>

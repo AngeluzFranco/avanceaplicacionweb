@@ -1,5 +1,5 @@
 
-import { Button, Navbar, Card, Table, Modal, Label,Select as SelectFlow, TextInput, FloatingLabel } from 'flowbite-react';
+import { Button, Navbar, Card, Table, Modal, Label, Select as SelectFlow, TextInput, FloatingLabel } from 'flowbite-react';
 import fondo from '../assets/fondo.png';
 import imgMesa from '../assets/imgMesa.png';
 import React, { useState } from 'react';
@@ -63,7 +63,7 @@ function VistaPlatillos() {
     const [age, setAge] = React.useState('');
 
     const handleChangeAge = (event) => {
-      setAge(event.target.value);
+        setAge(event.target.value);
     };
 
 
@@ -83,154 +83,670 @@ function VistaPlatillos() {
                         <h1 className="text-2xl font-bold">Lista de platillos</h1>
                         <Button onClick={() => setcrearOpen(true)} className="agregar">Agregar</Button>
                     </div>
-                    <Table>
-                        <Table.Head>
-                            <Table.HeadCell className='border-r border-b border-gray-300'>Nombre</Table.HeadCell>
-                            <Table.HeadCell className='border-r border-b border-gray-300'>Categoria</Table.HeadCell>
-                            <Table.HeadCell className='border-r border-b border-gray-300'>Precio</Table.HeadCell>
-                            <Table.HeadCell className='border-b border-gray-300'>
-                                <span className="sr-only">Edit</span>
-                            </Table.HeadCell>
-                        </Table.Head>
-                        <Table.Body className="divide-y">
-                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                    Enchiladas
-                                </Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
-                                <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
-                                <Table.Cell className='flex items-center justify-end'>
 
-                                <Stack direction="row" spacing={0}>
-                                        <IconButton aria-label="VisibilityIcon" sx={{color: '#000000'}} onClick={() => setmostrarOpen(true)}>
-                                            <VisibilityIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="delete" sx={{color: '#000000'}}>
-                                            <DeleteIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="EditIcon" sx={{color: '#000000'}} onClick={() => setactualizarOpen(true)}>
-                                            <EditIcon />
-                                        </IconButton>
-                                    </Stack>
+                    <div className=' overflow-y-auto divScroll' style={{ maxHeight: '65vh' }}>
+                        <Table>
+                            <Table.Head style={{ position: 'sticky', top: 0, zIndex: 1 }}>
+                                <Table.HeadCell className='border-r border-b border-gray-300'>Nombre</Table.HeadCell>
+                                <Table.HeadCell className='border-r border-b border-gray-300'>Categoria</Table.HeadCell>
+                                <Table.HeadCell className='border-r border-b border-gray-300'>Precio</Table.HeadCell>
+                                <Table.HeadCell className='border-b border-gray-300'>
+                                    <span className="sr-only">Edit</span>
+                                </Table.HeadCell>
+                            </Table.Head>
+                            <Table.Body className="divide-y">
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Enchiladas
+                                    </Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
+                                    <Table.Cell >
 
-                                </Table.Cell>
-                            </Table.Row>
-                        </Table.Body>
-                    </Table>
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                                <VisibilityIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Enchiladas
+                                    </Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                                <VisibilityIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Enchiladas
+                                    </Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                                <VisibilityIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Enchiladas
+                                    </Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                                <VisibilityIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Enchiladas
+                                    </Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                                <VisibilityIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Enchiladas
+                                    </Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                                <VisibilityIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Enchiladas
+                                    </Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                                <VisibilityIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Enchiladas
+                                    </Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                                <VisibilityIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Enchiladas
+                                    </Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                                <VisibilityIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Enchiladas
+                                    </Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                                <VisibilityIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Enchiladas
+                                    </Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                                <VisibilityIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Enchiladas
+                                    </Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                                <VisibilityIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Enchiladas
+                                    </Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                                <VisibilityIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Enchiladas
+                                    </Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                                <VisibilityIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Enchiladas
+                                    </Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                                <VisibilityIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Enchiladas
+                                    </Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                                <VisibilityIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Enchiladas
+                                    </Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                                <VisibilityIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Enchiladas
+                                    </Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                                <VisibilityIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        Enchiladas
+                                    </Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>Entradas</Table.Cell>
+                                    <Table.Cell className='border-r border-gray-300'>$60</Table.Cell>
+                                    <Table.Cell >
+
+                                        <Stack direction="row" spacing={0} className='flex items-center justify-end'>
+                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                                <VisibilityIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" sx={{ color: '#000000' }}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarOpen(true)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Stack>
+
+                                    </Table.Cell>
+                                </Table.Row>
+
+
+
+
+
+                            </Table.Body>
+                        </Table>
+                    </div>
+
                 </div>
             </div>
 
 
             {/* MODAL MAS INFORMACION DEL PLATILLO */}
-            <Modal show={mostrarOpen} onClose={closeModal}>
+            <Modal show={mostrarOpen} onClose={closeModal} size="5xl">
                 <Modal.Header>
                     <h5 className="text-xl font-medium leading-normal text-gray-800 dark:text-white">
                         Información del platillo Enchiladas
                     </h5>
                 </Modal.Header>
                 <Modal.Body>
-                    {/* Utiliza div con flex y flex-wrap para un diseño responsivo */}
-                    <div className="flex flex-wrap gap-4 mb-4">
-                        <div className="flex-1 min-w-0">
-                            <Label htmlFor="categoria">Categoría</Label>
-                            <Select id="categoria" disabled>
-                                <option>Entrada</option>
-                                <option>Plato Fuerte</option>
-                                <option>Postre</option>
-                            </Select>
+                <div className="space-y-4">
+                        <div className="grid grid-cols-2 gap-4">
+                        
+                            <div className="max-w-md">
+                                <SelectFlow id="countries" required>
+                                    <option selected disabled >Categoria</option>
+                                    <option>Entrada</option>
+                                    <option>Fuerte</option>
+                                    <option>Postre</option>
+                                </SelectFlow>
+                            </div>
+                            <div className='grid-cols-2'>
+                                <FloatingLabel variant="outlined" label="Precio $" sizing='sm' />
+                            </div>
+
+
+
                         </div>
-                        <div className="flex-1 min-w-0">
-                            <Label htmlFor="precio">Precio</Label>
-                            <TextInput id="precio" type="text" value={"$60"} readOnly />
-                        </div>
-                    </div>
-                    <div className="border bg-gray-100 rounded p-2">
-                        <Label>Ingredientes</Label>
-                        <div className="flex gap-2 flex-wrap">
-                            <span className="badge bg-blue-100 text-blue-800 p-2 rounded">Cilantro</span>
-                            <span className="badge bg-blue-100 text-blue-800 p-2 rounded">Tomate</span>
-                            <span className="badge bg-blue-100 text-blue-800 p-2 rounded">Cebolla</span>
+
+
+                        <div className="flex justify-between gap-4">
+                            <div className="w-full  p-4 h-100" style={{ border: 'solid 1px #d6d6d6', borderRadius: '5px' }} >
+                            <h3 className="text-3xl mb-3  text-center p-2" style={{ color: '#005D48' }}>Ingredientes</h3>
+                                <div className="mt-2 flex flex-wrap gap-2 overflow-y-auto max-h-72 min-h-72 divScroll justify-center">
+
+
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+
+
+
+
+
+
+                                </div>
+
+                            </div>
+                            
                         </div>
                     </div>
                 </Modal.Body>
             </Modal>
 
             {/* MODAL ACTUALIZAR PLATILLO */}
-            <Modal show={actualizarOpen} onClose={handleClose} size="4xl">
+            <Modal show={actualizarOpen} onClose={handleClose} size="7xl">
                 <Modal.Header>
                     <h3 className="text-xl font-medium text-gray-900 dark:text-white text-center">Actualiza tu platillo</h3>
                 </Modal.Header>
                 <Modal.Body>
-                    <div className="space-y-4">
-                        <div className="grid grid-cols-3 gap-4">
-                            <TextInput placeholder="Enchiladas" sizing="md" />
-                            <Select id="categoria" sizing="md">
-                                <option>Entrada</option>
-                                <option>Plato Fuerte</option>
-                                <option>Postre</option>
-                            </Select>
-                            <TextInput placeholder="$Precio" sizing="md" />
-                        </div>
-                        <div className="flex justify-between space-x-4">
-                            <div className="w-96 p-2">
-                                <div className="border bg-gray-100 rounded p-4">
-                                    <Label htmlFor="ingredientes" className="mb-2">Ingredientes</Label>
-                                    <div className="mt-2 flex flex-wrap gap-2">
-                                        <span className="badge bg-cyan-200 text-black p-2 rounded">Cilantro</span>
-                                        <span className="badge bg-cyan-200 text-black p-2 rounded">Tomate</span>
-                                        <span className="badge bg-cyan-200 text-black p-2 rounded">Cebolla</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="w-64 p-2 ">
-                                <Label htmlFor="ingredientesNoDisponibles" className="mb-2 text-red-500 flex justify-center w-full">Ingredientes no disponibles</Label>
-                                <div className="border bg-gray-100 rounded p-4 text-center">
-                                    <div className="grid grid-cols-1 gap-2 mt-2">
-                                        <span className="badge bg-red-400 text-black p-2 rounded">Rebanada</span>
-                                        <span className="badge bg-red-400 text-black p-2 rounded">Chile verde</span>
-                                        <span className="badge bg-red-400 text-black p-2 rounded">Salmón</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <div className="flex justify-center w-full">
-                        <Button color="success" onClick={() => console.log('Actualizar platillo')}>
-                            Actualizar
-                        </Button>
-                    </div>
-                </Modal.Footer>
-            </Modal>
-
-            {/* MODAL CREAR PLATILLO */}
-            <Modal show={crearOpen} onClose={() => setcrearOpen(false)} size="7xl">
-            <Modal.Header>
-                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-white text-center">Crea tu menú</h2>
-                </Modal.Header>
-                <Modal.Body>
-                    <div className="space-y-4">
+                <div className="space-y-4">
                         <div className="grid grid-cols-3 gap-4">
                             <div>
-                                <FloatingLabel variant="outlined" label="Nombre" sizing='sm'/>
+                                <FloatingLabel variant="outlined" label="Nombre" sizing='sm' />
                             </div>
                             <div className="max-w-md">
-                            <SelectFlow id="countries" required>
-                                <option selected disabled >Categoria</option>
-                                <option>Entrada</option>
-                                <option>Fuerte</option>
-                                <option>Postre</option>
-                            </SelectFlow>
+                                <SelectFlow id="countries" required>
+                                    <option selected disabled >Categoria</option>
+                                    <option>Entrada</option>
+                                    <option>Fuerte</option>
+                                    <option>Postre</option>
+                                </SelectFlow>
                             </div>
                             <div className='grid-cols-2'>
-                                <FloatingLabel variant="outlined" label="Precio $" sizing='sm'/>
+                                <FloatingLabel variant="outlined" label="Precio $" sizing='sm' />
                             </div>
 
 
 
                         </div>
-                        
+
 
                         <div className="flex justify-between gap-4">
                             <div className="w-full lg:w-4/5 p-4 h-100" style={{ border: 'solid 1px #d6d6d6', borderRadius: '5px' }} >
@@ -255,99 +771,136 @@ function VistaPlatillos() {
                                         ))}
                                     </Select>
                                 </FormControl>
-                                <div className="mt-2 flex flex-wrap gap-2 overflow-y-auto max-h-64 divScroll">
- 
+                                <div className="mt-2 flex flex-wrap gap-2 overflow-y-auto max-h-64 min-h-64 divScroll">
 
-<div className="relative m-3">
-    <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{backgroundColor:'#16eab9', border:'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield'}} />
-    <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-        <span className="text-lg font-medium text-gray-700">Pescado</span>
-        <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-            <CloseIcon />
-        </button>
-    </div>
-</div>
-<div className="relative m-3">
-    <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{backgroundColor:'#16eab9', border:'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield'}} />
-    <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-        <span className="text-lg font-medium text-gray-700">Camaron</span>
-        <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-            <CloseIcon />
-        </button>
-    </div>
-</div>
-<div className="relative m-3">
-    <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{backgroundColor:'#16eab9', border:'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield'}} />
-    <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-        <span className="text-lg font-medium text-gray-700">Cilantro</span>
-        <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-            <CloseIcon />
-        </button>
-    </div>
-</div>
-<div className="relative m-3">
-    <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{backgroundColor:'#16eab9', border:'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield'}} />
-    <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-        <span className="text-lg font-medium text-gray-700">Zanahoria</span>
-        <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-            <CloseIcon />
-        </button>
-    </div>
-</div>
-<div className="relative m-3">
-    <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{backgroundColor:'#16eab9', border:'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield'}} />
-    <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-        <span className="text-lg font-medium text-gray-700">Ajo</span>
-        <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-            <CloseIcon />
-        </button>
-    </div>
-</div>
-<div className="relative m-3">
-    <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{backgroundColor:'#16eab9', border:'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield'}} />
-    <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-        <span className="text-lg font-medium text-gray-700">Oregano</span>
-        <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-            <CloseIcon />
-        </button>
-    </div>
-</div>
-<div className="relative m-3">
-    <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{backgroundColor:'#16eab9', border:'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield'}} />
-    <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-        <span className="text-lg font-medium text-gray-700">Sal</span>
-        <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-            <CloseIcon />
-        </button>
-    </div>
-</div>
-<div className="relative m-3">
-    <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{backgroundColor:'#16eab9', border:'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield'}} />
-    <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-        <span className="text-lg font-medium text-gray-700">Agua</span>
-        <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-            <CloseIcon />
-        </button>
-    </div>
-</div>
-<div className="relative m-3">
-    <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{backgroundColor:'#16eab9', border:'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield'}} />
-    <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-        <span className="text-lg font-medium text-gray-700">Pescado</span>
-        <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-            <CloseIcon />
-        </button>
-    </div>
-</div>
-<div className="relative m-3">
-    <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{backgroundColor:'#16eab9', border:'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield'}} />
-    <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-        <span className="text-lg font-medium text-gray-700">Pescado</span>
-        <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-            <CloseIcon />
-        </button>
-    </div>
-</div>
+
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
 
 
 
@@ -362,7 +915,7 @@ function VistaPlatillos() {
                                 <Label htmlFor="ingredientesNoDisponibles" className="mb-2 text-red-500 flex justify-center w-full">Ingredientes no disponibles</Label>
 
                                 <div className=" rounded  text-center">
-                                    <div className="grid grid-cols-1 gap-2 mt-0 overflow-y-auto divScroll" style={{ maxHeight: 210 }}>
+                                    <div className="grid grid-cols-1 gap-2 mt-0 overflow-y-auto divScroll" style={{ maxHeight: 320 }}>
                                         <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Cilantro</span>
                                         <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Rabano</span>
                                         <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Ajo</span>
@@ -371,7 +924,229 @@ function VistaPlatillos() {
                                         <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Chile</span>
                                         <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Ajo</span>
                                         <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Chile</span>
-                       
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                <div className="flex justify-center w-full">
+                        <Button outline className='w-40 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800'>
+                            Actualizar
+                        </Button>
+
+                    </div>
+                </Modal.Footer>
+            </Modal>
+
+            {/* MODAL CREAR PLATILLO */}
+            <Modal show={crearOpen} onClose={() => setcrearOpen(false)} size="7xl">
+                <Modal.Header>
+                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-white text-center">Crea tu platillo</h2>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="space-y-4">
+                        <div className="grid grid-cols-3 gap-4">
+                            <div>
+                                <FloatingLabel variant="outlined" label="Nombre" sizing='sm' />
+                            </div>
+                            <div className="max-w-md">
+                                <SelectFlow id="countries" required>
+                                    <option selected disabled >Categoria</option>
+                                    <option>Entrada</option>
+                                    <option>Fuerte</option>
+                                    <option>Postre</option>
+                                </SelectFlow>
+                            </div>
+                            <div className='grid-cols-2'>
+                                <FloatingLabel variant="outlined" label="Precio $" sizing='sm' />
+                            </div>
+
+
+
+                        </div>
+
+
+                        <div className="flex justify-between gap-4">
+                            <div className="w-full lg:w-4/5 p-4 h-100" style={{ border: 'solid 1px #d6d6d6', borderRadius: '5px' }} >
+                                <FormControl className='w-full'>
+                                    <InputLabel id="demo-multiple-checkbox-label">Ingredientes</InputLabel>
+                                    <Select
+                                        labelId="demo-multiple-checkbox-label"
+                                        id="demo-multiple-checkbox"
+                                        multiple
+                                        value={personName}
+                                        onChange={handleChange}
+                                        input={<OutlinedInput label="Ingredientes" />}
+                                        renderValue={(selected) => selected.join(', ')}
+                                        MenuProps={MenuProps}
+                                        className='mb-3'
+                                    >
+                                        {names.map((name) => (
+                                            <MenuItem key={name} value={name}>
+                                                <Checkbox checked={personName.indexOf(name) > -1} />
+                                                <ListItemText primary={name} />
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                                <div className="mt-2 flex flex-wrap gap-2 overflow-y-auto max-h-64 min-h-64 divScroll">
+
+
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="relative m-3">
+                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
+                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+
+
+
+
+
+
+                                </div>
+
+                            </div>
+                            <div className="w-64 p-2" style={{ border: 'solid 1px #d6d6d6', borderRadius: '5px' }}>
+
+                                <Label htmlFor="ingredientesNoDisponibles" className="mb-2 text-red-500 flex justify-center w-full">Ingredientes no disponibles</Label>
+
+                                <div className=" rounded  text-center">
+                                    <div className="grid grid-cols-1 gap-2 mt-0 overflow-y-auto divScroll" style={{ maxHeight: 320 }}>
+                                        <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Cilantro</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Rabano</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Ajo</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Chile</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Ajo</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Chile</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Ajo</span>
+                                        <span className="badge text-black p-2 rounded line-through" style={{ backgroundColor: '#ffcfcf' }}>Chile</span>
+
 
                                     </div>
                                 </div>
@@ -381,7 +1156,7 @@ function VistaPlatillos() {
                 </Modal.Body>
                 <Modal.Footer>
                     <div className="flex justify-center w-full">
-                        <Button outline className='justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800'>
+                        <Button outline className=' w-40 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800'>
                             Crear
                         </Button>
 

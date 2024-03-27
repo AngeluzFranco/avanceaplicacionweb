@@ -1,10 +1,11 @@
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, Navigate} from "react-router-dom";
 import './index.css'
 import { Button, Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle } from 'flowbite-react';
 //import Login from './login.jsx';
 import imgLogo from './assets/imgGastromanager.png'
 import './navegador.css'
-import fondo from './assets/fondo.png'
+
 import VisualizarMesas from './PantallasAdmin/VistaMesas.jsx'
 import VisualizarUsuarios from './PantallasAdmin/VistaUsuarios.jsx'
 import VisualizarMenu from './PantallasAdmin/VistaMenu.jsx'
@@ -23,13 +24,12 @@ function Navegador() {
 }
 
 
-
 function Navigation() {
   const location = useLocation();
 
   return (
 
-    <div className="App bg-cover" style={{ backgroundImage: `url(${fondo})` }}>
+    <div className="App">
 
       <Navbar className="h-40  items-center  transparent-navbar" style={{ paddingTop: 30 }} >
 
@@ -67,17 +67,18 @@ function Navigation() {
 
       <hr style={{ marginBottom: 50, borderTop: "3px solid #FFDEB6" }} />
 
-      <div className="auth-wrapper">
-        <div className="auth-inner h-screen overflow-hidden items-center">
-          <Routes>
-            <Route path="/visualizar-mesas" element={<VisualizarMesas />} />
-            <Route path="/visualizar-usuarios" element={<VisualizarUsuarios />} />
-            <Route path="/visualizar-menus" element={<VisualizarMenu />} />
-            <Route path="/visualizar-platillos" element={<VisualizarPlatillos />} />
-            <Route path="/visualizar-insumos" element={<VisualizarInsumos />} />
-          </Routes>
-        </div>
-      </div>
+      <div className="auth-wrapper" style={{ height: '77.5vh', paddingBottom: 8 }}>
+  <div className="auth-inner overflow-hidden items-center" style={{maxHeight: '100%'}} >
+    <Routes>
+      <Route path="/" element={<Navigate to="/visualizar-usuarios" />} />
+      <Route path="/visualizar-mesas" element={<VisualizarMesas />} />
+      <Route path="/*" element={<VisualizarUsuarios />} />
+      <Route path="/visualizar-menus" element={<VisualizarMenu />} />
+      <Route path="/visualizar-platillos" element={<VisualizarPlatillos />} />
+      <Route path="/visualizar-insumos" element={<VisualizarInsumos />} />
+    </Routes>
+  </div>
+</div>
     </div>
 
   );
