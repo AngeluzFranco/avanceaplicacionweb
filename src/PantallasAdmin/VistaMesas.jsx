@@ -3,150 +3,205 @@ import { Button, Card, Modal, Dropdown, FloatingLabel } from 'flowbite-react';
 import imgMesa from '../assets/imgMesa.png';
 import './mesas.css';
 import { Select } from 'antd';
-import {API_BASE_URL} from '../backend.js';
+import { API_BASE_URL } from '../backend.js';
+
+// VALIDACIONES CON FORMIK Y YUP
+import * as Yup from 'yup';
+import { Formik, Field, ErrorMessage } from 'formik';
+
+const validationSchema = Yup.object({
+  numeroSillas: Yup.number()
+    .required('Required')
+    .max(12, 'Número de sillas debe ser menor a 12'),
+});
+
 
 function VistaMesas() {
-// MOSTRAR MESAS
-const [data, setData] = useState([]);
-const [crearOpen, setcrearOpen] = useState(false);
+  // MOSTRAR MESAS
+  const [allData, setAllData] = useState([]); // Todas las mesas
+  const [data, setData] = useState([]);
+  const [crearOpen, setcrearOpen] = useState(false);
+  // FILTRO DE MESAS
+  const [selectedOption, setSelectedOption] = useState('Todas');
 
-// MOSTRAR MESAS
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/mesas/`);
-      if (!response.ok) {
-        throw new Error('Hubo un error en la petición');
+  // MOSTRAR TODAS LAS MESAS
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const url = `${API_BASE_URL}/mesas/`;
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error('Hubo un error en la petición');
+        }
+        const jsonData = await response.json();
+        setAllData(jsonData.data);
+      } catch (error) {
+        console.error(error);
       }
-      const jsonData = await response.json();
-      setData(jsonData.data);
+    };
+    fetchData();
+  }, []); // Este useEffect se ejecuta solo una vez al montar el componente
+
+  // FILTRAR MESAS
+  useEffect(() => {
+    let filteredData;
+    if (selectedOption === 'Ocupada') {
+      filteredData = allData.filter(mesa => mesa.estado === 'Ocupada');
+    } else if (selectedOption === 'Desocupada') {
+      filteredData = allData.filter(mesa => mesa.estado === 'Desocupada');
+    } else {
+      filteredData = allData;
+    }
+    setData(filteredData);
+  }, [selectedOption, allData]); // Este useEffect se ejecuta cada vez que selectedOption o allData cambian
+
+  // ABRIR CREAR MESA
+  const [isOpen, setIsOpen] = useState(false);
+
+
+
+  // CREAR MESA
+  const [numeroMesa, setNumeroMesa] = useState('');
+  const [numeroSillas, setNumeroSillas] = useState('');
+  const [estado, setEstado] = useState('Desocupada');
+
+
+  const crearMesa = async (numeroSillas) => {
+    const mesa = {
+      numeroMesa: parseInt(numeroMesa),
+      estado: estado,
+      numeroSillas: parseInt(numeroSillas)
+    };
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/mesas/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(mesa)
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setData(prevData => [...prevData, data.data]); // Añadir la nueva mesa al estado
+      setAllData(prevAllData => [...prevAllData, data.data]); // Añadir la nueva mesa a allData
+
     } catch (error) {
       console.error(error);
     }
   };
-  fetchData();
-}, []);
 
-// ABRIR CREAR MESA
-const [isOpen, setIsOpen] = useState(false);
+  // Función para encontrar el número de mesa que falta
+  const encontrarNumeroMesaFaltante = () => {
+    const numerosMesa = allData.map(mesa => Number(mesa.numeroMesa));
+    console.log(numerosMesa); // Ver los números de mesa antes de ordenar
+    numerosMesa.sort((a, b) => a - b);
+    console.log(numerosMesa); // Ver los números de mesa después de ordenar
 
+    for (let i = 0; i < numerosMesa.length; i++) {
+      if (numerosMesa[i] !== i + 1) {
+        return i + 1;
+      }
+    }
 
-
-// CREAR MESA
-const [numeroMesa, setNumeroMesa] = useState('');
-const [numeroSillas, setNumeroSillas] = useState('');
-const [estado, setEstado] = useState('Disponible');
-const [mesas, setMesas] = useState([]);
-
-const crearMesa = async () => {
-  const mesa = {
-    numeroMesa: parseInt(numeroMesa),
-    estado: estado,
-    numeroSillas: parseInt(numeroSillas)
+    return numerosMesa.length + 1;
   };
 
-  try {
-    const response = await fetch(`${API_BASE_URL}/mesas/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(mesa)
-    });
+  // Establecer el número de mesa que falta cuando se abre el formulario de creación de mesa
+  const handleOpen = () => {
+    const numeroMesaFaltante = encontrarNumeroMesaFaltante();
+    setNumeroMesa(numeroMesaFaltante);
+    setIsOpen(true);
+  };
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
 
-    const data = await response.json();
-    setData(prevData => [...prevData, data.data]); // Añadir la nueva mesa al estado
 
-  } catch (error) {
-    console.error(error);
-  }
-};
+  return (
 
-// Función para encontrar el número de mesa que falta
-const encontrarNumeroMesaFaltante = () => {
-  const numerosMesa = data.map(mesa => Number(mesa.numeroMesa));
-  console.log(numerosMesa); // Ver los números de mesa antes de ordenar
-  numerosMesa.sort((a, b) => a - b);
-  console.log(numerosMesa); // Ver los números de mesa después de ordenar
+        <div className="h-screen ">
+          <div className='flex justify-center mt-3 mb-5'>
+            <div className='w-9/12 m-2 flex justify-between'>
+            <Formik
+      initialValues={{ numeroSillas: '' }}
+      validationSchema={validationSchema}
+      onSubmit={(values, { setSubmitting }) => {
+        setNumeroSillas(values.numeroSillas);
+        crearMesa(values.numeroSillas);
+        setSubmitting(false);
+      }}
+    >
+      {({ handleSubmit, errors }) => (
+              <div className="relative flex justify-center">
+                <Button onClick={handleOpen} className='justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' size="xl" outline > Agregar  +  </Button>
+                {isOpen && (
+                  <div className="absolute rollIn top-full m-3 z-10">
+                    <div className="space-y-6 rotating-border bg-white p-5 w-60 shadow-lg z-10">
+                      <h5 className="text-2xl font-medium text-gray-900 dark:text-white text-center z-10">
+                        Crea tu mesa
+                      </h5>
+                      <div>
+                      <div className='flex justify-content gap-4 z-10 mb-0' >
+                        <div >
+                          <FloatingLabel variant="outlined" label="# Mesa" className='text-base z-10' disabled={true} value={numeroMesa} onChange={e => setNumeroMesa(e.target.value)} />
+                        </div>
+                        <div >
+                          <Field name="numeroSillas" as={FloatingLabel} variant="outlined" label="# Sillas" className='text-base z-10 ' color={errors.numeroSillas ? 'error' : 'default'} />
+                          
+                        </div>
+                        
+                      </div>
+                      <ErrorMessage name="numeroSillas">
+                            {errorMessage => <div  className='errorM'>{errorMessage}</div>}
+                      </ErrorMessage>
+                      </div>
+                      
+                  
+                      
+                 
+                      
 
-  for (let i = 0; i < numerosMesa.length; i++) {
-    if (numerosMesa[i] !== i + 1) {
-      return i + 1;
-    }
-  }
-
-  return numerosMesa.length + 1;
-};
-
-// Establecer el número de mesa que falta cuando se abre el formulario de creación de mesa
-const handleOpen = () => {
-  const numeroMesaFaltante = encontrarNumeroMesaFaltante();
-  setNumeroMesa(numeroMesaFaltante);
-  setIsOpen(true);
-};
-
-return (
-  <div className="h-screen ">
-    <div className='flex justify-center mt-3 mb-5'>
-      <div className='w-9/12 m-2 flex justify-between'>
-        <div className="relative flex justify-center">
-          <Button onClick={handleOpen} className='justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' size="xl" outline > Agregar  +  </Button>
-          {isOpen && (
-            <div className="absolute rollIn top-full m-3 z-10">
-              <div className="space-y-6 rotating-border bg-white p-5 w-60 shadow-lg z-10">
-                <h5 className="text-2xl font-medium text-gray-900 dark:text-white text-center z-10">
-                  Crea tu mesa
-                </h5>
-                <div className='flex justify-content gap-4 z-10'>
-                  <div>
-                    <FloatingLabel variant="outlined" label="# Mesa" className='text-base z-10' disabled={true} value={numeroMesa} onChange={e => setNumeroMesa(e.target.value)} />
+                      <div className="flex justify-center w-full">
+                        <Button className='w-40 z-10 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' outline size="md" onClick={handleSubmit}>
+                          Crear
+                        </Button>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <FloatingLabel variant="outlined" label="# Sillas" className='text-base z-10' onChange={e => setNumeroSillas(e.target.value)} />
-                  </div>
-                </div>
-
-                <div className="flex justify-center w-full">
-                  <Button className='w-40 z-10 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' outline size="md" onClick={crearMesa}>
-                    Crear
-                  </Button>
-                </div>
+                )}
               </div>
-            </div>
-          )}
-        </div>
-  
-      
-         
-            
-      
+                   )}
+                  </Formik>
+          
 
-              <Select 
+
+
+
+
+
+            <Select
               size="large"
               status="warning"
-              
-              
               className='customSelect'
-      defaultValue="Todas"
-      style={{ width: 140}}
-      options={[
-        { value: 'Todas', label: 'Todas' },
-        { value: 'Ocupadas', label: 'Ocupadas' },
-        { value: 'Desocupadas', label: 'Desocupadas' },
-
-      ]}
-    />
+              defaultValue="Todas"
+              style={{ width: 140 }}
+              options={[
+                { value: 'Todas', label: 'Todas' },
+                { value: 'Ocupada', label: 'Ocupadas' },
+                { value: 'Desocupada', label: 'Desocupadas' },
+              ]}
+              onChange={value => setSelectedOption(value)}
+            />
+          </div>
         </div>
-      </div>
 
-     
 
-      <div className="container-cards flex items-center justify-center flex-wrap overflow-y-auto divScroll mx-5 " style={{ maxHeight: '65vh' }}>
-          {data && data.map((item, index) => (
+
+        <div className="container-cards flex items-center justify-center flex-wrap overflow-y-auto divScroll mx-5 " style={{ maxHeight: '65vh' }}>
+          {data && [...data].sort((a, b) => Number(a.numeroMesa) - Number(b.numeroMesa)).map((item, index) => (
             <Card href="#" className="max-w-sm mx-5 my-5" style={{ background: '#fff', border: '1px solid orange' }} key={index}>
               <div className="flex items-center gap-4">
                 <div className='mx-2'>
@@ -173,32 +228,35 @@ return (
         </div>
 
 
-      <Modal show={crearOpen} onClose={() => setcrearOpen(false)} size="xl" position="center">
-        <Modal.Header>
-          <h5 className="text-2xl font-medium text-gray-900 dark:text-white text-center">
-            Crea tu mesa
-          </h5>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="space-y-6">
-            <div>
-              <FloatingLabel variant="outlined" label="Número de mesa" className='text-base'/>
+        <Modal show={crearOpen} onClose={() => setcrearOpen(false)} size="xl" position="center">
+          <Modal.Header>
+            <h5 className="text-2xl font-medium text-gray-900 dark:text-white text-center">
+              Crea tu mesa
+            </h5>
+          </Modal.Header>
+          <Modal.Body>
+            <div className="space-y-6">
+              <div>
+                <FloatingLabel variant="outlined" label="Número de mesa" className='text-base' />
+              </div>
+              <div>
+                <FloatingLabel variant="outlined" label="Número de sillas" className='text-base' />
+              </div>
             </div>
-            <div>
-              <FloatingLabel variant="outlined" label="Número de sillas" className='text-base'/>
+          </Modal.Body>
+          <Modal.Footer>
+            <div className="flex justify-center w-full">
+              <Button className='w-40 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' outline size="md" onClick={() => console.log('Crear usuario')}>
+                Crear
+              </Button>
             </div>
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <div className="flex justify-center w-full">
-            <Button className='w-40 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' outline size="md" onClick={() => console.log('Crear usuario')}>
-              Crear
-            </Button>
-          </div>
-        </Modal.Footer>
-      </Modal>
-    </div>
-  );
+          </Modal.Footer>
+        </Modal>
+        
+      </div>
+       
+      );
+      
 }
 
-export default VistaMesas;
+      export default VistaMesas;
