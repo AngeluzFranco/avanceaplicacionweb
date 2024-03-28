@@ -213,3 +213,18 @@ body {
 .cerrar:active {
   box-shadow: 0 0 10px rgba(100, 100, 100, 0.5) !important; /* Ajusta esto para cambiar el aspecto de la sombra */
 }
+
+
+
+/* PANTALLA ANGELUZ */
+@media (min-width: 1480px) and (max-width: 1780px) {
+  body {
+    min-height: 75vh;
+    background-color: #595959;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .auth-wrapper{
+    height: 69vh !important;
+  }
+  }

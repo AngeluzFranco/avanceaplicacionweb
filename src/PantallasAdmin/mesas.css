@@ -47,3 +47,11 @@
     color: red;
   }
 
+/* PANTALLA ANGELUZ */
+@media (min-width: 1480px) and (max-width: 1780px) {
+  .ange{
+    max-width: 320px;
+    margin-bottom: 5px;
+    margin-top: 4px;
+  }
+  }

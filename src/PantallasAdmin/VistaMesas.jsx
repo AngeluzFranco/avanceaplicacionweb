@@ -11,7 +11,8 @@ import { Formik, Field, ErrorMessage } from 'formik';
 
 const validationSchema = Yup.object({
   numeroSillas: Yup.number()
-    .required('Required')
+    .required('Requerido')
+    .min(1, 'Número de sillas debe ser mayor a 0')
     .max(12, 'Número de sillas debe ser menor a 12'),
 });
 
@@ -115,7 +116,7 @@ function VistaMesas() {
   const handleOpen = () => {
     const numeroMesaFaltante = encontrarNumeroMesaFaltante();
     setNumeroMesa(numeroMesaFaltante);
-    setIsOpen(true);
+    setIsOpen(!isOpen);
   };
 
 
@@ -202,7 +203,7 @@ function VistaMesas() {
 
         <div className="container-cards flex items-center justify-center flex-wrap overflow-y-auto divScroll mx-5 " style={{ maxHeight: '65vh' }}>
           {data && [...data].sort((a, b) => Number(a.numeroMesa) - Number(b.numeroMesa)).map((item, index) => (
-            <Card href="#" className="max-w-sm mx-5 my-5" style={{ background: '#fff', border: '1px solid orange' }} key={index}>
+            <Card  className="max-w-sm mx-5 my-5 ange" style={{ background: '#fff', border: '1px solid orange' }} key={index}>
               <div className="flex items-center gap-4">
                 <div className='mx-2'>
                   <div className='flex flex-row'>
