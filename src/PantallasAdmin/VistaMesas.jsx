@@ -30,12 +30,13 @@ useEffect(() => {
 // ABRIR CREAR MESA
 const [isOpen, setIsOpen] = useState(false);
 
-const handleOpen = () => setIsOpen(!isOpen);
+
 
 // CREAR MESA
 const [numeroMesa, setNumeroMesa] = useState('');
 const [numeroSillas, setNumeroSillas] = useState('');
 const [estado, setEstado] = useState('Disponible');
+const [mesas, setMesas] = useState([]);
 
 const crearMesa = async () => {
   const mesa = {
@@ -58,11 +59,34 @@ const crearMesa = async () => {
     }
 
     const data = await response.json();
-    setData(prevData => [...prevData, data.data]);; // Añadir la nueva mesa al estado
+    setData(prevData => [...prevData, data.data]); // Añadir la nueva mesa al estado
 
   } catch (error) {
     console.error(error);
   }
+};
+
+// Función para encontrar el número de mesa que falta
+const encontrarNumeroMesaFaltante = () => {
+  const numerosMesa = data.map(mesa => Number(mesa.numeroMesa));
+  console.log(numerosMesa); // Ver los números de mesa antes de ordenar
+  numerosMesa.sort((a, b) => a - b);
+  console.log(numerosMesa); // Ver los números de mesa después de ordenar
+
+  for (let i = 0; i < numerosMesa.length; i++) {
+    if (numerosMesa[i] !== i + 1) {
+      return i + 1;
+    }
+  }
+
+  return numerosMesa.length + 1;
+};
+
+// Establecer el número de mesa que falta cuando se abre el formulario de creación de mesa
+const handleOpen = () => {
+  const numeroMesaFaltante = encontrarNumeroMesaFaltante();
+  setNumeroMesa(numeroMesaFaltante);
+  setIsOpen(true);
 };
 
 return (
@@ -79,7 +103,7 @@ return (
                 </h5>
                 <div className='flex justify-content gap-4 z-10'>
                   <div>
-                    <FloatingLabel variant="outlined" label="# Mesa" className='text-base z-10' onChange={e => setNumeroMesa(e.target.value)} />
+                    <FloatingLabel variant="outlined" label="# Mesa" className='text-base z-10' disabled={true} value={numeroMesa} onChange={e => setNumeroMesa(e.target.value)} />
                   </div>
                   <div>
                     <FloatingLabel variant="outlined" label="# Sillas" className='text-base z-10' onChange={e => setNumeroSillas(e.target.value)} />
@@ -95,6 +119,7 @@ return (
             </div>
           )}
         </div>
+  
       
          
             
