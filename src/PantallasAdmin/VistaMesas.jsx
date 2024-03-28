@@ -84,7 +84,7 @@ function VistaMesas() {
 
      
 
-      <div className="container-cards flex items-center justify-center flex-wrap">
+      <div className="container-cards flex items-center justify-center flex-wrap overflow-y-auto divScroll mx-5 " style={{ maxHeight: '65vh' }}>
         {data && data.map((item, index) => (
           <Card href="#" className="max-w-sm mx-5 my-5" style={{ background: '#fff', border: '1px solid orange' }} key={index}>
             <div className="flex items-center gap-4">
