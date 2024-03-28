@@ -126,7 +126,7 @@ return (
               <div className="flex items-center gap-4">
                 <div className='mx-2'>
                   <div className='flex flex-row'>
-                    <h5 className="text-xl font-bold tracking-tight">Mesa:</h5>
+                    <h5 className="text-xl font-bold tracking-tight mr-1">Mesa:</h5>
                     <h5 className="text-xl font-bold tracking-tight">{item.numeroMesa}</h5>
                   </div>
                   <div className='flex flex-col'>
@@ -134,7 +134,7 @@ return (
                     <h5 className="text-xl font-bold tracking-tight">X {item.numeroSillas}</h5>
                   </div>
                   <div className='flex flex-row z-0'>
-                    <h5 className="text-s font-bold tracking-tight z-0">Estado:</h5>
+                    <h5 className="text-s font-bold tracking-tight z-0 mr-1">Estado:</h5>
                     <h5 className="text-s font-bold tracking-tight z-0">{item.estado}</h5>
                   </div>
                 </div>
