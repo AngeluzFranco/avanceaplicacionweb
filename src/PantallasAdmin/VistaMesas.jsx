@@ -4,10 +4,14 @@ import imgMesa from '../assets/imgMesa.png';
 import './mesas.css';
 import { Select } from 'antd';
 import { API_BASE_URL } from '../backend.js';
+import Swal from 'sweetalert2';
+
 
 // VALIDACIONES CON FORMIK Y YUP
 import * as Yup from 'yup';
-import { Formik, Field, ErrorMessage } from 'formik';
+import { Formik, Field, ErrorMessage, } from 'formik';
+
+
 
 const validationSchema = Yup.object({
   numeroSillas: Yup.number()
@@ -15,6 +19,8 @@ const validationSchema = Yup.object({
     .min(1, 'Número de sillas debe ser mayor a 0')
     .max(12, 'Número de sillas debe ser menor a 12'),
 });
+
+
 
 
 function VistaMesas() {
@@ -67,33 +73,73 @@ function VistaMesas() {
   const [estado, setEstado] = useState('Desocupada');
 
 
-  const crearMesa = async (numeroSillas) => {
+  const crearMesa = async (numeroSillas, resetForm) => {
     const mesa = {
       numeroMesa: parseInt(numeroMesa),
       estado: estado,
       numeroSillas: parseInt(numeroSillas)
     };
-
-    try {
-      const response = await fetch(`${API_BASE_URL}/mesas/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(mesa)
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+    
+    // USO DE SWEETALERT
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "bg-green-500 text-white px-4 py-2 mx-3 rounded",
+        cancelButton: "bg-red-500 text-white px-4 py-2 mx-3 rounded"
+      },
+      buttonsStyling: false
+    });
+  
+    swalWithBootstrapButtons.fire({
+      title: "¿Quieres crear una nueva mesa?",
+      text: "¡No podrás revertir esto!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "¡Sí, creala!",
+      cancelButtonText: "¡No, cancela!",
+      reverseButtons: true
+    }).then(async (result) => {
+      handleOpen();
+      if (result.isConfirmed) {
+        try {
+          const response = await fetch(`${API_BASE_URL}/mesas/`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(mesa)
+          });
+  
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+  
+          const data = await response.json();
+          setData(prevData => [...prevData, data.data]); // Añadir la nueva mesa al estado
+          setAllData(prevAllData => [...prevAllData, data.data]); // Añadir la nueva mesa a allData
+          resetForm();
+          swalWithBootstrapButtons.fire(
+            'Mesa creada!',
+            'Tu mesa ha sido creada con éxito.',
+            'success'
+          );
+  
+        } catch (error) {
+          console.error(error);
+  
+          swalWithBootstrapButtons.fire(
+            'Acción cancelada',
+            'La mesa no ha sido creada',
+            'error'
+          );
+        }
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        swalWithBootstrapButtons.fire(
+          'Acción cancelada',
+            'La mesa no ha sido creada',
+            'error'
+        );
       }
-
-      const data = await response.json();
-      setData(prevData => [...prevData, data.data]); // Añadir la nueva mesa al estado
-      setAllData(prevAllData => [...prevAllData, data.data]); // Añadir la nueva mesa a allData
-
-    } catch (error) {
-      console.error(error);
-    }
+    });
   };
 
   // Función para encontrar el número de mesa que falta
@@ -129,9 +175,9 @@ function VistaMesas() {
             <Formik
       initialValues={{ numeroSillas: '' }}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting }) => {
+      onSubmit={(values, { setSubmitting, resetForm }) => {
         setNumeroSillas(values.numeroSillas);
-        crearMesa(values.numeroSillas);
+        crearMesa(values.numeroSillas, resetForm);
         setSubmitting(false);
       }}
     >
