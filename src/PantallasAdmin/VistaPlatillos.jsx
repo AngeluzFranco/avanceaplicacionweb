@@ -21,7 +21,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 
-import {API_BASE_URL} from '../backend.js';
+import { API_BASE_URL } from '../backend.js';
 
 
 
@@ -66,23 +66,123 @@ function VistaPlatillos() {
         'Zanahoria',
     ];
 
-    const [personName, setPersonName] = React.useState([]);
+    // CREAR PLATILLO 
+    const [nombre, setNombre] = useState('');
+    const [precio, setPrecio] = useState('');
+
+    const crearPlatillo = async () => {
+        const response = await fetch(`${API_BASE_URL}/platillo/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nombre: nombre,
+                categoria: categoria,
+                precio: precio
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Hubo un error en la petición');
+        }
+
+        const jsonData = await response.json();
+        console.log(jsonData);
+        return jsonData.data.idPlatillo; // Asume que el ID del platillo se devuelve en la propiedad idPlatillo
+    };
+
+    const [cantidades, setCantidades] = useState({});
+
+    //   GUARDAR LOS INGREDIENTES DEL PLATILLO 
+    const asignarIngredientes = async (idPlatillo, ingredientes) => {
+        await Promise.all(ingredientes.map(async (ingrediente) => {
+            const response = await fetch(`${API_BASE_URL}/platilloingredientes/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    cantidad: cantidades[ingrediente.idIngrediente] || 1, // Usar cantidades
+                    platillo: {
+                        idPlatillo: idPlatillo
+                    },
+                    ingrediente: {
+                        idIngrediente: ingrediente.idIngrediente // Asume que ingrediente es el ID del ingrediente
+                    }
+                })
+            });
+    
+            if (!response.ok) {
+                throw new Error('Hubo un error en la petición');
+            }
+        }));
+    };
+
+    const handleQuantityChange = (ingrediente, cantidad) => {
+        // Si cantidad es una cadena vacía, permitir que el valor del input sea vacío
+        // De lo contrario, convertir cantidad a un número y usar 1 como valor por defecto
+        const newCantidad = cantidad === '' ? '' : Number(cantidad) || 1;
+    
+        // Actualizar cantidades
+        setCantidades(prev => ({ ...prev, [ingrediente.idIngrediente]: newCantidad }));
+    };
+
+    // MOSTRAR INGREDIENTES
+    const [IngredienteName, setIngredienteName] = React.useState([]);
+    const [ingredientes, setIngredientes] = useState([]);
+
+    useEffect(() => {
+        fetch(`${API_BASE_URL}/ingredientes/`)
+            .then(response => response.json())
+            .then(data => setIngredientes(data.data))
+            .catch(error => console.error(error));
+    }, []);
+
+    // QUITAR INGREDIENTE TACHE
+    const handleRemove = (ingrediente) => {
+        setIngredienteName(IngredienteName.filter(i => i.idIngrediente !== ingrediente.idIngrediente));
+    };
+
+    // SELECCIONAR CATEGORIA 
+    const [categoria, setCategoria] = useState('');
+
+    const cambioCategoria = (event) => {
+        setCategoria(event.target.value);
+    };
+
 
     const handleChange = (event) => {
         const {
             target: { value },
         } = event;
-        setPersonName(
-            // On autofill we get a stringified value.
-            typeof value === 'string' ? value.split(',') : value,
-        );
+    
+        // value es un array de ingredientes seleccionados
+        const selectedIngredients = value;
+    
+        // Crear una copia del estado actual de IngredienteName
+        let newIngredienteName = [...IngredienteName];
+    
+        // Iterar sobre los ingredientes seleccionados
+        for (let ingrediente of selectedIngredients) {
+            // Si el ingrediente no está en newIngredienteName, agregarlo
+            if (!newIngredienteName.some(i => i.idIngrediente === ingrediente.idIngrediente)) {
+                newIngredienteName.push(ingrediente);
+    
+                // Establecer un valor inicial para la cantidad del nuevo ingrediente en cantidades
+                setCantidades(prev => ({ ...prev, [ingrediente.idIngrediente]: 1 }));
+            }
+        }
+    
+        // Filtrar newIngredienteName para eliminar los ingredientes que no están en selectedIngredients
+        newIngredienteName = newIngredienteName.filter(i => selectedIngredients.some(si => si.idIngrediente === i.idIngrediente));
+    
+        // Establecer IngredienteName a newIngredienteName
+        setIngredienteName(newIngredienteName);
     };
 
-    const [age, setAge] = React.useState('');
 
-    const handleChangeAge = (event) => {
-        setAge(event.target.value);
-    };
+  
 
 
     const [mostrarOpen, setmostrarOpen] = useState(false);
@@ -154,13 +254,13 @@ function VistaPlatillos() {
                 </Modal.Header>
                 <Modal.Body>
 
-                <div className="space-y-4">
-                <div className="flex justify-content gap-4 ">
+                    <div className="space-y-4">
+                        <div className="flex justify-content gap-4 ">
                             <div className='w-6/12'>
                                 <FloatingLabel variant="outlined" label="Nombre" sizing='sm' className='text-base' />
                             </div>
                             <div className='w-6/12 text-base'>
-                                <SelectFlow id="countries" style={{fontSize: 16, height:52}} required>
+                                <SelectFlow id="countries" style={{ fontSize: 16, height: 52 }} required>
                                     <option selected disabled >Categoria</option>
                                     <option>Entrada</option>
                                     <option>Fuerte</option>
@@ -168,7 +268,7 @@ function VistaPlatillos() {
                                 </SelectFlow>
                             </div >
                             <div className='w-1/12'>
-                                <FloatingLabel variant="outlined" label="Precio $" sizing='sm' className='text-base'/>
+                                <FloatingLabel variant="outlined" label="Precio $" sizing='sm' className='text-base' />
                             </div>
                         </div>
                         <div className="flex justify-between gap-4">
@@ -344,13 +444,13 @@ function VistaPlatillos() {
                 </Modal.Header>
                 <Modal.Body>
 
-                <div className="space-y-4">
+                    <div className="space-y-4">
                         <div className="flex justify-content gap-4">
                             <div className='w-6/12'>
                                 <FloatingLabel variant="outlined" label="Nombre" sizing='sm' className='text-base' />
                             </div>
                             <div className='w-6/12 text-base'>
-                                <SelectFlow id="countries" style={{fontSize: 16, height:52}} required>
+                                <SelectFlow id="countries" style={{ fontSize: 16, height: 52 }} required>
                                     <option selected disabled >Categoria</option>
                                     <option>Entrada</option>
                                     <option>Fuerte</option>
@@ -358,7 +458,7 @@ function VistaPlatillos() {
                                 </SelectFlow>
                             </div >
                             <div className='w-1/12'>
-                                <FloatingLabel variant="outlined" label="Precio $" sizing='sm' className='text-base'/>
+                                <FloatingLabel variant="outlined" label="Precio $" sizing='sm' className='text-base' />
                             </div>
 
 
@@ -374,16 +474,16 @@ function VistaPlatillos() {
                                         labelId="demo-multiple-checkbox-label"
                                         id="demo-multiple-checkbox"
                                         multiple
-                                        value={personName}
+                                        value={IngredienteName}
                                         onChange={handleChange}
-                                        input={<OutlinedInput label="Ingredientes" />}
+                                        input={<OutlinedInput label="IngredientesName" />}
                                         renderValue={(selected) => selected.join(', ')}
                                         MenuProps={MenuProps}
                                         className='mb-3'
                                     >
                                         {names.map((name) => (
                                             <MenuItem key={name} value={name}>
-                                                <Checkbox checked={personName.indexOf(name) > -1} />
+                                                <Checkbox checked={IngredienteName.indexOf(name) > -1} />
                                                 <ListItemText primary={name} />
                                             </MenuItem>
                                         ))}
@@ -530,7 +630,7 @@ function VistaPlatillos() {
                             </div>
                             <div className="w-64 p-2" style={{ border: 'solid 1px #d6d6d6', borderRadius: '5px' }}>
 
-                                <Label htmlFor="ingredientesNoDisponibles" className="mb-2 text-red-500 flex justify-center w-full">Ingredientes no disponibles</Label>
+                                <Label htmlFor="ingredientesNoDisponiblesName" className="mb-2 text-red-500 flex justify-center w-full">Ingredientes no disponibles</Label>
 
                                 <div className=" rounded  text-center">
                                     <div className="grid grid-cols-1 gap-2 mt-0 overflow-y-auto divScroll" style={{ maxHeight: 320 }}>
@@ -569,18 +669,18 @@ function VistaPlatillos() {
                     <div className="space-y-4">
                         <div className="flex justify-content gap-4">
                             <div className='w-6/12'>
-                                <FloatingLabel variant="outlined" label="Nombre" sizing='sm' className='text-base' />
+                                <FloatingLabel variant="outlined" label="Nombre" sizing='sm' className='text-base' value={nombre} onChange={(e) => setNombre(e.target.value)} />
                             </div>
                             <div className='w-6/12 text-base'>
-                                <SelectFlow id="countries" style={{fontSize: 16, height:52}} required>
-                                    <option selected disabled >Categoria</option>
-                                    <option>Entrada</option>
-                                    <option>Fuerte</option>
-                                    <option>Postre</option>
+                                <SelectFlow id="countries" style={{ fontSize: 16, height: 52 }} value={categoria} onChange={cambioCategoria} required>
+                                    <option disabled value="">Categoria</option>
+                                    <option value="entrada">Entrada</option>
+                                    <option value="fuerte">Fuerte</option>
+                                    <option value="postre">Postre</option>
                                 </SelectFlow>
                             </div >
                             <div className='w-1/12'>
-                                <FloatingLabel variant="outlined" label="Precio $" sizing='sm' className='text-base'/>
+                                <FloatingLabel variant="outlined" label="Precio $" sizing='sm' className='text-base' value={precio} onChange={(e) => setPrecio(e.target.value)} />
                             </div>
 
 
@@ -593,166 +693,46 @@ function VistaPlatillos() {
                                 <FormControl className='w-full'>
                                     <InputLabel id="demo-multiple-checkbox-label">Ingredientes</InputLabel>
                                     <Select
-                                        labelId="demo-multiple-checkbox-label"
-                                        id="demo-multiple-checkbox"
-                                        multiple
-                                        value={personName}
-                                        onChange={handleChange}
-                                        input={<OutlinedInput label="Ingredientes" />}
-                                        renderValue={(selected) => selected.join(', ')}
-                                        MenuProps={MenuProps}
-                                        className='mb-3'
-                                    >
-                                        {names.map((name) => (
-                                            <MenuItem key={name} value={name}>
-                                                <Checkbox checked={personName.indexOf(name) > -1} />
-                                                <ListItemText primary={name} />
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
+    labelId="demo-multiple-checkbox-label"
+    id="demo-multiple-checkbox"
+    multiple
+    value={IngredienteName}
+    onChange={handleChange}
+    input={<OutlinedInput label="Ingredientes" />}
+    renderValue={(selected) => selected.map(ingrediente => ingrediente.nombre).join(', ')}
+    MenuProps={MenuProps}
+    className='mb-3'
+>
+    {ingredientes.map((ingrediente) => (
+        <MenuItem key={ingrediente.idIngrediente} value={ingrediente}>
+            <Checkbox 
+                checked={IngredienteName.some(i => i.idIngrediente === ingrediente.idIngrediente)} 
+            />
+            <ListItemText primary={ingrediente.nombre} />
+        </MenuItem>
+    ))}
+</Select>
                                 </FormControl>
                                 <div className="mt-2 flex flex-wrap gap-2 overflow-y-auto max-h-64 min-h-64 divScroll">
-
-
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-
-
-
-
-
-
-
+                                {IngredienteName.map((ingrediente) => (
+  <div key={ingrediente.idIngrediente} className="relative m-3">
+   <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" onChange={(e) => handleQuantityChange(ingrediente, e.target.value)} value={cantidades[ingrediente.idIngrediente] !== undefined ? cantidades[ingrediente.idIngrediente] : ''} style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
+    <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
+      <span className="text-lg font-medium text-gray-600">{ingrediente.nombre}</span>
+      <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none" onClick={() => handleRemove(ingrediente)}>
+        <CloseIcon />
+      </button>
+    </div>
+  </div>
+))}
                                 </div>
+
+
 
                             </div>
                             <div className="w-64 p-2" style={{ border: 'solid 1px #d6d6d6', borderRadius: '5px' }}>
 
-                                <Label htmlFor="ingredientesNoDisponibles" className="mb-2 text-red-500 flex justify-center w-full">Ingredientes no disponibles</Label>
+                                <Label htmlFor="ingredientesNoDisponiblesName" className="mb-2 text-red-500 flex justify-center w-full">Ingredientes no disponibles</Label>
 
                                 <div className=" rounded  text-center">
                                     <div className="grid grid-cols-1 gap-2 mt-0 overflow-y-auto divScroll" style={{ maxHeight: 320 }}>
@@ -774,7 +754,17 @@ function VistaPlatillos() {
                 </Modal.Body>
                 <Modal.Footer>
                     <div className="flex justify-center w-full">
-                        <Button outline className=' w-40 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800'>
+                        <Button
+                            outline
+                            className=' w-40 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800'
+                            onClick={async () => {
+                                const idPlatillo = await crearPlatillo();
+                                IngredienteName.forEach(ingrediente => {
+                                    console.log(ingrediente.idIngrediente);
+                                });
+                                await asignarIngredientes(idPlatillo, IngredienteName);
+                            }}
+                        >
                             Crear
                         </Button>
 

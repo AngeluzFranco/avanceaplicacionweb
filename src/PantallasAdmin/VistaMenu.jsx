@@ -248,7 +248,7 @@ function VistaMenu() {
                                 </div>
                             </div>
                             <div className="w-64">
-                                <Label htmlFor="ingredientesNoDisponibles" className="mb-2 text-red-500 flex justify-center w-full">Ingredientes no disponibles</Label>
+                                <Label htmlFor="ingredientesNoDisponibles" className="mb-2 text-red-500 flex justify-center w-full">Platillos no disponibles</Label>
                                 <div className='pb-4 px-2 pt-2' style={{ border: 'solid 1px #d6d6d6', borderRadius: '5px' }}>
                                     <div className=" rounded  text-center">
                                         <div className="grid grid-cols-1 gap-2 mt-0 overflow-y-auto divScroll" style={{ maxHeight: 200 }}>
@@ -451,7 +451,7 @@ function VistaMenu() {
 
                             </div>
                             <div className="w-64">
-                                <Label htmlFor="ingredientesNoDisponibles" className="mb-2 text-red-500 flex justify-center w-full">Ingredientes no disponibles</Label>
+                                <Label htmlFor="ingredientesNoDisponibles" className="mb-2 text-red-500 flex justify-center w-full">Platillos no disponibles</Label>
                                 <div className='pb-4 px-2 pt-2' style={{ border: 'solid 1px #d6d6d6', borderRadius: '5px' }}>
                                     <div className=" rounded  text-center">
                                         <div className="grid grid-cols-1 gap-2 mt-0 overflow-y-auto divScroll" style={{ maxHeight: 200 }}>
