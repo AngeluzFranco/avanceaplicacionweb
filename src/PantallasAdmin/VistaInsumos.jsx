@@ -1,18 +1,34 @@
 import React, { useState, useEffect } from 'react';
 
 import { Button, Table, Modal, Select, FloatingLabel } from 'flowbite-react';
-
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
-
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
-import {API_BASE_URL} from '../backend.js';
+import swal from 'sweetalert';
+
+// VALIDACIONES CON FORMIK Y YUP
+import * as Yup from 'yup';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+
+import { API_BASE_URL } from '../backend.js';
 
 function VistaInsumos() {
+    //estado para mostrar todos los insumos en la tabla
     const [data, setData] = useState(null);
+    //estado para abrir el modal de crear insumo
+    const [crearOpen, setcrearOpen] = React.useState(false);
+    //funcion para cerrar el modal de crear insumo
+    const handleClose = () => setcrearOpen(false);
+    //estado para abrir el modal de actualizar insumo
+    const [actualizarOpen, setActualizarOpen] = React.useState(false);
+    //estado para cerrar el modal de actualizar insumo
+    const actualizarClose = () => setActualizarOpen(false);
+    // Estado para almacenar la información del insumo seleccionado para actualizar
+    const [selectedInsumo, setSelectedInsumo] = useState(null);
 
+    //funcion para obtener todos los insumos
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -29,19 +45,112 @@ function VistaInsumos() {
         fetchData();
     }, []);
 
-    const [actualizarModal, setactualizarModal] = useState(false);
-    const [crearModal, setcrearModal] = useState(false);
+    //funcion para crear un insumo
+    const createInsumo = async (insumoData) => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/ingredientes/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(insumoData)
+            });
 
-    const handleClose = () => setactualizarModal(false);
+            if (!response.ok) {
+                if (response.status === 409) {
+                    throw new Error('El insumo ya existe');
+                } else {
+                    throw new Error('El insumo ya existe');
+                }
+            }
+            const data = await response.json();
+            return data.data;
+        } catch (error) {
+            console.error('Hubo un error al crear el insumo:', error.message);
+            throw error;
+        }
+    };
+
+    //funcion para eliminar un insumo
+    const deleteInsumo = async (idIngrediente) => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/ingredientes/${idIngrediente}`, {
+                method: 'DELETE'
+            });
+            if (!response.ok) {
+                throw new Error('Hubo un error al eliminar el insumo');
+            }
+            setData(prevData => prevData.filter(ingredientes => ingredientes.idIngrediente !== idIngrediente));
+            swal("¡Éxito!", "El insumo se eliminó correctamente", "success");
+        } catch (error) {
+            swal("¡Error!", error.message, "error");
+        }
+    };
+
+    //funcion para manejar el envio del formulario
+    const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+        try {
+            const newInsumo = await createInsumo(values);
+            setData(prevData => [...prevData, newInsumo]);
+            setcrearOpen(false);
+            swal("¡Éxito!", "El insumo se creó correctamente", "success");
+            resetForm();
+        } catch (error) {
+            swal("¡Error!", error.message, "error");
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    // Función para cargar los datos del insumo seleccionado y abrir el modal de actualización
+    const handleUpdateInsumo = (ingredientes) => {
+        setSelectedInsumo(ingredientes);
+        setActualizarOpen(true);
+    };
+
+    //funcion para actualizar un insumo
+    const updateInsumo = async (idIngrediente, insumoData) => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/ingredientes/${idIngrediente}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(insumoData)
+            });
+            if (!response.ok) {
+                throw new Error('Hubo un error al actualizar el insumo');
+            }
+            const data = await response.json();
+            return data.data;
+        } catch (error) {
+            console.error('Hubo un error al actualizar insumo:', error.message);
+            throw error;
+        }
+    };
+
+    //funcion para manejar el envio del formulario de actualización
+    const handleUpdateSubmit = async (values, { setSubmitting, resetForm }) => {
+        try {
+            const updatedInsumo = await updateInsumo(selectedInsumo.idIngrediente, values);
+            setData(prevData => prevData.map(ingredientes => ingredientes.idIngrediente === selectedInsumo.idIngrediente ? updatedInsumo : ingredientes));
+            actualizarClose();
+            swal("¡Éxito!", "El insumo se actualizó correctamente", "success");
+        } catch (error) {
+            swal("¡Error!", error.message, "error");
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
     return (
         <div className="h-screen ">
             <div className="container-table flex items-center justify-center flex-wrap">
                 <div className="overflow-x-auto bg-white p-4 rounded-lg shadow-2xl" style={{ width: "60%", border: 'solid 1px #ebebeb' }}>
                     <div className="flex justify-between items-center mb-6">
                         <h1 className="text-2xl font-bold">Lista de insumos</h1>
-                        <Button onClick={() => setcrearModal(true)} className="agregar">Agregar</Button>
+                        <Button onClick={() => setcrearOpen(true)} className="agregar">Agregar</Button>
                     </div>
-
                     <div className=' overflow-y-auto divScroll' style={{ maxHeight: '65vh' }}>
                         <Table>
                             <Table.Head style={{ position: 'sticky', top: 0, zIndex: 1 }}>
@@ -61,98 +170,150 @@ function VistaInsumos() {
                                         <Table.Cell className="border-r border-gray-300">{item.cantidad}</Table.Cell>
                                         <Table.Cell className="border-r border-gray-300">{item.tipo}</Table.Cell>
                                         <Table.Cell >
-
                                             <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                                <IconButton aria-label="delete" sx={{ color: '#000000' }} >
+                                                <IconButton aria-label="delete" sx={{ color: '#000000' }} onClick={() => deleteInsumo(item.idIngrediente)}>
                                                     <DeleteIcon />
                                                 </IconButton>
-                                                <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => setactualizarModal(true)}>
+                                                <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => handleUpdateInsumo(item)}>
                                                     <EditIcon />
                                                 </IconButton>
                                             </Stack>
-
                                         </Table.Cell>
                                     </Table.Row>
                                 ))}
                             </Table.Body>
                         </Table>
                     </div>
-
                 </div>
-
             </div>
 
-            {/* MODAL ACTUALIZAR INSUMO  */}
-            <Modal show={actualizarModal} onClose={handleClose} size="xl">
-                <Modal.Header>
-                    <h5 className="text-2xl font-medium text-gray-900 dark:text-white text-center">
-                        Actualiza tu insumo
-                    </h5>
-                </Modal.Header>
-                <Modal.Body>
-                    <div className="space-y-6">
-                        <div>
-
-                            <FloatingLabel variant="outlined" label="Nombre" className='text-base' />
-                        </div>
-                        <div>
-                            <FloatingLabel variant="outlined" label="Cantidad" className='text-base' />
-                        </div>
-                        <div>
-                            <Select id="role" style={{ fontSize: 16, height: 52 }}>
-                                <option value="">Selecciona el tipo de insumo</option>
-                                <option value="verduras">Verduras</option>
-                                <option value="postres">Postres</option>
-                                <option value="carnes">Carnes</option>
-                            </Select>
-                        </div>
-                    </div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <div className="flex justify-center w-full">
-                        <Button className='w-40 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' outline size="md" onClick={() => console.log('Crear usuario')}>
-                            Actualizar
-                        </Button>
-                    </div>
-                </Modal.Footer>
-            </Modal>
-
-
             {/* MODAL CREAR INSUMO */}
-            <Modal show={crearModal} onClose={() => setcrearModal(false)} size="xl">
+            <Modal show={crearOpen} onClose={handleClose} size="xl">
                 <Modal.Header>
                     <h5 className="text-2xl font-medium text-gray-900 dark:text-white text-center">
                         Crea tu insumo
                     </h5>
                 </Modal.Header>
                 <Modal.Body>
-                    <div className="space-y-6">
-                        <div>
-
-                            <FloatingLabel variant="outlined" label="Nombre" className='text-base' />
-                        </div>
-                        <div className='flex justify-content gap-4'>
-                            <div className='w-1/4'>
-                                <FloatingLabel variant="outlined" label="Cantidad" className='text-base' />
+                    <Formik
+                        initialValues={{
+                            nombre: '',
+                            cantidad: '',
+                            tipo: '',
+                            estado: 'Existente'
+                        }}
+                        validationSchema={Yup.object({
+                            nombre: Yup.string().required('El nombre es requerido'),
+                            cantidad: Yup.number().required('La cantidad es requerida').positive('La cantidad debe ser positiva'),
+                            tipo: Yup.string().required('El tipo es requerido')
+                        })}
+                        onSubmit={handleSubmit}
+                    >
+                        <Form>
+                            <div className="space-y-6">
+                                <div>
+                                    <Field name="nombre">
+                                        {({ field }) => (
+                                            <FloatingLabel variant="outlined" label="Nombre" className='text-base' {...field} />
+                                        )}
+                                    </Field>
+                                    <ErrorMessage name="nombre" component="div" className="text-red-500" />
+                                </div>
+                                <div>
+                                    <Field name="cantidad">
+                                        {({ field }) => (
+                                            <FloatingLabel variant="outlined" label="Cantidad" className='text-base' {...field} />
+                                        )}
+                                    </Field>
+                                    <ErrorMessage name="cantidad" component="div" className="text-red-500" />
+                                </div>
+                                <div>
+                                    <Field name="tipo">
+                                        {({ field }) => (
+                                            <Select id="role" style={{ fontSize: 16, height: 52 }} {...field}>
+                                                <option value="">Selecciona el tipo de insumo</option>
+                                                <option value="verduras">Verduras</option>
+                                                <option value="postres">Postres</option>
+                                                <option value="carnes">Carnes</option>
+                                            </Select>
+                                        )}
+                                    </Field>
+                                    <ErrorMessage name="tipo" component="div" className="text-red-500" />
+                                </div>
                             </div>
-                            <div className='w-3/4'>
-                                <Select id="role" style={{ fontSize: 16, height: 52 }}>
-                                    <option value="">Selecciona el tipo de insumo</option>
-                                    <option value="verduras">Verduras</option>
-                                    <option value="postres">Postres</option>
-                                    <option value="carnes">Carnes</option>
-                                </Select>
-                            </div>
-                        </div>
-                    </div>
+                            <Modal.Footer>
+                                <div className="flex justify-center w-full">
+                                    <Button className='w-40 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' outline size="md" type="submit">
+                                        Crear
+                                    </Button>
+                                </div>
+                            </Modal.Footer>
+                        </Form>
+                    </Formik>
                 </Modal.Body>
-                <Modal.Footer>
-                    <div className="flex justify-center w-full">
-                        <Button className='w-40 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' outline size="md" onClick={() => console.log('Crear usuario')}>
-                            Crear
-                        </Button>
-                    </div>
-                </Modal.Footer>
+            </Modal>
+
+            {/* MODAL ACTUALIZAR INSUMO  */}
+            <Modal show={actualizarOpen} onClose={actualizarClose} size="xl">
+                <Modal.Header>
+                    <h5 className="text-2xl font-medium text-gray-900 dark:text-white text-center">
+                        Actualiza tu insumo
+                    </h5>
+                </Modal.Header>
+                <Modal.Body>
+                    <Formik
+                        initialValues={{
+                            nombre: selectedInsumo ? selectedInsumo.nombre : '',
+                            cantidad: selectedInsumo ? selectedInsumo.cantidad : '',
+                            tipo: selectedInsumo ? selectedInsumo.tipo : ''
+                        }}
+                        validationSchema={Yup.object({
+                            cantidad: Yup.number().positive('La cantidad debe ser positiva'),
+                        })}
+                        onSubmit={handleUpdateSubmit}
+                    >
+                        <Form>
+                            <div className="space-y-6">
+                                <div>
+                                    <Field name="nombre">
+                                        {({ field }) => (
+                                            <FloatingLabel variant="outlined" label="Nombre" className='text-base' {...field} />
+                                        )}
+                                    </Field>
+                                    <ErrorMessage name="nombre" component="div" className="text-red-500" />
+                                </div>
+                                <div>
+                                    <Field name="cantidad">
+                                        {({ field }) => (
+                                            <FloatingLabel variant="outlined" label="Cantidad" className='text-base' {...field} />
+                                        )}
+                                    </Field>
+                                    <ErrorMessage name="cantidad" component="div" className="text-red-500" />
+                                </div>
+                                <div>
+                                    <Field name="tipo">
+                                        {({ field }) => (
+                                            <Select id="role" style={{ fontSize: 16, height: 52 }} {...field}>
+                                                <option value="">Selecciona el tipo de insumo</option>
+                                                <option value="verduras">Verduras</option>
+                                                <option value="postres">Postres</option>
+                                                <option value="carnes">Carnes</option>
+                                            </Select>
+                                        )}
+                                    </Field>
+                                    <ErrorMessage name="tipo" component="div" className="text-red-500" />
+                                </div>
+                            </div>
+                            <Modal.Footer>
+                                <div className="flex justify-center w-full">
+                                    <Button className='w-40 justify-start text-white bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800' outline size="md" type="submit">
+                                        Actualizar
+                                    </Button>
+                                </div>
+                            </Modal.Footer>
+                        </Form>
+                    </Formik>
+                </Modal.Body>
             </Modal>
         </div>
     );
