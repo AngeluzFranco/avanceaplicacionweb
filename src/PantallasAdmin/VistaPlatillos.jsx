@@ -181,9 +181,45 @@ function VistaPlatillos() {
         setIngredienteName(newIngredienteName);
     };
 
+    // VER INFORMACION DEL PLATILLO
+    const [selectedPlatillo, setSelectedPlatillo] = useState(null);
 
+    const [selectedIngredients, setSelectedIngredients] = useState([]);
+
+    useEffect(() => {
+        if (selectedPlatillo) {
+            fetch(`${API_BASE_URL}/platillo/${selectedPlatillo.idPlatillo}`)
+                .then(response => response.json())
+                .then(data => setSelectedIngredients(data.data.platilloIngredienteBean))
+                .catch(error => console.error(error));
+        }
+    }, [selectedPlatillo]);
+
+    useEffect(() => {
+        if (selectedPlatillo) {
+            fetch(`${API_BASE_URL}/ingredientes/`)
+                .then(response => response.json())
+                .then(data => {
+                    const ingredientsForSelectedPlatillo = data.data.filter(ingrediente =>
+                        ingrediente.platilloIngredienteBean.some(platilloIngrediente => platilloIngrediente.platillo.idPlatillo === selectedPlatillo.idPlatillo)
+                    );
+                    setSelectedIngredients(ingredientsForSelectedPlatillo);
+                })
+                .catch(error => console.error(error));
+        }
+    }, [selectedPlatillo]);
+
+    
   
 
+
+    const handleOpenModal = (platillo) => {
+        // Actualizar el platillo seleccionado
+        setSelectedPlatillo(platillo);
+    
+        // Abrir el modal
+        setmostrarOpen(true);
+    };
 
     const [mostrarOpen, setmostrarOpen] = useState(false);
     const closeModal = () => setmostrarOpen(false);
@@ -223,7 +259,7 @@ function VistaPlatillos() {
                                         <Table.Cell >
 
                                             <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                                <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => setmostrarOpen(true)}>
+                                            <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => handleOpenModal(item)}>
                                                     <VisibilityIcon />
                                                 </IconButton>
                                                 <IconButton aria-label="delete" sx={{ color: '#000000' }}>
@@ -254,173 +290,50 @@ function VistaPlatillos() {
                 </Modal.Header>
                 <Modal.Body>
 
-                    <div className="space-y-4">
-                        <div className="flex justify-content gap-4 ">
-                            <div className='w-6/12'>
-                                <FloatingLabel variant="outlined" label="Nombre" sizing='sm' className='text-base' />
-                            </div>
-                            <div className='w-6/12 text-base'>
-                                <SelectFlow id="countries" style={{ fontSize: 16, height: 52 }} required>
-                                    <option selected disabled >Categoria</option>
-                                    <option>Entrada</option>
-                                    <option>Fuerte</option>
-                                    <option>Postre</option>
-                                </SelectFlow>
-                            </div >
-                            <div className='w-1/12'>
-                                <FloatingLabel variant="outlined" label="Precio $" sizing='sm' className='text-base' />
-                            </div>
-                        </div>
+                <div className="space-y-4">
+            <div className="flex justify-content gap-4 ">
+                <div className='w-6/12'>
+                    <FloatingLabel variant="outlined" disabled={true} label="Nombre" sizing='sm' className='text-base' value={selectedPlatillo ? selectedPlatillo.nombre : ''} />
+                </div>
+                <div className='w-6/12 text-base'>
+                <label htmlFor="countries" className="block text-xs absolute font-small z-10 p-1   ml-2 mb-3 text-gray-700" style={{marginTop: -10, backgroundColor: 'white', color: '#898e9a'}}>Categoria</label>
+<SelectFlow id="countries" disabled={true} style={{ fontSize: 16, height: 52 }} required value={selectedPlatillo ? selectedPlatillo.categoria : ''}>
+    <option selected disabled >Categoria</option>
+    <option>Entrada</option>
+    <option>Fuerte</option>
+    <option>Postre</option>
+</SelectFlow>
+                </div >
+                <div className='w-1/12'>
+                    <FloatingLabel variant="outlined" disabled={true} label="Precio $" sizing='sm' className='text-base' value={selectedPlatillo ? selectedPlatillo.precio : ''} />
+                </div>
+            </div>
                         <div className="flex justify-between gap-4">
                             <div className="w-full  p-4 h-100" style={{ border: 'solid 1px #d6d6d6', borderRadius: '5px' }} >
                                 <h3 className="text-3xl mb-3  text-center p-2" style={{ color: '#005D48' }}>Ingredientes</h3>
                                 <div className="mt-2 flex flex-wrap gap-2 overflow-y-auto max-h-72 min-h-72 divScroll justify-center">
 
+                                {selectedIngredients.map(ingrediente => {
+                                const platilloIngrediente = ingrediente.platilloIngredienteBean.find(
+                                    platilloIngrediente => platilloIngrediente.platillo.idPlatillo === selectedPlatillo.idPlatillo
+                                );
 
+                                    // Si platilloIngrediente es undefined, retornar null para no renderizar nada
+    if (!platilloIngrediente) {
+        return null;
+    }
+
+                                return (
                                     <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
+                                        <input type="number" className="absolute top-[-10px] left-[-15px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} value={platilloIngrediente.cantidad} />
+                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-15 px-10 py-3">
+                                            <span className="text-lg font-medium text-gray-600">{ingrediente.nombre}</span>
+                                            
                                         </div>
                                     </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Pescado</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="relative m-3">
-                                        <input type="number" className="absolute top-[-10px] left-[-10px] w-10 h-10 p-0 text-lg rounded" style={{ backgroundColor: '#16eab9', border: 'none', color: 'white', fontSize: '18px', textAlign: 'center', lineHeight: '10px', appearance: 'none', MozAppearance: 'textfield' }} />
-                                        <div className="inline-flex items-center rounded-md bg-gray-100 pl-16 pr-6 py-3">
-                                            <span className="text-lg font-medium text-gray-600">Camaron</span>
-                                            <button className="ml-6 rounded-full text-gray-400 hover:text-red-500 focus:outline-none">
-                                                <CloseIcon />
-                                            </button>
-                                        </div>
-                                    </div>
+                                );
+                            })}
+                                    
 
 
 
