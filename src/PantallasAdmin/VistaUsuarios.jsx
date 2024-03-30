@@ -4,7 +4,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import './usuarios.css'
 import { API_BASE_URL } from '../backend.js';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 
 // VALIDACIONES CON FORMIK Y YUP
 import * as Yup from 'yup';

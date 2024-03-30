@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
-import swal from 'sweetalert';
+import Swal from 'sweetalert2'; // Importa Swal de sweetalert2
 
 // VALIDACIONES CON FORMIK Y YUP
 import * as Yup from 'yup';
@@ -46,59 +46,105 @@ function VistaInsumos() {
     }, []);
 
     //funcion para crear un insumo
-    const createInsumo = async (insumoData) => {
+    const handleCreateSubmit = async (values, { setSubmitting, resetForm }) => {
         try {
-            const response = await fetch(`${API_BASE_URL}/ingredientes/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(insumoData)
+            const confirmResult = await Swal.fire({
+                title: '¿Estás seguro de crear este insumo?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, crear',
+                cancelButtonText: 'Cancelar'
             });
-
-            if (!response.ok) {
-                if (response.status === 409) {
-                    throw new Error('El insumo ya existe');
-                } else {
-                    throw new Error('El insumo ya existe');
+            if (confirmResult.isConfirmed) {
+                const response = await fetch(`${API_BASE_URL}/ingredientes/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(values)
+                });
+                if (!response.ok) {
+                    if (response.status === 409) {
+                        throw new Error('El insumo ya existe');
+                    } else {
+                        throw new Error('Hubo un error al crear el insumo');
+                    }
                 }
+                const data = await response.json();
+                setData(prevData => [...prevData, data.data]);
+                Swal.fire('¡Éxito!', 'El insumo se creó correctamente', 'success');
+                handleClose();
+                resetForm();
             }
-            const data = await response.json();
-            return data.data;
         } catch (error) {
-            console.error('Hubo un error al crear el insumo:', error.message);
-            throw error;
+            Swal.fire('¡Error!', error.message, 'error');
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    //funcion para actualizar un insumo
+    const handleUpdateSubmit = async (values, { setSubmitting, resetForm }) => {
+        try {
+            const confirmResult = await Swal.fire({
+                title: '¿Estás seguro de actualizar este insumo?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, actualizar',
+                cancelButtonText: 'Cancelar'
+            });
+            if (confirmResult.isConfirmed) {
+                const response = await fetch(`${API_BASE_URL}/ingredientes/${values.idIngrediente}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(values)
+                });
+                if (!response.ok) {
+                    throw new Error('Hubo un error al actualizar el insumo');
+                }
+                const data = await response.json();
+                setData(prevData => prevData.map(item => item.idIngrediente === data.data.idIngrediente ? data.data : item));
+                Swal.fire('¡Éxito!', 'El insumo se actualizó correctamente', 'success');
+                actualizarClose();
+                resetForm();
+            }
+        } catch (error) {
+            Swal.fire('¡Error!', error.message, 'error');
+        } finally {
+            setSubmitting(false);
         }
     };
 
     //funcion para eliminar un insumo
-    const deleteInsumo = async (idIngrediente) => {
-        try {
-            const response = await fetch(`${API_BASE_URL}/ingredientes/${idIngrediente}`, {
-                method: 'DELETE'
-            });
-            if (!response.ok) {
-                throw new Error('Hubo un error al eliminar el insumo');
+    const handleDeleteConfirmation = async (idIngrediente) => {
+        const confirmResult = await Swal.fire({
+            title: '¿Estás seguro de eliminar este insumo?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        });
+        if (confirmResult.isConfirmed) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/ingredientes/${idIngrediente}`, {
+                    method: 'DELETE'
+                });
+                if (!response.ok) {
+                    throw new Error('Hubo un error al eliminar el insumo');
+                }
+                setData(prevData => prevData.filter(item => item.idIngrediente !== idIngrediente));
+                Swal.fire('¡Éxito!', 'El insumo se eliminó correctamente', 'success');
+            } catch (error) {
+                Swal.fire('¡Error!', error.message, 'error');
             }
-            setData(prevData => prevData.filter(ingredientes => ingredientes.idIngrediente !== idIngrediente));
-            swal("¡Éxito!", "El insumo se eliminó correctamente", "success");
-        } catch (error) {
-            swal("¡Error!", error.message, "error");
-        }
-    };
-
-    //funcion para manejar el envio del formulario
-    const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-        try {
-            const newInsumo = await createInsumo(values);
-            setData(prevData => [...prevData, newInsumo]);
-            setcrearOpen(false);
-            swal("¡Éxito!", "El insumo se creó correctamente", "success");
-            resetForm();
-        } catch (error) {
-            swal("¡Error!", error.message, "error");
-        } finally {
-            setSubmitting(false);
         }
     };
 
@@ -106,41 +152,6 @@ function VistaInsumos() {
     const handleUpdateInsumo = (ingredientes) => {
         setSelectedInsumo(ingredientes);
         setActualizarOpen(true);
-    };
-
-    //funcion para actualizar un insumo
-    const updateInsumo = async (idIngrediente, insumoData) => {
-        try {
-            const response = await fetch(`${API_BASE_URL}/ingredientes/${idIngrediente}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(insumoData)
-            });
-            if (!response.ok) {
-                throw new Error('Hubo un error al actualizar el insumo');
-            }
-            const data = await response.json();
-            return data.data;
-        } catch (error) {
-            console.error('Hubo un error al actualizar insumo:', error.message);
-            throw error;
-        }
-    };
-
-    //funcion para manejar el envio del formulario de actualización
-    const handleUpdateSubmit = async (values, { setSubmitting, resetForm }) => {
-        try {
-            const updatedInsumo = await updateInsumo(selectedInsumo.idIngrediente, values);
-            setData(prevData => prevData.map(ingredientes => ingredientes.idIngrediente === selectedInsumo.idIngrediente ? updatedInsumo : ingredientes));
-            actualizarClose();
-            swal("¡Éxito!", "El insumo se actualizó correctamente", "success");
-        } catch (error) {
-            swal("¡Error!", error.message, "error");
-        } finally {
-            setSubmitting(false);
-        }
     };
 
     return (
@@ -171,7 +182,7 @@ function VistaInsumos() {
                                         <Table.Cell className="border-r border-gray-300">{item.tipo}</Table.Cell>
                                         <Table.Cell >
                                             <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                                <IconButton aria-label="delete" sx={{ color: '#000000' }} onClick={() => deleteInsumo(item.idIngrediente)}>
+                                                <IconButton aria-label="delete" sx={{ color: '#000000' }} onClick={() => handleDeleteConfirmation(item.idIngrediente)}>
                                                     <DeleteIcon />
                                                 </IconButton>
                                                 <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => handleUpdateInsumo(item)}>
@@ -203,11 +214,13 @@ function VistaInsumos() {
                             estado: 'Existente'
                         }}
                         validationSchema={Yup.object({
-                            nombre: Yup.string().required('El nombre es requerido'),
+                            nombre: Yup.string().required('El nombre es requerido').matches(/^[a-zA-Z\s]+$/, 'El nombre solo debe contener letras'),
                             cantidad: Yup.number().required('La cantidad es requerida').positive('La cantidad debe ser positiva'),
                             tipo: Yup.string().required('El tipo es requerido')
                         })}
-                        onSubmit={handleSubmit}
+                        onSubmit={(values, { setSubmitting, resetForm }) => {
+                            handleCreateSubmit(values, { setSubmitting, resetForm });
+                        }}
                     >
                         <Form>
                             <div className="space-y-6">
@@ -263,14 +276,18 @@ function VistaInsumos() {
                 <Modal.Body>
                     <Formik
                         initialValues={{
+                            idIngrediente: selectedInsumo ? selectedInsumo.idIngrediente : '', // Asegúrate de incluir el campo idIngrediente aquí
                             nombre: selectedInsumo ? selectedInsumo.nombre : '',
                             cantidad: selectedInsumo ? selectedInsumo.cantidad : '',
                             tipo: selectedInsumo ? selectedInsumo.tipo : ''
                         }}
                         validationSchema={Yup.object({
+                            nombre: Yup.string().matches(/^[a-zA-Z\s]+$/, 'El nombre solo debe contener letras'),
                             cantidad: Yup.number().positive('La cantidad debe ser positiva'),
                         })}
-                        onSubmit={handleUpdateSubmit}
+                        onSubmit={(values, { setSubmitting, resetForm }) => {
+                            handleUpdateSubmit(values, { setSubmitting, resetForm });
+                        }}
                     >
                         <Form>
                             <div className="space-y-6">
