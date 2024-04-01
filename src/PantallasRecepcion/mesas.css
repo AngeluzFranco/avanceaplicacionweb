@@ -1,0 +1,57 @@
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) .ant-select-item-option-content {
+    color: #e28b00;
+  }
+
+  /* Cambia el color de fondo de la opción al pasar el mouse */
+.ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+    background-color: #ff0000;
+  }
+
+  /* Cambia el color de texto de la opción al pasar el mouse */
+.ant-select-item-option-active:not(.ant-select-item-option-disabled) .ant-select-item-option-content {
+    color: #e28b00;
+  }
+
+  /* Cambia el color de fondo de la opción seleccionada */
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+    background-color: #ff0000;
+  }
+
+  /* Cambia el color de fondo de la opción seleccionada */
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+    background-color: #ffe9d4 !important;
+  }
+
+  .divScroll::-webkit-scrollbar {
+    width: 3px;
+}
+
+/* Estilo para la barra del scroll */
+.divScroll::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+/* Estilo para la barra del scroll al pasar el mouse */
+.divScroll::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* VALIDACIONES  */
+  .errorM{
+    color: red;
+    font-size: 11.5px;
+    text-align: right;
+  }
+  .inputError{
+    color: red;
+  }
+
+/* PANTALLA ANGELUZ */
+@media (min-width: 1480px) and (max-width: 1780px) {
+  .ange{
+    max-width: 320px;
+    margin-bottom: 5px;
+    margin-top: 4px;
+  }
+  }
