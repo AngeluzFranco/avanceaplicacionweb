@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+body {
+  min-height: 100vh;
+  background-image: url('../../assets/fondo.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.transparent-navbar {
+    background: transparent !important;
+  }
+  .Nav-link{
+    color: white;
+    font-size: 16px;
+    padding-right: 48px;
+    padding-left: 48px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: lighter;
+    font-family: 'Nunito', sans-serif;
+    transition: all 0.0s ease;
+    border-right: solid 1px #ededed;
+    margin-right: -16px;
+    margin-left: -16px;
+      
+    
+
+    @media (max-width: 1028px) { /* 992px es el punto de interrupción para pantallas md en Bootstrap */
+        padding-right: 5px;
+        padding-left: 5px;
+        
+    }
+
+
+}
+@media (max-width: 769px) {
+  .Nav-link:hover {
+    background-color: #F58500;
+  }
+  .active {
+    background-color: #F58500;
+    
+  }
+}
+@media (min-width: 770px) and (max-width: 999px) {
+  .Nav-link:hover {
+    color: white;
+    padding-right: 15px;
+    padding-left: 15px;
+
+    background-color: #F58500;
+    width: calc(100% + 40px); /* Adjusted to fit within parent */
+    height: calc(100% + 40px); /* Adjusted to fit within parent */
+    box-sizing: border-box;
+    position: relative;
+    margin-left: -20px;
+    margin-top: -20px; 
+
+    text-shadow: 2px 2px 4px #595959;
+  
+    border-bottom: 2px solid #db7900; /* Simulates an underline */
+    padding-bottom: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .active{
+    color: white;
+    padding-right: 15px;
+    padding-left: 15px;
+
+    background-color: #F58500;
+    width: calc(100% + 40px); /* Adjusted to fit within parent */
+    height: calc(100% + 40px); /* Adjusted to fit within parent */
+    box-sizing: border-box;
+    position: relative;
+    margin-left: -20px;
+    margin-top: -20px; 
+
+    text-shadow: 2px 2px 4px #595959;
+  
+    border-bottom: 2px solid #db7900; /* Simulates an underline */
+    border-right: none;
+    padding-bottom: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+@media (min-width: 1000px) and (max-width: 1530px) {
+  .Nav-link:hover {
+    color: white;
+    padding-left:  50px;
+    padding-right: 50px;
+    padding-top: 5px;
+    padding-bottom: 15px;
+    background-color: #ce7507;
+    width: calc(100% + 40px); /* Añade el doble del padding del contenedor padre */
+    height: calc(100% + 40px); /* Añade el doble del padding del contenedor padre */
+    box-sizing: border-box;
+    position: relative;
+    margin-left: -20px; /* Negativo del padding del contenedor padre */
+    margin-top: -20px; /* Negativo del padding del contenedor padre */
+    text-shadow: 2px 2px 4px #595959;
+  
+    border-bottom: 2px solid #db7900; /* Simula una línea de subrayado */
+    padding-bottom: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .active {
+    color: white;
+    padding-left:  50px;
+    padding-right: 50px;
+    padding-top: 5px;
+    padding-bottom: 15px;
+    background-color: #F58500;
+    width: calc(100% + 40px); /* Añade el doble del padding del contenedor padre */
+    height: calc(100% + 40px); /* Añade el doble del padding del contenedor padre */
+    box-sizing: border-box;
+    position: relative;
+    margin-left: -20px; /* Negativo del padding del contenedor padre */
+    margin-top: -20px; /* Negativo del padding del contenedor padre */
+    text-shadow: 2px 2px 4px #595959;
+  
+    border-bottom: 3px solid #db7900; /* Simula una línea de subrayado */
+    border-right: none;
+    padding-bottom: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media (min-width: 1531px) {
+  .Nav-link:hover {
+    color: white;
+    padding-left:  50px;
+    padding-right: 50px;
+    padding-top: 5px;
+    padding-bottom: 15px;
+    background-color: #ce7507;
+    width: calc(100% + 40px); /* Añade el doble del padding del contenedor padre */
+    height: calc(100% + 40px); /* Añade el doble del padding del contenedor padre */
+    box-sizing: border-box;
+    position: relative;
+    margin-left: -20px; /* Negativo del padding del contenedor padre */
+    margin-top: -20px; /* Negativo del padding del contenedor padre */
+    text-shadow: 2px 2px 4px #595959;
+  
+    border-bottom: 2px solid #db7900; /* Simula una línea de subrayado */
+    padding-bottom: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .active {
+    color: white;
+    padding-left:  50px;
+    padding-right: 50px;
+    padding-top: 5px;
+    padding-bottom: 15px;
+    background-color: #F58500;
+    width: calc(100% + 40px); /* Añade el doble del padding del contenedor padre */
+    height: calc(100% + 40px); /* Añade el doble del padding del contenedor padre */
+    box-sizing: border-box;
+    position: relative;
+    margin-left: -20px; /* Negativo del padding del contenedor padre */
+    margin-top: -20px; /* Negativo del padding del contenedor padre */
+    text-shadow: 2px 2px 4px #595959;
+  
+    border-bottom: 3px solid #db7900; /* Simula una línea de subrayado */
+    border-right: none;
+    padding-bottom: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .gastro{
+    margin-right: 110px;
+  }
+}
+
+
+.fondo{
+    background: #FFA841;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+   
+
+    @media (max-width: 767px){
+        background: #FFA841;
+        padding-top: 0px;
+        z-index: 9999;
+    }
+
+
+}
+
+.cerrar {
+  background-color: #EE2F2F;
+  box-shadow: none !important;
+}
+
+.cerrar:hover {
+  background-color: #c50000 !important; /* Cambia esto al color que quieras cuando el mouse esté sobre el elemento */
+}
+
+.cerrar:active {
+  box-shadow: 0 0 10px rgba(100, 100, 100, 0.5) !important; /* Ajusta esto para cambiar el aspecto de la sombra */
+}

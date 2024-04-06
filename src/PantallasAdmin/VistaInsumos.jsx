@@ -282,9 +282,8 @@ function VistaInsumos() {
                             tipo: selectedInsumo ? selectedInsumo.tipo : ''
                         }}
                         validationSchema={Yup.object({
-                            nombre: Yup.string().required('El nombre es requerido').matches(/^[a-zA-Z\s]+$/, 'El nombre solo debe contener letras'),
-                            cantidad: Yup.number().required('La cantidad es requerida').positive('La cantidad debe ser positiva'),
-                            tipo: Yup.string().required('El tipo es requerido')
+                            nombre: Yup.string().matches(/^[a-zA-Z\s]+$/, 'El nombre solo debe contener letras'),
+                            cantidad: Yup.number().positive('La cantidad debe ser positiva'),
                         })}
                         onSubmit={(values, { setSubmitting, resetForm }) => {
                             handleUpdateSubmit(values, { setSubmitting, resetForm });
