@@ -5,7 +5,7 @@ import Navegador from '../src/PantallasAdmin/navegadorAdmin/navegador.jsx'
 // import Navegador from '../src/PantallasRecepcion/navegadorRecepcion/navegador.jsx'
 //import Navegador from '../src/PantallasChef/navegadorChef/navegador.jsx'
 
-import login from './login.jsx'
+import Login from './login.jsx'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(

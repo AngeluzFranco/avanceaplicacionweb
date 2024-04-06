@@ -31,7 +31,11 @@ function VistaPlatillos() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`${API_BASE_URL}/platillo/`);
+                const response = await fetch(`${API_BASE_URL}/platillo/`,{
+                    headers: {
+                      'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJ1Iiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IldBSVRFUl9ST0xFIn1dLCJpYXQiOjE3MTI0MTEyMTMsImV4cCI6MTcxMzAxNjAxM30.qlmTnuJ9ADga3lu_F_aEhhCnPznOMyfk4kvHewzAAI4'   
+                    }
+                  });
                 if (!response.ok) {
                     throw new Error('Hubo un error en la petición');
                 }
@@ -74,7 +78,8 @@ function VistaPlatillos() {
         const response = await fetch(`${API_BASE_URL}/platillo/`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJ1Iiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IldBSVRFUl9ST0xFIn1dLCJpYXQiOjE3MTI0MTEyMTMsImV4cCI6MTcxMzAxNjAxM30.qlmTnuJ9ADga3lu_F_aEhhCnPznOMyfk4kvHewzAAI4'   
             },
             body: JSON.stringify({
                 nombre: nombre,
@@ -100,7 +105,8 @@ function VistaPlatillos() {
             const response = await fetch(`${API_BASE_URL}/platilloingredientes/`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJ1Iiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IldBSVRFUl9ST0xFIn1dLCJpYXQiOjE3MTI0MTEyMTMsImV4cCI6MTcxMzAxNjAxM30.qlmTnuJ9ADga3lu_F_aEhhCnPznOMyfk4kvHewzAAI4'   
                 },
                 body: JSON.stringify({
                     cantidad: cantidades[ingrediente.idIngrediente] || 1, // Usar cantidades
@@ -133,7 +139,11 @@ function VistaPlatillos() {
     const [ingredientes, setIngredientes] = useState([]);
 
     useEffect(() => {
-        fetch(`${API_BASE_URL}/ingredientes/`)
+        fetch(`${API_BASE_URL}/ingredientes/`,{
+            headers: {
+              'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJ1Iiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IldBSVRFUl9ST0xFIn1dLCJpYXQiOjE3MTI0MTEyMTMsImV4cCI6MTcxMzAxNjAxM30.qlmTnuJ9ADga3lu_F_aEhhCnPznOMyfk4kvHewzAAI4'   
+            }
+          })
             .then(response => response.json())
             .then(data => setIngredientes(data.data))
             .catch(error => console.error(error));
