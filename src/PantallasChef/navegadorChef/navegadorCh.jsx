@@ -16,8 +16,8 @@ import Swal from 'sweetalert2';
 
 function Navegador() {
   return (
-   
-      <Navigation />
+
+    <Navigation />
 
   );
 }
@@ -38,7 +38,7 @@ function Navigation() {
       showConfirmButton: false,
       timer: 1500
     });
-    
+
   };
 
   return (
@@ -55,54 +55,56 @@ function Navigation() {
 
         <div className="flex md:order-2 justify-center" style={{ flex: '1' }}>
           <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%' }}>
-          <Button className="cerrar p-0 h-12" onClick={handleLogout}>
-      <IconButton aria-label="delete" className="p-0" sx={{ color: '#FF8E4A' }} >
-        <LogoutIcon />
-      </IconButton> 
-      <span className="text-sm">Cerrar sesión</span> 
+            <Button className="cerrar p-0 h-12" onClick={handleLogout}>
+              <IconButton aria-label="delete" className="p-0" sx={{ color: '#FF8E4A' }} >
+                <LogoutIcon />
+              </IconButton>
+              <span className="text-sm">Cerrar sesión</span>
 
-    </Button>
+            </Button>
             <Navbar.Toggle />
           </div>
         </div>
 
 
         <Navbar.Collapse className="fondo" >
-        <NavbarLink 
-    href="/chef/visualizar-notificaciones" 
-    className={`Nav-link ${location.pathname === '/*' ? 'active' : ''}`}
-    style={{
-        opacity: 0, 
-        width: 0, 
-        height: 0, 
-        color: 'transparent', 
-        backgroundColor: 'transparent', 
-        border: 'none', 
-        margin: 0, 
-        padding: 0, 
-        overflow: 'hidden', 
-        pointerEvents: 'none',
-        paddingRight: 0,
-        paddingLeft: 0,
-    }}
->
-    NOTIFICACIONES
-</NavbarLink>
-          <NavbarLink href="/chef/visualizar-pedidos" className={`Nav-link ${location.pathname === '/chef/visualizar-pedidos' ? 'active' : ''}`}> PEDIDOS</NavbarLink>
-          <NavbarLink 
-    href="/chef/visualizar-notificaciones" 
-    style={{cssText: 'border-right: none !important;'}}
-    className={`Nav-link ${location.pathname === '/chef/visualizar-notificaciones' ? 'active' : ''}`}
->
-    NOTIFICACIONES
-</NavbarLink>
-          <NavbarLink 
-    href="/chef/visualizar-notificaciones" 
-    style={{backgroundColor:'transparent', zIndex: -1, color: 'transparent', overflow: 'hidden', pointerEvents: 'none', width: 0, paddingRight: 0, paddingLeft: 0}} 
-    className={`Nav-link ${location.pathname === '/chef/visualizar-' ? 'active' : ''}`}
->
-    .
-</NavbarLink>
+          <NavbarLink
+            href="/chef/visualizar-notificaciones"
+            className={`Nav-link ${location.pathname === '/*' ? 'active' : ''}`}
+            style={{
+              opacity: 0,
+              width: 0,
+              height: 0,
+              color: 'transparent',
+              backgroundColor: 'transparent',
+              border: 'none',
+              margin: 0,
+              padding: 0,
+              overflow: 'hidden',
+              pointerEvents: 'none',
+              paddingRight: 0,
+              paddingLeft: 0,
+            }}
+          >
+            NOTIFICACIONES
+          </NavbarLink>
+          <NavbarLink href="/chef/visualizar-pedidos"
+          style={{ cssText: 'border-right: none !important;', paddingRight: 80, paddingLeft: 80}}
+           className={`Nav-link ${location.pathname === '/chef/visualizar-pedidos' ? 'active' : ''}`}> PEDIDOS</NavbarLink>
+          <NavbarLink
+            href="/chef/visualizar-notificaciones"
+            style={{ cssText: 'border-right: none !important;', paddingRight: 80, paddingLeft: 80}}
+            className={`Nav-link ${location.pathname === '/chef/visualizar-notificaciones' ? 'active' : ''}`}
+          >
+            NOTIFICACIONES
+          </NavbarLink>
+          <NavbarLink
+            href="/chef/visualizar-notificaciones"
+            style={{ backgroundColor: 'transparent', zIndex: -1, color: 'transparent', overflow: 'hidden', pointerEvents: 'none', width: 0, paddingRight: 0, paddingLeft: 0 }}
+            className={`Nav-link ${location.pathname === '/chef/visualizar-' ? 'active' : ''}`}
+          >
+            .
+          </NavbarLink>
         </Navbar.Collapse>
       </Navbar>
 
