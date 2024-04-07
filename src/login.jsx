@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { UserIcon, LockClosedIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/20/solid';
 import RestaurantLogin from './assets/RestaurantLogin.png';
 import Gorro from './assets/gorro.png';
@@ -6,6 +6,10 @@ import './login.css';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Swal from 'sweetalert2';
+
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from './authContext';
+
 
 const validationSchema = Yup.object().shape({
   username: Yup.string()
@@ -17,6 +21,11 @@ password: Yup.string()
 });
 
 export default function LoginComponent() {
+
+  const navigate = useNavigate();
+  const { setUser } = useContext(AuthContext);
+
+
   const [passwordShown, setPasswordShown] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -44,10 +53,40 @@ export default function LoginComponent() {
         localStorage.setItem('token', data.token);
         console.log('Token almacenado:', data.token);
         Swal.fire({title: 'Perfecto',text: 'Inicio de sesión exitoso',icon: 'success',confirmButtonColor: '#0f80f2'});
+      
+        // Establecer la información del usuario en el contexto
+        setUser({
+          username: data.user.user,
+          role: data.roles.role, // Acceder a role a través de roles
+        });
+      
+        // Redirigir al usuario a la ruta correcta dependiendo de su rol
+        switch (data.roles.role) { // Acceder a role a través de roles
+          case 'ADMIN_ROLE':
+            navigate('/admin');
+            break;
+          case 'CHEF_ROLE':
+            navigate('/chef');
+            break;
+          case 'RECEPTIONIST_ROLE':
+            navigate('/recepcion');
+            break;
+          case 'WAITER_ROLE':
+            navigate('/waiter');
+            break;
+          default:
+            // Redirigir a la página de inicio de sesión si el rol no es reconocido
+            navigate('/login');
+            break;
+        }
       } else {
         const fullResponse = await response.json();
-        const data = fullResponse.data;
-        Swal.fire('Error', data.message, 'error');
+        Swal.fire({
+          title: 'Error',
+          text: 'Usuario o contraseña incorrectos',
+          icon: 'error',
+          confirmButtonColor: '#ff0000', // Color rojo
+        });
       }
     } catch (error) {
       console.error('Error:', error);
