@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate, useNavigate } from 'react-router-dom';
 import LoginComponent from './login';
 import AdminComponent from './PantallasAdmin/navegadorAdmin/navegador'; 
-import ChefComponent from './PantallasChef/navegadorChef/navegador';
+import ChefComponent from './PantallasChef/navegadorChef/navegadorCh';
 import RecepcionComponent from './PantallasRecepcion/navegadorRecepcion/navegador'; 
 import { AuthProvider } from './authContext';
 import { Card } from 'flowbite-react';

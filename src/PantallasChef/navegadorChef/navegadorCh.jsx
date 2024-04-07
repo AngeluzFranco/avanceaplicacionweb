@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation, Navigate, us
 import '../../index.css'
 import { Button, Navbar, NavbarLink } from 'flowbite-react';
 import imgLogo from '../../assets/imgGastromanager.png'
-import './navegador.css'
+import './navegadorCh.css'
 
 import VisualizarPedidos from '../VistaPedidos.jsx'
 import VisualizarNotificaciones from '../Notificaciones.jsx'
@@ -45,7 +45,7 @@ function Navigation() {
     <div className="App">
       <Navbar className="h-40  items-center  transparent-navbar" style={{ paddingTop: 30 }} >
         <div className="flex justify-center " style={{ flex: '1', marginRight: 20, }}>
-          <Link to="/visualizar-usuarios" style={{ textDecoration: 'none', color: 'inherit' }} className="gastro">
+          <Link to="/chef/visualizar-pedidos" style={{ textDecoration: 'none', color: 'inherit' }} className="gastro">
             <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
               <img src={imgLogo} className="mr-1 h-12 md:h-12 sm:h-12" alt="Gastro Manager" />
               <div className="self-center text-base sm:text-base md:text-base font-semibold text-white" style={{ overflow: 'hidden', color: '#E25500' }}>Gastro Manager</div>
@@ -68,8 +68,41 @@ function Navigation() {
 
 
         <Navbar.Collapse className="fondo" >
+        <NavbarLink 
+    href="/chef/visualizar-notificaciones" 
+    className={`Nav-link ${location.pathname === '/*' ? 'active' : ''}`}
+    style={{
+        opacity: 0, 
+        width: 0, 
+        height: 0, 
+        color: 'transparent', 
+        backgroundColor: 'transparent', 
+        border: 'none', 
+        margin: 0, 
+        padding: 0, 
+        overflow: 'hidden', 
+        pointerEvents: 'none',
+        paddingRight: 0,
+        paddingLeft: 0,
+    }}
+>
+    NOTIFICACIONES
+</NavbarLink>
           <NavbarLink href="/chef/visualizar-pedidos" className={`Nav-link ${location.pathname === '/chef/visualizar-pedidos' ? 'active' : ''}`}> PEDIDOS</NavbarLink>
-          <NavbarLink href="/chef/visualizar-notificaciones" className={`Nav-link ${location.pathname === '/chef/visualizar-notificaciones' ? 'active' : ''}`}>NOTIFICACIONES</NavbarLink>
+          <NavbarLink 
+    href="/chef/visualizar-notificaciones" 
+    style={{cssText: 'border-right: none !important;'}}
+    className={`Nav-link ${location.pathname === '/chef/visualizar-notificaciones' ? 'active' : ''}`}
+>
+    NOTIFICACIONES
+</NavbarLink>
+          <NavbarLink 
+    href="/chef/visualizar-notificaciones" 
+    style={{backgroundColor:'transparent', zIndex: -1, color: 'transparent', overflow: 'hidden', pointerEvents: 'none', width: 0, paddingRight: 0, paddingLeft: 0}} 
+    className={`Nav-link ${location.pathname === '/chef/visualizar-' ? 'active' : ''}`}
+>
+    .
+</NavbarLink>
         </Navbar.Collapse>
       </Navbar>
 
