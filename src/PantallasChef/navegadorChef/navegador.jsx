@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, Navigate, useNavigate } from "react-router-dom";
 import '../../index.css'
 import { Button, Navbar, NavbarLink } from 'flowbite-react';
 import imgLogo from '../../assets/imgGastromanager.png'
@@ -12,17 +12,34 @@ import VisualizarNotificaciones from '../Notificaciones.jsx'
 import IconButton from '@mui/material/IconButton';
 import LogoutIcon from '@mui/icons-material/Logout';
 
+import Swal from 'sweetalert2';
+
 function Navegador() {
   return (
-    <Router >
+   
       <Navigation />
-    </Router>
+
   );
 }
 
 
 function Navigation() {
   const location = useLocation();
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+    Swal.fire({
+      title: 'Hasta luego',
+      text: 'Cerrando sesión...',
+      icon: 'success',
+      showConfirmButton: false,
+      timer: 1500
+    });
+    
+  };
 
   return (
     <div className="App">
@@ -38,19 +55,21 @@ function Navigation() {
 
         <div className="flex md:order-2 justify-center" style={{ flex: '1' }}>
           <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%' }}>
-            <Button className="cerrar p-0 h-12">
-              <IconButton aria-label="delete" className="p-0" sx={{ color: '#FF8E4A' }} >
-                <LogoutIcon />
-              </IconButton> <span className="text-sm">Cerrar sesión</span>
-            </Button>
+          <Button className="cerrar p-0 h-12" onClick={handleLogout}>
+      <IconButton aria-label="delete" className="p-0" sx={{ color: '#FF8E4A' }} >
+        <LogoutIcon />
+      </IconButton> 
+      <span className="text-sm">Cerrar sesión</span> 
+
+    </Button>
             <Navbar.Toggle />
           </div>
         </div>
 
 
         <Navbar.Collapse className="fondo" >
-          <NavbarLink href="/visualizar-pedidos" className={`Nav-link ${location.pathname === '/visualizar-pedidos' ? 'active' : ''}`}> PEDIDOS</NavbarLink>
-          <NavbarLink href="/visualizar-notificaciones" className={`Nav-link ${location.pathname === '/visualizar-notificaciones' ? 'active' : ''}`}>NOTIFICACIONES</NavbarLink>
+          <NavbarLink href="/chef/visualizar-pedidos" className={`Nav-link ${location.pathname === '/chef/visualizar-pedidos' ? 'active' : ''}`}> PEDIDOS</NavbarLink>
+          <NavbarLink href="/chef/visualizar-notificaciones" className={`Nav-link ${location.pathname === '/chef/visualizar-notificaciones' ? 'active' : ''}`}>NOTIFICACIONES</NavbarLink>
         </Navbar.Collapse>
       </Navbar>
 
@@ -58,10 +77,9 @@ function Navigation() {
       <div className="auth-wrapper" style={{ height: '77.5vh', paddingBottom: 8 }}>
         <div className="auth-inner overflow-hidden items-center" style={{ maxHeight: '100%' }} >
           <Routes>
-            <Route path="/" element={<Navigate to="/visualizar-pedidos" />} />
-            <Route path="/visualizar-pedidos" element={<VisualizarPedidos />} />
-            <Route path="/*" element={<VisualizarPedidos />} />
-            <Route path="/visualizar-notificaciones" element={<VisualizarNotificaciones />} />
+            <Route path="/" element={<Navigate to="visualizar-pedidos" />} />
+            <Route path="visualizar-pedidos" element={<VisualizarPedidos />} />
+            <Route path="visualizar-notificaciones" element={<VisualizarNotificaciones />} />
           </Routes>
         </div>
       </div>

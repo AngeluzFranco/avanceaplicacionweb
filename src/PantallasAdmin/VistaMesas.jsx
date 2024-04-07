@@ -201,7 +201,7 @@ function VistaMesas() {
                           <FloatingLabel variant="outlined" label="# Mesa" className='text-base z-10' disabled={true} value={numeroMesa} onChange={e => setNumeroMesa(e.target.value)} />
                         </div>
                         <div >
-                          <Field name="numeroSillas" as={FloatingLabel} variant="outlined" label="# Sillas" className='text-base z-10 ' color={errors.numeroSillas ? 'error' : 'default'} />
+                          <Field name="numeroSillas" as={FloatingLabel} variant="outlined" label="# Sillas" className='text-base z-10 ' type='number' color={errors.numeroSillas ? 'error' : 'default'} />
                           
                         </div>
                         
@@ -272,7 +272,7 @@ function VistaMesas() {
                 </div>
                 <div className="flex flex-col items-center">
                   <img src={imgMesa} className="mb-2 h-20 md:h-20 sm:h-20" alt="imagen mesa" />
-                  <Button className="mt-4 bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800" style={{ width: 50 }} >
+                  <Button  className="mt-4 bg-gradient-to-br from-red-500 to-orange-400 enabled:hover:bg-gradient-to-bl focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800" style={{ width: 50, cursor: 'default' }} >
   <span style={{visibility: 'hidden', height: 15}}>Texto invisible</span>
 </Button>
                 </div>

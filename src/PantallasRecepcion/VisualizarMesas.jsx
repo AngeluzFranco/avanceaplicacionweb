@@ -23,7 +23,11 @@ function ChefVisualizarM() {
     const fetchData = async () => {
       try {
         const url = `${API_BASE_URL}/mesas/`;
-        const response = await fetch(url);
+        const response = await fetch(url,{
+          headers: {
+            'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJ1Iiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IldBSVRFUl9ST0xFIn1dLCJpYXQiOjE3MTI0MTEyMTMsImV4cCI6MTcxMzAxNjAxM30.qlmTnuJ9ADga3lu_F_aEhhCnPznOMyfk4kvHewzAAI4'   
+          }
+        });
         if (!response.ok) {
           throw new Error('Hubo un error en la petición');
         }
