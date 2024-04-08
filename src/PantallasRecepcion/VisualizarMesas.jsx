@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Card, Modal } from 'flowbite-react';
+import { Button, Card, Modal, Table } from 'flowbite-react';
 import { Select } from 'antd';
 import imgMesa from '../assets/imgMesa.png';
 import { API_BASE_URL } from '../backend.js';
+import Swal from 'sweetalert2';
+
+// VALIDACIONES CON FORMIK Y YUP
+import * as Yup from 'yup';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 const { Option } = Select;
 
@@ -23,11 +28,7 @@ function ChefVisualizarM() {
     const fetchData = async () => {
       try {
         const url = `${API_BASE_URL}/mesas/`;
-        const response = await fetch(url,{
-          headers: {
-            'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJ1Iiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IldBSVRFUl9ST0xFIn1dLCJpYXQiOjE3MTI0MTEyMTMsImV4cCI6MTcxMzAxNjAxM30.qlmTnuJ9ADga3lu_F_aEhhCnPznOMyfk4kvHewzAAI4'   
-          }
-        });
+        const response = await fetch(url);
         if (!response.ok) {
           throw new Error('Hubo un error en la petición');
         }
@@ -91,7 +92,42 @@ function ChefVisualizarM() {
   // Función para calcular el total de la cuenta
   const calcularTotal = () => {
     let total = subtotales.reduce((acc, subtotal) => acc + subtotal, 0);
-    return total.toFixed(2); // Redondeamos el total a dos decimales
+    return total.toFixed(2);
+  };
+
+  const handleRealizarPago = () => {
+    if (pedidoData.length === 0) {
+      // Si no hay ningún pedido, mostrar alerta de que no se puede realizar el pago
+      Swal.fire(
+        'Error',
+        'La mesa no tiene ningún pedido. No se puede realizar el pago.',
+        'error'
+      );
+      closeModal();
+      return;
+    }
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Una vez realizado el pago, no se puede deshacer.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, realizar pago'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //lógica para realizar el pago
+        Swal.fire(
+          '¡Pago realizado!',
+          'El pago se ha realizado correctamente.',
+          'success'
+        );
+        closeModal();
+      }
+      else{
+        closeModal();
+      }
+    });
   };
 
   return (
@@ -155,24 +191,26 @@ function ChefVisualizarM() {
             <div className="flex justify-between gap-4">
               <div className="w-full lg:w-4/5 p-4 h-100" style={{ border: 'solid 1px #d6d6d6', borderRadius: '5px' }} >
                 <div className="mt-2 flex flex-wrap gap-2 overflow-y-auto max-h-64 min-h-64 divScroll">
-                  <table className="w-full">
-                    <thead>
-                      <tr>
-                        <th>Nombre</th>
-                        <th>Cantidad</th>
-                        <th>Precio</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {pedidoData.map((item, index) => ( // Utilizamos pedidoData en lugar de data
-                        <tr key={index}>
-                          <td>{item.nombre}</td>
-                          <td>{item.cantidad}</td>
-                          <td>{item.precio}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                  <div className="overflow-x-auto max-w-full">
+                    <Table className="w-full">
+                      <Table.Head>
+                        <Table.HeadCell>Nombre</Table.HeadCell>
+                        <Table.HeadCell>Cantidad</Table.HeadCell>
+                        <Table.HeadCell>Precio</Table.HeadCell>
+                      </Table.Head>
+                      <Table.Body className="divide-y">
+                        {pedidoData.map((item, index) => (
+                          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={index}>
+                            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                              {item.nombre}
+                            </Table.Cell>
+                            <Table.Cell>{item.cantidad}</Table.Cell>
+                            <Table.Cell>${item.precio}</Table.Cell>
+                          </Table.Row>
+                        ))}
+                      </Table.Body>
+                    </Table>
+                  </div>
                 </div>
               </div>
               <div className="w-64 p-2" style={{ border: 'solid 1px #d6d6d6', borderRadius: '5px' }}>
@@ -180,14 +218,14 @@ function ChefVisualizarM() {
                   <div className="grid grid-cols-1 gap-2 mt-0 overflow-y-auto divScroll" style={{ maxHeight: '50%' }}>
                     <div>SubTotal</div>
                     {subtotales.map((subtotal, index) => (
-                      <div key={index}>{subtotal}</div>
+                      <div key={index}>${subtotal}</div>
                     ))}
                   </div>
                 </div>
                 <div className="rounded text-center" style={{ borderTop: 'solid 1px #d6d6d6' }}>
                   <div className="grid grid-cols-1 gap-2 mt-0 overflow-y-auto divScroll" style={{ maxHeight: '50%' }}>
                     <div>Total:</div>
-                    <div>{calcularTotal()}</div>
+                    <div>${calcularTotal()}</div>
                   </div>
                 </div>
               </div>
@@ -196,7 +234,7 @@ function ChefVisualizarM() {
         </Modal.Body>
         <Modal.Footer>
           <div className="flex justify-center w-full">
-            <Button onClick={closeModal}>
+            <Button onClick={handleRealizarPago}>
               Realizar pago
             </Button>
           </div>
