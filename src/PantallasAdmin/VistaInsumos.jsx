@@ -32,9 +32,10 @@ function VistaInsumos() {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                const token = localStorage.getItem('token');
                 const response = await fetch(`${API_BASE_URL}/ingredientes/`,{
                     headers: {
-                      'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJ1Iiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IldBSVRFUl9ST0xFIn1dLCJpYXQiOjE3MTI0MTEyMTMsImV4cCI6MTcxMzAxNjAxM30.qlmTnuJ9ADga3lu_F_aEhhCnPznOMyfk4kvHewzAAI4'   
+                        'Authorization': `Bearer ${token}`
                     }
                   });
                 if (!response.ok) {
@@ -62,11 +63,12 @@ function VistaInsumos() {
                 cancelButtonText: 'Cancelar'
             });
             if (confirmResult.isConfirmed) {
+                const token = localStorage.getItem('token');
                 const response = await fetch(`${API_BASE_URL}/ingredientes/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJ1Iiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IldBSVRFUl9ST0xFIn1dLCJpYXQiOjE3MTI0MTEyMTMsImV4cCI6MTcxMzAxNjAxM30.qlmTnuJ9ADga3lu_F_aEhhCnPznOMyfk4kvHewzAAI4'   
+                        'Authorization': `Bearer ${token}`
                     },
                     body: JSON.stringify(values)
                 });
@@ -103,10 +105,12 @@ function VistaInsumos() {
                 cancelButtonText: 'Cancelar'
             });
             if (confirmResult.isConfirmed) {
+                const token = localStorage.getItem('token');
                 const response = await fetch(`${API_BASE_URL}/ingredientes/${values.idIngrediente}`, {
                     method: 'PUT',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
                     },
                     body: JSON.stringify(values)
                 });
@@ -139,8 +143,12 @@ function VistaInsumos() {
         });
         if (confirmResult.isConfirmed) {
             try {
+                const token = localStorage.getItem('token');
                 const response = await fetch(`${API_BASE_URL}/ingredientes/${idIngrediente}`, {
-                    method: 'DELETE'
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
                 });
                 if (!response.ok) {
                     throw new Error('Hubo un error al eliminar el insumo');
@@ -168,37 +176,37 @@ function VistaInsumos() {
                         <Button onClick={() => setcrearOpen(true)} className="agregar">Agregar</Button>
                     </div>
                     <div className=' overflow-y-auto divScroll' style={{ maxHeight: '65vh' }}>
-                        <Table>
-                            <Table.Head style={{ position: 'sticky', top: 0, zIndex: 1 }}>
-                                <Table.HeadCell className="border-r border-b border-gray-300">Nombre</Table.HeadCell>
-                                <Table.HeadCell className="border-r border-b border-gray-300">Cantidad</Table.HeadCell>
-                                <Table.HeadCell className="border-r border-b border-gray-300">Tipo</Table.HeadCell>
-                                <Table.HeadCell className="border-b border-gray-300">
-                                    <span className="sr-only">Edit</span>
-                                </Table.HeadCell>
-                            </Table.Head>
-                            <Table.Body className="divide-y">
-                                {data && data.map((item, index) => (
-                                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                        <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                            {item.nombre}
-                                        </Table.Cell>
-                                        <Table.Cell className="border-r border-gray-300">{item.cantidad}</Table.Cell>
-                                        <Table.Cell className="border-r border-gray-300">{item.tipo}</Table.Cell>
-                                        <Table.Cell >
-                                            <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                                                <IconButton aria-label="delete" sx={{ color: '#000000' }} onClick={() => handleDeleteConfirmation(item.idIngrediente)}>
-                                                    <DeleteIcon />
-                                                </IconButton>
-                                                <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => handleUpdateInsumo(item)}>
-                                                    <EditIcon />
-                                                </IconButton>
-                                            </Stack>
-                                        </Table.Cell>
-                                    </Table.Row>
-                                ))}
-                            </Table.Body>
-                        </Table>
+                    <Table>
+    <Table.Head style={{ position: 'sticky', top: 0, zIndex: 1 }}>
+        <Table.HeadCell className="text-center border-r border-b border-gray-300">Nombre</Table.HeadCell>
+        <Table.HeadCell className="text-center border-r border-b border-gray-300">Cantidad</Table.HeadCell>
+        <Table.HeadCell className="text-center border-r border-b border-gray-300">Tipo</Table.HeadCell>
+        <Table.HeadCell className="text-center border-b border-gray-300">
+            <span className="sr-only">Edit</span>
+        </Table.HeadCell>
+    </Table.Head>
+    <Table.Body className="divide-y">
+        {data && data.map((item, index) => (
+            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="text-center border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                    {item.nombre}
+                </Table.Cell>
+                <Table.Cell className="text-center border-r border-gray-300">{item.cantidad}</Table.Cell>
+                <Table.Cell className="text-center border-r border-gray-300">{item.tipo}</Table.Cell>
+                <Table.Cell className='text-center' style={{ width: '15%' }}>
+    <Stack direction="row" spacing={0} className='flex items-center justify-center'>
+        <IconButton aria-label="delete" sx={{ color: '#000000' }} onClick={() => handleDeleteConfirmation(item.idIngrediente)}>
+            <DeleteIcon />
+        </IconButton>
+        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => handleUpdateInsumo(item)}>
+            <EditIcon />
+        </IconButton>
+    </Stack>
+</Table.Cell>
+            </Table.Row>
+        ))}
+    </Table.Body>
+</Table>
                     </div>
                 </div>
             </div>

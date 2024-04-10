@@ -36,9 +36,10 @@ function VistaMesas() {
     const fetchData = async () => {
       try {
         const url = `${API_BASE_URL}/mesas/`;
+        const token = localStorage.getItem('token');
         const response = await fetch(url,{
           headers: {
-            'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJ1Iiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IldBSVRFUl9ST0xFIn1dLCJpYXQiOjE3MTI0MTEyMTMsImV4cCI6MTcxMzAxNjAxM30.qlmTnuJ9ADga3lu_F_aEhhCnPznOMyfk4kvHewzAAI4'   
+            'Authorization' : `Bearer ${token}`
           }
         });
         if (!response.ok) {
@@ -105,11 +106,12 @@ function VistaMesas() {
       handleOpen();
       if (result.isConfirmed) {
         try {
+          const token = localStorage.getItem('token');
           const response = await fetch(`${API_BASE_URL}/mesas/`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJ1Iiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IldBSVRFUl9ST0xFIn1dLCJpYXQiOjE3MTI0MTEyMTMsImV4cCI6MTcxMzAxNjAxM30.qlmTnuJ9ADga3lu_F_aEhhCnPznOMyfk4kvHewzAAI4'   
+              'Authorization' : `Bearer ${token}`
             },
             body: JSON.stringify(mesa)
           });

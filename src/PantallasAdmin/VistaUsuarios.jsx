@@ -37,7 +37,12 @@ function VistaUsuarios() {
     const fetchData = async () => {
       try {
         const url = `${API_BASE_URL}/usuario/`;
-        const response = await fetch(url);
+        const token = localStorage.getItem('token');
+        const response = await fetch(url, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
         if (!response.ok) {
           throw new Error('Hubo un error en la petición');
         }
@@ -68,10 +73,12 @@ const handleCreateSubmit = async (values, { setSubmitting, resetForm }) => {
           cancelButtonText: 'Cancelar'
       });
       if (confirmResult.isConfirmed) {
+        const token = localStorage.getItem('token');
           const response = await fetch(`${API_BASE_URL}/usuario/`, {
               method: 'POST',
               headers: {
-                  'Content-Type': 'application/json'
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`
               },
               body: JSON.stringify(values)
           });
@@ -109,8 +116,12 @@ const deleteUser = async (idUsuario) => {
     });
 
     if (confirmDelete.isConfirmed) {
+      const token = localStorage.getItem('token');
       const response = await fetch(`${API_BASE_URL}/usuario/${idUsuario}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+      },
       });
       if (!response.ok) {
         throw new Error('Hubo un error al eliminar el usuario');
@@ -143,10 +154,12 @@ const handleUpdateSubmit = async (values, { setSubmitting, resetForm }) => {
           cancelButtonText: 'Cancelar'
       });
       if (confirmResult.isConfirmed) {
+        const token = localStorage.getItem('token');
           const response = await fetch(`${API_BASE_URL}/usuario/${selectedUser.idUsuario}`, {
               method: 'PUT',
               headers: {
-                  'Content-Type': 'application/json'
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`
               },
               body: JSON.stringify(values)
           });
@@ -180,48 +193,64 @@ return (
         </div>
 
         <div className=' overflow-y-auto divScroll' style={{ maxHeight: '65vh' }} >
-          <Table >
-            <Table.Head style={{ position: 'sticky', top: 0, zIndex: 1 }}>
-              <Table.HeadCell className='border-r border-b border-gray-300'>Usuario</Table.HeadCell>
-              <Table.HeadCell className='border-r border-b border-gray-300'>Rol</Table.HeadCell>
-              <Table.HeadCell className='border-r border-b border-gray-300'>Contraseña</Table.HeadCell>
-              <Table.HeadCell className='border-b border-gray-300'>
-                <span className="sr-only">Edit</span>
-              </Table.HeadCell>
-            </Table.Head>
-            <Table.Body className="divide-y">
-              {data && data.map((item, index) => (
-                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={index}>
-                  <Table.Cell className="border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+        <Table>
+    <Table.Head style={{ position: 'sticky', top: 0, zIndex: 1 }}>
+        <Table.HeadCell className='text-center border-r border-b border-gray-300'>Usuario</Table.HeadCell>
+        <Table.HeadCell className='text-center border-r border-b border-gray-300'>Rol</Table.HeadCell>
+        <Table.HeadCell className='text-center border-r border-b border-gray-300'>Contraseña</Table.HeadCell>
+        <Table.HeadCell className='text-center border-b border-gray-300'>
+            <span className="sr-only">Edit</span>
+        </Table.HeadCell>
+    </Table.Head>
+    <Table.Body className="divide-y">
+        {data && data.map((item, index) => (
+            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={index}>
+                <Table.Cell className="text-center border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
                     {item.user}
-                  </Table.Cell>
-                  <Table.Cell className='border-r border-gray-300'>{item.rol}</Table.Cell>
-                  <Table.Cell className='border-r border-gray-300'>{item.password}</Table.Cell>
-                  <Table.Cell >
-                    <Stack direction="row" spacing={0} className='flex items-center justify-end'>
-                      {/* Verifica si el usuario es un administrador */}
-                      {item.rol !== 'Admin' && (
-                        <>
-                          <IconButton aria-label="delete" sx={{ color: '#000000' }} onClick={() => deleteUser(item.idUsuario)}>
-                            <DeleteIcon />
-                          </IconButton>
-                          <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => handleUpdateUser(item)}>
-                            <EditIcon />
-                          </IconButton>
-                        </>
-                      )}
-                      {/* Si es un administrador, muestra un indicador visual */}
-                      {item.rol === 'Admin' && (
-                        <>
-                          <div className="text-gray-500 dark:text-gray-400">Super Admin</div>
-                        </>
-                      )}
+                </Table.Cell>
+                <Table.Cell className='text-center border-r border-gray-300'>
+                    {item.roleBean ? (() => {
+                        switch (item.roleBean.role) {
+                            case 'ADMIN_ROLE':
+                                return 'ADMIN';
+                            case 'WAITER_ROLE':
+                                return 'MESERO';
+                            case 'CHEF_ROLE':
+                                return 'CHEF';
+                            case 'RECEPTIONIST_ROLE':
+                                return 'RECEPCIONISTA';
+                            // Agrega más casos según sea necesario
+                            default:
+                                return 'No role';
+                        }
+                    })() : 'No role'}
+                </Table.Cell>
+                <Table.Cell className='text-center border-r border-gray-300'>{item.password}</Table.Cell>
+                <Table.Cell className='text-center'>
+                    <Stack direction="row" spacing={0} className='flex items-center justify-center'>
+                        {/* Verifica si el usuario es un administrador */}
+                        {item.roleBean && item.roleBean.role !== 'ADMIN_ROLE' && (
+                            <>
+                                <IconButton aria-label="delete" sx={{ color: '#000000' }} onClick={() => deleteUser(item.idUsuario)}>
+                                    <DeleteIcon />
+                                </IconButton>
+                                <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => handleUpdateUser(item)}>
+                                    <EditIcon />
+                                </IconButton>
+                            </>
+                        )}
+                        {/* Si es un administrador, muestra un indicador visual */}
+                        {item.roleBean && item.roleBean.role === 'ADMIN_ROLE' && (
+                            <>
+                                <div className="text-gray-500 dark:text-gray-400">Super Admin</div>
+                            </>
+                        )}
                     </Stack>
-                  </Table.Cell>
-                </Table.Row>
-              ))}
-            </Table.Body>
-          </Table>
+                </Table.Cell>
+            </Table.Row>
+        ))}
+    </Table.Body>
+</Table>
         </div>
 
       </div>
