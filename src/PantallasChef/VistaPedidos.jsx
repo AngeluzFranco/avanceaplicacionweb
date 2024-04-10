@@ -9,8 +9,13 @@ function RecVisualizarP() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = `${API_BASE_URL}/pedidos/`;
-        const response = await fetch(url);
+        const url = `${API_BASE_URL}/detallepedido/`;
+        const token = localStorage.getItem('token');
+        const response = await fetch(url,{
+          headers: {
+            'Authorization' : `Bearer ${token}`
+          }
+      });
         if (!response.ok) {
           throw new Error('Hubo un error en la petición');
         }

@@ -28,7 +28,12 @@ function ChefVisualizarM() {
     const fetchData = async () => {
       try {
         const url = `${API_BASE_URL}/mesas/`;
-        const response = await fetch(url);
+        const token = localStorage.getItem('token');
+        const response = await fetch(url,{
+          headers: {
+            'Authorization' : `Bearer ${token}`
+          }
+        });
         if (!response.ok) {
           throw new Error('Hubo un error en la petición');
         }
@@ -54,81 +59,117 @@ function ChefVisualizarM() {
     setData(filteredData);
   }, [selectedOption, allData]);
 
-  // Función para abrir el modal al hacer clic en el botón de una mesa ocupada
-  const openModal = async (mesa) => {
-    setSelectedMesa(mesa);
-    setMostrarOpen(true);
+// Función para abrir el modal al hacer clic en el botón de una mesa ocupada
+const openModal = async (mesa) => {
+  setSelectedMesa(mesa);
+  setMostrarOpen(true);
 
-    try {
-      const mesaId = mesa.idMesa;
-      const response = await fetch(`${API_BASE_URL}/pedidos/mesa/${mesaId}`);
-      if (!response.ok) {
-        throw new Error('Hubo un error en la petición');
-      }
-      const jsonData = await response.json();
-      const pedidos = jsonData;
-
-      const subtotalesArray = [];
-
-      const mesaData = pedidos.map(pedido => {
-        pedido.detallesPedidoBean.forEach(detalle => {
-          subtotalesArray.push(detalle.precio_total);
-        });
-        return pedido.detallesPedidoBean.map(detalle => ({
-          nombre: detalle.platillo.nombre,
-          cantidad: detalle.cantidad,
-          precio: detalle.precio_total / detalle.cantidad
-        }));
-      }).flat();
-
-      setSubtotales(subtotalesArray);
-      setPedidoData(mesaData); // Almacenar los detalles del pedido
-
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  // Función para calcular el total de la cuenta
-  const calcularTotal = () => {
-    let total = subtotales.reduce((acc, subtotal) => acc + subtotal, 0);
-    return total.toFixed(2);
-  };
-
-  const handleRealizarPago = () => {
-    if (pedidoData.length === 0) {
-      // Si no hay ningún pedido, mostrar alerta de que no se puede realizar el pago
-      Swal.fire(
-        'Error',
-        'La mesa no tiene ningún pedido. No se puede realizar el pago.',
-        'error'
-      );
-      closeModal();
-      return;
-    }
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: 'Una vez realizado el pago, no se puede deshacer.',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, realizar pago'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        //lógica para realizar el pago
-        Swal.fire(
-          '¡Pago realizado!',
-          'El pago se ha realizado correctamente.',
-          'success'
-        );
-        closeModal();
-      }
-      else{
-        closeModal();
+  try {
+    const token = localStorage.getItem('token');
+    const pedidoId = mesa.pedidosBean[0].idPedido;
+    const response = await fetch(`${API_BASE_URL}/detallepedido/pedido/${pedidoId}`,{
+      headers: {
+        'Authorization' : `Bearer ${token}`
       }
     });
-  };
+    if (!response.ok) {
+      throw new Error('Hubo un error en la petición');
+    }
+    const jsonData = await response.json();
+    const detallePedidos = jsonData.data;
+
+    // Procesar los detalles de los pedidos
+    const pedidosData = detallePedidos.map(detalle => ({
+      nombre: detalle.platillo.nombre,
+      cantidad: detalle.cantidad,
+      precio: detalle.precio_total / detalle.cantidad
+    }));
+
+    // Calcular subtotales
+    const subtotalesArray = detallePedidos.map(detalle => detalle.precio_total);
+    setSubtotales(subtotalesArray);
+
+    setPedidoData(pedidosData); // Almacenar los detalles del pedido
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// Función para calcular el total de la cuenta
+const calcularTotal = () => {
+  let total = subtotales.reduce((acc, subtotal) => acc + subtotal, 0);
+  return total.toFixed(2);
+};
+
+const confirmRealizarPago = () => {
+  Swal.fire({
+    title: '¿Estás seguro que deseas realizar el pago?',
+    text: 'Una vez realizado, no podrá deshacerse.',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Sí',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      handleRealizarPago(); // Si el usuario confirma, llamamos a la función para realizar el pago
+    }
+  });
+};
+
+const handleRealizarPago = async () => {
+  if (pedidoData.length === 0) {
+    // Si no hay ningún pedido, mostrar alerta de que no se puede realizar el pago
+    Swal.fire(
+      'Error',
+      'La mesa no tiene ningún pedido. No se puede realizar el pago.',
+      'error'
+    );
+    closeModal();
+    return;
+  }
+
+  try {
+    const token = localStorage.getItem('token');
+    const pedidoId = selectedMesa.pedidosBean[0].idPedido;
+
+    // Cambiar el estado del pedido a "Pagado"
+    await fetch(`${API_BASE_URL}/pedidos/${pedidoId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ estado: 'Pagado' })
+    });
+
+    // Cambiar el estado de la mesa a "Desocupada"
+    await fetch(`${API_BASE_URL}/mesas/${selectedMesa.idMesa}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ estado: 'Desocupada' })
+    });
+
+    // Mostrar mensaje de pago realizado
+    Swal.fire(
+      '¡Pago realizado!',
+      'El pago se ha realizado correctamente.',
+      'success'
+    );
+    
+    closeModal();
+  } catch (error) {
+    console.error(error);
+    Swal.fire(
+      'Error',
+      'Hubo un error al realizar el pago. Por favor, inténtalo de nuevo más tarde.',
+      'error'
+    );
+    closeModal();
+  }
+};
 
   return (
     <div className="h-screen ">
@@ -234,7 +275,7 @@ function ChefVisualizarM() {
         </Modal.Body>
         <Modal.Footer>
           <div className="flex justify-center w-full">
-            <Button onClick={handleRealizarPago}>
+            <Button onClick={confirmRealizarPago}>
               Realizar pago
             </Button>
           </div>
