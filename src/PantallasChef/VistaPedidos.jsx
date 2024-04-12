@@ -6,26 +6,27 @@ import Swal from 'sweetalert2';
 function RecVisualizarP() {
   const [data, setData] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const url = `${API_BASE_URL}/detallepedido/`;
-        const token = localStorage.getItem('token');
-        const response = await fetch(url, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        if (!response.ok) {
-          throw new Error('Hubo un error en la petición');
+  const fetchData = async () => {
+    try {
+      const url = `${API_BASE_URL}/detallepedido/`;
+      const token = localStorage.getItem('token');
+      const response = await fetch(url, {
+        headers: {
+          'Authorization': `Bearer ${token}`
         }
-        const jsonData = await response.json();
-        console.log('Datos recibidos del servidor:', jsonData);
-        setData(jsonData.data);
-      } catch (error) {
-        console.error(error);
+      });
+      if (!response.ok) {
+        throw new Error('Hubo un error en la petición');
       }
-    };
+      const jsonData = await response.json();
+      console.log('Datos recibidos del servidor:', jsonData);
+      setData(jsonData.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -80,6 +81,8 @@ function RecVisualizarP() {
           // Actualizar los datos manteniendo los detalles del pedido
           const updatedPedido = await responsePedido.json();
           setData(data.map(pedido => pedido.idPedido === pedidoId ? updatedPedido : pedido));
+
+          await fetchData();
 
           Swal.fire(
             '¡Pedido terminado!',
