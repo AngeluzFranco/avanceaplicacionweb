@@ -24,26 +24,25 @@ function ChefVisualizarM() {
   const closeModal = () => setMostrarOpen(false);
 
   // MOSTRAR TODAS LAS MESAS
-  const fetchData = async () => {
-    try {
-      const url = `${API_BASE_URL}/mesas/`;
-      const token = localStorage.getItem('token');
-      const response = await fetch(url,{
-        headers: {
-          'Authorization' : `Bearer ${token}`
-        }
-      });
-      if (!response.ok) {
-        throw new Error('Hubo un error en la petición');
-      }
-      const jsonData = await response.json();
-      setAllData(jsonData.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const url = `${API_BASE_URL}/mesas/`;
+        const token = localStorage.getItem('token');
+        const response = await fetch(url,{
+          headers: {
+            'Authorization' : `Bearer ${token}`
+          }
+        });
+        if (!response.ok) {
+          throw new Error('Hubo un error en la petición');
+        }
+        const jsonData = await response.json();
+        setAllData(jsonData.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
     fetchData();
   }, []);
 
@@ -96,44 +95,6 @@ const openModal = async (mesa) => {
   }
 };
 
-// Función para eliminar los detalles de pedido con el mismo ID de pedido
-const eliminarDetallesPedido = async (pedidoId) => {
-  try {
-    const token = localStorage.getItem('token');
-    // Consultar los detalles de pedido con el mismo ID de pedido
-    const response = await fetch(`${API_BASE_URL}/detallepedido/pedido/${pedidoId}`, {
-      headers: {
-        'Authorization' : `Bearer ${token}`
-      }
-    });
-    if (!response.ok) {
-      throw new Error('Hubo un error en la petición');
-    }
-    const jsonData = await response.json();
-    const detallePedidos = jsonData.data;
-
-    // Eliminar cada detalle de pedido
-    for (const detalle of detallePedidos) {
-      await fetch(`${API_BASE_URL}/detallepedido/${detalle.idDetallePedido}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-    }
-
-    // Una vez eliminados los detalles de pedido, eliminar el pedido
-    await fetch(`${API_BASE_URL}/pedidos/${pedidoId}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 // Función para calcular el total de la cuenta
 const calcularTotal = () => {
   let total = subtotales.reduce((acc, subtotal) => acc + subtotal, 0);
@@ -144,18 +105,14 @@ const confirmRealizarPago = () => {
   Swal.fire({
     title: '¿Estás seguro que deseas realizar el pago?',
     text: 'Una vez realizado, no podrá deshacerse.',
-    icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-    confirmButtonText: 'Sí, pagar',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Sí',
     cancelButtonText: 'Cancelar'
   }).then((result) => {
     if (result.isConfirmed) {
       handleRealizarPago(); // Si el usuario confirma, llamamos a la función para realizar el pago
-      
     }
-    closeModal();
   });
 };
 
@@ -175,10 +132,15 @@ const handleRealizarPago = async () => {
     const token = localStorage.getItem('token');
     const pedidoId = selectedMesa.pedidosBean[0].idPedido;
 
-    // Eliminar los detalles de pedido con el mismo ID de pedido
-    await eliminarDetallesPedido(pedidoId);
-
-    
+    // Cambiar el estado del pedido a "Pagado"
+    await fetch(`${API_BASE_URL}/pedidos/${pedidoId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ estado: 'Pagado' })
+    });
 
     // Cambiar el estado de la mesa a "Desocupada"
     await fetch(`${API_BASE_URL}/mesas/${selectedMesa.idMesa}`, {
@@ -189,7 +151,6 @@ const handleRealizarPago = async () => {
       },
       body: JSON.stringify({ estado: 'Desocupada' })
     });
-    await fetchData()
 
     // Mostrar mensaje de pago realizado
     Swal.fire(
@@ -270,10 +231,10 @@ const handleRealizarPago = async () => {
           <div className="space-y-4">
             <div className="flex justify-between gap-4">
               <div className="w-full lg:w-4/5 p-4 h-100" style={{ border: 'solid 1px #d6d6d6', borderRadius: '5px' }} >
-                <div className="mt-2 flex flex-wrap w-full gap-2 overflow-y-auto max-h-80 min-h-80 divScroll">
-                  <div className="overflow-x-auto w-full">
+                <div className="mt-2 flex flex-wrap gap-2 overflow-y-auto max-h-64 min-h-64 divScroll">
+                  <div className="overflow-x-auto max-w-full">
                     <Table className="w-full">
-                      <Table.Head style={{ position: 'sticky', top: 1, zIndex: 2 }}>
+                      <Table.Head>
                         <Table.HeadCell>Nombre</Table.HeadCell>
                         <Table.HeadCell>Cantidad</Table.HeadCell>
                         <Table.HeadCell>Precio</Table.HeadCell>
@@ -302,7 +263,7 @@ const handleRealizarPago = async () => {
                     ))}
                   </div>
                 </div>
-                <div className="rounded text-center pt-2" style={{ borderTop: 'solid 1px #d6d6d6' }}>
+                <div className="rounded text-center" style={{ borderTop: 'solid 1px #d6d6d6' }}>
                   <div className="grid grid-cols-1 gap-2 mt-0 overflow-y-auto divScroll" style={{ maxHeight: '50%' }}>
                     <div>Total:</div>
                     <div>${calcularTotal()}</div>

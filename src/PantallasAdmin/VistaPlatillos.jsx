@@ -86,18 +86,6 @@ function VistaPlatillos() {
     const [precio, setPrecio] = useState('');
 
     const crearPlatillo = async () => {
-        try {
-            // Antes de hacer la petición, muestra la alerta de confirmación
-            const result = await Swal.fire({
-                title: '¿Estás seguro?',
-                text: '¿Deseas crear este platillo?',
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Sí, crear '
-            });
-            if (result.isConfirmed) {
         const token = localStorage.getItem('token');
         const response = await fetch(`${API_BASE_URL}/platillo/`, {
             method: 'POST',
@@ -119,16 +107,6 @@ function VistaPlatillos() {
         const jsonData = await response.json();
         console.log(jsonData);
         return jsonData.data.idPlatillo; // Asume que el ID del platillo se devuelve en la propiedad idPlatillo
-    }
-    } catch (error) {
-        console.error(error);
-        // Muestra una alerta de error si algo sale mal
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Hubo un error al crear el platillo. Por favor, inténtalo de nuevo.'
-        });
-    }
     };
 
     const [cantidades, setCantidades] = useState({});
@@ -270,6 +248,10 @@ function VistaPlatillos() {
         }
     }, [selectedPlatillo]);
 
+
+
+
+
     const handleOpenModal = (platillo) => {
         // Actualizar el platillo seleccionado
         setSelectedPlatillo(platillo);
@@ -277,6 +259,11 @@ function VistaPlatillos() {
         // Abrir el modal
         setmostrarOpen(true);
     };
+
+
+
+
+
 
 
     // ACTUALIZAR PLATILLO
@@ -327,62 +314,84 @@ function VistaPlatillos() {
 
 
     const actualizarPlatillo = async () => {
-        try {
-            const result = await Swal.fire({
-                title: '¿Estás seguro?',
-                text: '¿Deseas actualizar este platillo?',
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Sí, actualizar platillo'
+        const platilloActualizado = {
+            nombre: nombre,
+            categoria: categoria,
+            precio: precio,
+            ingredientes: IngredienteNameUp.map(ingrediente => ({
+                idIngrediente: ingrediente.idIngrediente,
+                cantidad: cantidades[ingrediente.idIngrediente] || 1
+            }))
+        };
+
+        const token = localStorage.getItem('token');
+        const response = await fetch(`${API_BASE_URL}/platillo/${selectedPlatillo.idPlatillo}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(platilloActualizado)
+        });
+
+        if (response.ok) {
+            // Si la respuesta es exitosa, cierra el modal y recarga los datos
+            setactualizarOpen(false);
+            cargarDatos();
+        } else {
+            // Si algo salió mal, muestra un mensaje de error
+            console.error('Algo salió mal al actualizar el platillo');
+        }
+
+        // Enviar los ingredientes actualizados a la URL proporcionada
+        for (const ingrediente of platilloActualizado.ingredientes) {
+            const platilloIngrediente = selectedPlatillo.platilloIngredienteBean.find(i => i.ingrediente.idIngrediente === ingrediente.idIngrediente);
+            const ingredienteActualizado = {
+                idPlatilloIngrediente: platilloIngrediente?.idPlatilloIngrediente,
+                cantidad: ingrediente.cantidad,
+                platillo: {
+                    idPlatillo: selectedPlatillo.idPlatillo
+                },
+                ingrediente: {
+                    idIngrediente: ingrediente.idIngrediente
+                }
+            };
+
+            const method = platilloIngrediente ? 'PUT' : 'POST';
+            const url = platilloIngrediente ? `${API_BASE_URL}/platilloingredientes/${ingredienteActualizado.idPlatilloIngrediente}` : `${API_BASE_URL}/platilloingredientes/`;
+
+            const ingredientesResponse = await fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(ingredienteActualizado)
             });
-    
-            if (result.isConfirmed) {
-                const platilloActualizado = {
-                    nombre: nombre,
-                    categoria: categoria,
-                    precio: precio,
-                    ingredientes: IngredienteNameUp.map(ingrediente => ({
-                        idIngrediente: ingrediente.idIngrediente,
-                        cantidad: cantidades[ingrediente.idIngrediente] || 1
-                    }))
-                };
-    
-                const token = localStorage.getItem('token');
-                const response = await fetch(`${API_BASE_URL}/platillo/${selectedPlatillo.idPlatillo}`, {
-                    method: 'PUT',
+
+            if (!ingredientesResponse.ok) {
+                // Si algo salió mal, muestra un mensaje de error
+                console.error('Algo salió mal al actualizar los ingredientes del platillo');
+            }
+        }
+
+        // Eliminar los ingredientes que ya no están presentes
+        for (const platilloIngrediente of selectedPlatillo.platilloIngredienteBean) {
+            if (!platilloActualizado.ingredientes.find(i => i.idIngrediente === platilloIngrediente.ingrediente.idIngrediente)) {
+                const ingredientesResponse = await fetch(`${API_BASE_URL}/platilloingredientes/${platilloIngrediente.idPlatilloIngrediente}`, {
+                    method: 'DELETE',
                     headers: {
-                        'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify(platilloActualizado)
+                    }
                 });
-    
-                if (response.ok) {
-                    // Si la respuesta es exitosa, cierra el modal y recarga los datos
-                    setactualizarOpen(false);
-                    fetchData(); // Recarga los datos
-                } else {
+
+                if (!ingredientesResponse.ok) {
                     // Si algo salió mal, muestra un mensaje de error
-                    console.error('Algo salió mal al actualizar el platillo');
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Hubo un error al actualizar el platillo. Por favor, inténtalo de nuevo.'
-                    });
+                    console.error('Algo salió mal al eliminar el ingrediente del platillo');
                 }
             }
-            setactualizarOpen(false);
-        } catch (error) {
-            console.error(error);
-            // Muestra una alerta de error si algo sale mal
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Hubo un error al actualizar el platillo. Por favor, inténtalo de nuevo.'
-            });
         }
+        fetchData();
     };
 
     const loadPlatilloIngredientes = async (platillo) => {
@@ -457,7 +466,6 @@ function VistaPlatillos() {
 
     // ELIMINAR PLATILLO 
     const loadPlatilloIngredientesDelete = async (platillo) => {
-        
         const token = localStorage.getItem('token');
         const response = await fetch(`${API_BASE_URL}/ingredientes/`, {
             headers: {
