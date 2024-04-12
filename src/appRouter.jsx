@@ -6,6 +6,8 @@ import ChefComponent from './PantallasChef/navegadorChef/navegadorCh';
 import RecepcionComponent from './PantallasRecepcion/navegadorRecepcion/navegador'; 
 import { AuthProvider } from './authContext';
 import { Card } from 'flowbite-react';
+import ResetPassword from './ResetPassword';
+import PDF from './MenuPdf'
 
 import Gorro from './assets/imgGastromanager.png';
 
@@ -57,6 +59,8 @@ const AppRouter = () => {
           <Route path="/chef/*" element={<ChefComponentWithAuth />} />
           <Route path="/recepcion/*" element={<RecepcionComponentWithAuth />} />
           <Route path="/access-denied" element={<AccessDenied />} />
+          <Route path="/ResetPassword/:token" element={<ResetPassword />} />
+          <Route path="/download-page/:id" element={<PDF />} />
         </Routes>
       </AuthProvider>
     </Router>

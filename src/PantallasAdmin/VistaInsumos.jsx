@@ -33,11 +33,11 @@ function VistaInsumos() {
         const fetchData = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch(`${API_BASE_URL}/ingredientes/`,{
+                const response = await fetch(`${API_BASE_URL}/ingredientes/`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
-                  });
+                });
                 if (!response.ok) {
                     throw new Error('Hubo un error en la petición');
                 }
@@ -176,37 +176,41 @@ function VistaInsumos() {
                         <Button onClick={() => setcrearOpen(true)} className="agregar">Agregar</Button>
                     </div>
                     <div className=' overflow-y-auto divScroll' style={{ maxHeight: '65vh' }}>
-                    <Table>
-    <Table.Head style={{ position: 'sticky', top: 0, zIndex: 1 }}>
-        <Table.HeadCell className="text-center border-r border-b border-gray-300">Nombre</Table.HeadCell>
-        <Table.HeadCell className="text-center border-r border-b border-gray-300">Cantidad</Table.HeadCell>
-        <Table.HeadCell className="text-center border-r border-b border-gray-300">Tipo</Table.HeadCell>
-        <Table.HeadCell className="text-center border-b border-gray-300">
-            <span className="sr-only">Edit</span>
-        </Table.HeadCell>
-    </Table.Head>
-    <Table.Body className="divide-y">
-        {data && data.map((item, index) => (
-            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                <Table.Cell className="text-center border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                    {item.nombre}
-                </Table.Cell>
-                <Table.Cell className="text-center border-r border-gray-300">{item.cantidad}</Table.Cell>
-                <Table.Cell className="text-center border-r border-gray-300">{item.tipo}</Table.Cell>
-                <Table.Cell className='text-center' style={{ width: '15%' }}>
-    <Stack direction="row" spacing={0} className='flex items-center justify-center'>
-        <IconButton aria-label="delete" sx={{ color: '#000000' }} onClick={() => handleDeleteConfirmation(item.idIngrediente)}>
-            <DeleteIcon />
-        </IconButton>
-        <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => handleUpdateInsumo(item)}>
-            <EditIcon />
-        </IconButton>
-    </Stack>
-</Table.Cell>
-            </Table.Row>
-        ))}
-    </Table.Body>
-</Table>
+                        <Table>
+                            <Table.Head style={{ position: 'sticky', top: 0, zIndex: 1 }}>
+                                <Table.HeadCell className='text-center border-r border-b border-gray-300'>#</Table.HeadCell>
+                                <Table.HeadCell className="text-center border-r border-b border-gray-300">Nombre</Table.HeadCell>
+                                <Table.HeadCell className="text-center border-r border-b border-gray-300">Cantidad</Table.HeadCell>
+                                <Table.HeadCell className="text-center border-r border-b border-gray-300">Tipo</Table.HeadCell>
+                                <Table.HeadCell className="text-center border-b border-gray-300">
+                                    <span className="sr-only">Edit</span>
+                                </Table.HeadCell>
+                            </Table.Head>
+                            <Table.Body className="divide-y">
+                                {data && data.map((item, index) => (
+                                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                        <Table.Cell className="text-center border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                            {index + 1}
+                                        </Table.Cell>
+                                        <Table.Cell className="text-center border-r border-gray-300 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                            {item.nombre}
+                                        </Table.Cell>
+                                        <Table.Cell className="text-center border-r border-gray-300">{item.cantidad}</Table.Cell>
+                                        <Table.Cell className="text-center border-r border-gray-300">{item.tipo}</Table.Cell>
+                                        <Table.Cell className='text-center' style={{ width: '13%' }}>
+                                            <Stack direction="row" spacing={0} className='flex items-center justify-center'>
+                                                <IconButton aria-label="delete" sx={{ color: '#000000' }} onClick={() => handleDeleteConfirmation(item.idIngrediente)}>
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                                <IconButton aria-label="EditIcon" sx={{ color: '#000000' }} onClick={() => handleUpdateInsumo(item)}>
+                                                    <EditIcon />
+                                                </IconButton>
+                                            </Stack>
+                                        </Table.Cell>
+                                    </Table.Row>
+                                ))}
+                            </Table.Body>
+                        </Table>
                     </div>
                 </div>
             </div>
@@ -228,7 +232,7 @@ function VistaInsumos() {
                         }}
                         validationSchema={Yup.object({
                             nombre: Yup.string().required('El nombre es requerido').matches(/^[a-zA-Z\s]+$/, 'El nombre solo debe contener letras'),
-                            cantidad: Yup.number().required('La cantidad es requerida').positive('La cantidad debe ser positiva'),
+                            cantidad: Yup.number().required('Requerido').positive('La cantidad debe ser positiva'),
                             tipo: Yup.string().required('El tipo es requerido')
                         })}
                         onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -245,27 +249,32 @@ function VistaInsumos() {
                                     </Field>
                                     <ErrorMessage name="nombre" component="div" className="text-red-500" />
                                 </div>
-                                <div>
-                                    <Field name="cantidad">
-                                        {({ field }) => (
-                                            <FloatingLabel variant="outlined" label="Cantidad" className='text-base' {...field} />
-                                        )}
-                                    </Field>
-                                    <ErrorMessage name="cantidad" component="div" className="text-red-500" />
+                                <div className='flex'>
+
+
+                                    <div className='w-9/12 pr-2'>
+                                        <Field name="tipo">
+                                            {({ field }) => (
+                                                <Select id="role" style={{ fontSize: 16, height: 52 }} {...field}>
+                                                    <option value="">Selecciona el tipo de insumo</option>
+                                                    <option value="verduras">Verduras</option>
+                                                    <option value="postres">Postres</option>
+                                                    <option value="carnes">Carnes</option>
+                                                </Select>
+                                            )}
+                                        </Field>
+                                        <ErrorMessage name="tipo" component="div" className="text-red-500" />
+                                    </div>
+                                    <div className='w-3/12 pl-1'>
+                                        <Field name="cantidad">
+                                            {({ field }) => (
+                                                <FloatingLabel variant="outlined" label="Cantidad" className='text-base' {...field} />
+                                            )}
+                                        </Field>
+                                        <ErrorMessage name="cantidad" component="div" className="text-red-500" />
+                                    </div>
                                 </div>
-                                <div>
-                                    <Field name="tipo">
-                                        {({ field }) => (
-                                            <Select id="role" style={{ fontSize: 16, height: 52 }} {...field}>
-                                                <option value="">Selecciona el tipo de insumo</option>
-                                                <option value="verduras">Verduras</option>
-                                                <option value="postres">Postres</option>
-                                                <option value="carnes">Carnes</option>
-                                            </Select>
-                                        )}
-                                    </Field>
-                                    <ErrorMessage name="tipo" component="div" className="text-red-500" />
-                                </div>
+
                             </div>
                             <Modal.Footer>
                                 <div className="flex justify-center w-full">
