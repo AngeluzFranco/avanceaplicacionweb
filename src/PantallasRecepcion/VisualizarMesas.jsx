@@ -24,25 +24,26 @@ function ChefVisualizarM() {
   const closeModal = () => setMostrarOpen(false);
 
   // MOSTRAR TODAS LAS MESAS
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const url = `${API_BASE_URL}/mesas/`;
-        const token = localStorage.getItem('token');
-        const response = await fetch(url,{
-          headers: {
-            'Authorization' : `Bearer ${token}`
-          }
-        });
-        if (!response.ok) {
-          throw new Error('Hubo un error en la petición');
+  const fetchData = async () => {
+    try {
+      const url = `${API_BASE_URL}/mesas/`;
+      const token = localStorage.getItem('token');
+      const response = await fetch(url,{
+        headers: {
+          'Authorization' : `Bearer ${token}`
         }
-        const jsonData = await response.json();
-        setAllData(jsonData.data);
-      } catch (error) {
-        console.error(error);
+      });
+      if (!response.ok) {
+        throw new Error('Hubo un error en la petición');
       }
-    };
+      const jsonData = await response.json();
+      setAllData(jsonData.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -152,6 +153,7 @@ const confirmRealizarPago = () => {
   }).then((result) => {
     if (result.isConfirmed) {
       handleRealizarPago(); // Si el usuario confirma, llamamos a la función para realizar el pago
+      
     }
     closeModal();
   });
@@ -176,6 +178,8 @@ const handleRealizarPago = async () => {
     // Eliminar los detalles de pedido con el mismo ID de pedido
     await eliminarDetallesPedido(pedidoId);
 
+    
+
     // Cambiar el estado de la mesa a "Desocupada"
     await fetch(`${API_BASE_URL}/mesas/${selectedMesa.idMesa}`, {
       method: 'PUT',
@@ -185,6 +189,7 @@ const handleRealizarPago = async () => {
       },
       body: JSON.stringify({ estado: 'Desocupada' })
     });
+    await fetchData()
 
     // Mostrar mensaje de pago realizado
     Swal.fire(
