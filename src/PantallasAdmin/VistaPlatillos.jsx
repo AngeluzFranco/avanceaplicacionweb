@@ -24,17 +24,6 @@ import Checkbox from '@mui/material/Checkbox';
 import { API_BASE_URL } from '../backend.js';
 import Swal from 'sweetalert2';
 
-import { Formik, Field, Form } from 'formik';
-import * as Yup from 'yup';
-
-const validationSchema = Yup.object().shape({
-    nombre: Yup.string().required('Required'),
-    categoria: Yup.string().required('Required'),
-    precio: Yup.number().required('Required').positive('Must be positive').integer('Must be an integer'),
-    ingredientes: Yup.array().min(1, 'At least one ingredient is required')
-});
-
-
 
 function VistaPlatillos() {
     const [data, setData] = useState(null);
