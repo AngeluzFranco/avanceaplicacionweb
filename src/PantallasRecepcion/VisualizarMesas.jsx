@@ -24,25 +24,28 @@ function ChefVisualizarM() {
   const closeModal = () => setMostrarOpen(false);
 
   // MOSTRAR TODAS LAS MESAS
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const url = `${API_BASE_URL}/mesas/`;
-        const token = localStorage.getItem('token');
-        const response = await fetch(url,{
-          headers: {
-            'Authorization' : `Bearer ${token}`
-          }
-        });
-        if (!response.ok) {
-          throw new Error('Hubo un error en la petición');
+
+  const fetchData = async () => {
+    try {
+      const url = `${API_BASE_URL}/mesas/`;
+      const token = localStorage.getItem('token');
+      const response = await fetch(url,{
+        headers: {
+          'Authorization' : `Bearer ${token}`
         }
-        const jsonData = await response.json();
-        setAllData(jsonData.data);
-      } catch (error) {
-        console.error(error);
+      });
+      if (!response.ok) {
+        throw new Error('Hubo un error en la petición');
       }
-    };
+      const jsonData = await response.json();
+      setAllData(jsonData.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+ 
     fetchData();
   }, []);
 
@@ -116,6 +119,43 @@ const confirmRealizarPago = () => {
   });
 };
 
+const eliminarDetallesPedido = async (idPedido) => {
+  try {
+    const token = localStorage.getItem('token');
+    // Consultar los detalles de pedido con el mismo ID de pedido
+    const response = await fetch(`${API_BASE_URL}/detallepedido/pedido/${idPedido}`, {
+      headers: {
+        'Authorization' : `Bearer ${token}`
+      }
+    });
+    if (!response.ok) {
+      throw new Error('Hubo un error en la petición');
+    }
+    const jsonData = await response.json();
+    const detallePedidos = jsonData.data;
+
+    // Eliminar cada detalle de pedido
+    for (const detalle of detallePedidos) {
+      await fetch(`${API_BASE_URL}/detallepedido/${detalle.idDetallePedido}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+    }
+
+    // Una vez eliminados los detalles de pedido, eliminar el pedido
+    await fetch(`${API_BASE_URL}/pedidos/${idPedido}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const handleRealizarPago = async () => {
   if (pedidoData.length === 0) {
     // Si no hay ningún pedido, mostrar alerta de que no se puede realizar el pago
@@ -132,15 +172,8 @@ const handleRealizarPago = async () => {
     const token = localStorage.getItem('token');
     const pedidoId = selectedMesa.pedidosBean[0].idPedido;
 
-    // Cambiar el estado del pedido a "Pagado"
-    await fetch(`${API_BASE_URL}/pedidos/${pedidoId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ estado: 'Pagado' })
-    });
+    // Eliminar los detalles de pedido con el mismo ID de pedido
+    await eliminarDetallesPedido(pedidoId);
 
     // Cambiar el estado de la mesa a "Desocupada"
     await fetch(`${API_BASE_URL}/mesas/${selectedMesa.idMesa}`, {
@@ -150,7 +183,10 @@ const handleRealizarPago = async () => {
         'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({ estado: 'Desocupada' })
+      
     });
+
+    
 
     // Mostrar mensaje de pago realizado
     Swal.fire(
@@ -159,6 +195,7 @@ const handleRealizarPago = async () => {
       'success'
     );
     
+    await fetchData();
     closeModal();
   } catch (error) {
     console.error(error);
