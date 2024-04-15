@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState,  } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import img from './assets/img.avif';
@@ -8,6 +8,12 @@ import './menu-pdf.css';
 function MenuPDF() {
     const { id } = useParams();
     const [menuData, setMenuData] = useState(null);
+
+    const navigate = useNavigate();
+
+    const regresar = () => {
+        navigate('/admin/visualizar-menus');
+    };
 
     const printPDF = () => {
         html2canvas(document.querySelector("#content"), { scale: window.devicePixelRatio }).then(canvas => {
@@ -108,8 +114,9 @@ function MenuPDF() {
                 </div>
                 <div id="menu-container-pdf"></div>
             </div>
-            <div className="text-center">
+            <div className="text-center m-2">
                 <button className="btn-custom" onClick={printPDF}>Imprimir PDF</button>
+                <button className="btn-custom ml-3" style={{backgroundColor: 'orange'}} onClick={regresar}>Regresar</button>
             </div>
         </>
     );

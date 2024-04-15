@@ -24,6 +24,16 @@ import Checkbox from '@mui/material/Checkbox';
 import { API_BASE_URL } from '../backend.js';
 import Swal from 'sweetalert2';
 
+import { Formik, Field, Form } from 'formik';
+import * as Yup from 'yup';
+
+const validationSchema = Yup.object().shape({
+    nombre: Yup.string().required('Required'),
+    categoria: Yup.string().required('Required'),
+    precio: Yup.number().required('Required').positive('Must be positive').integer('Must be an integer'),
+    ingredientes: Yup.array().min(1, 'At least one ingredient is required')
+});
+
 
 
 function VistaPlatillos() {
@@ -86,27 +96,57 @@ function VistaPlatillos() {
     const [precio, setPrecio] = useState('');
 
     const crearPlatillo = async () => {
-        const token = localStorage.getItem('token');
-        const response = await fetch(`${API_BASE_URL}/platillo/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({
-                nombre: nombre,
-                categoria: categoria,
-                precio: precio
-            })
-        });
+        try {
+            const result = await Swal.fire({
+                title: '¿Estás seguro?',
+                text: '¿Deseas crear este platillo?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, crear platillo'
+            });
 
-        if (!response.ok) {
-            throw new Error('Hubo un error en la petición');
+            if (result.isConfirmed) {
+                // Usuario confirmó, procede con la creación del platillo
+                const token = localStorage.getItem('token');
+                const response = await fetch(`${API_BASE_URL}/platillo/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        nombre: nombre,
+                        categoria: categoria,
+                        precio: precio
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Hubo un error en la petición');
+                }
+
+                const jsonData = await response.json();
+                console.log(jsonData);
+                Swal.fire({
+                    title: 'Creado!',
+                    text: 'El platillo ha sido creado exitosamente.',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 800
+                });
+                return jsonData.data.idPlatillo; // Asume que el ID del platillo se devuelve en la propiedad idPlatillo
+            }
+        } catch (error) {
+            console.error(error);
+            // Muestra una alerta de error si algo sale mal
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Hubo un error al crear el platillo. Por favor, inténtalo de nuevo.'
+            });
         }
-
-        const jsonData = await response.json();
-        console.log(jsonData);
-        return jsonData.data.idPlatillo; // Asume que el ID del platillo se devuelve en la propiedad idPlatillo
     };
 
     const [cantidades, setCantidades] = useState({});
@@ -313,7 +353,19 @@ function VistaPlatillos() {
     };
 
 
-    const actualizarPlatillo = async () => {
+
+const actualizarPlatillo = async () => {
+    const result = await Swal.fire({
+        title: '¿Estás seguro?',
+        text: '¿Deseas actualizar este platillo?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, actualizar platillo'
+    });
+
+    if (result.isConfirmed) {
         const platilloActualizado = {
             nombre: nombre,
             categoria: categoria,
@@ -337,6 +389,13 @@ function VistaPlatillos() {
         if (response.ok) {
             // Si la respuesta es exitosa, cierra el modal y recarga los datos
             setactualizarOpen(false);
+            Swal.fire({
+                title: '¡Actualizado!',
+                text:  'El platillo ha sido actualizado exitosamente.',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 800
+              });
             cargarDatos();
         } else {
             // Si algo salió mal, muestra un mensaje de error
@@ -392,7 +451,8 @@ function VistaPlatillos() {
             }
         }
         fetchData();
-    };
+    }
+};
 
     const loadPlatilloIngredientes = async (platillo) => {
         const token = localStorage.getItem('token');
@@ -486,6 +546,8 @@ function VistaPlatillos() {
     };
 
 
+
+
     const [mostrarOpen, setmostrarOpen] = useState(false);
     const closeModal = () => setmostrarOpen(false);
 
@@ -530,48 +592,68 @@ function VistaPlatillos() {
                                                 <IconButton aria-label="VisibilityIcon" sx={{ color: '#000000' }} onClick={() => handleOpenModal(item)}>
                                                     <VisibilityIcon />
                                                 </IconButton>
+
                                                 <IconButton
                                                     aria-label="delete"
                                                     sx={{ color: '#000000' }}
                                                     onClick={async () => {
-                                                        const token = localStorage.getItem('token');
+                                                        const result = await Swal.fire({
+                                                            title: '¿Estás seguro?',
+                                                            text: '¿Deseas eliminar este platillo?',
+                                                            icon: 'question',
+                                                            showCancelButton: true,
+                                                            confirmButtonColor: '#3085d6',
+                                                            cancelButtonColor: '#d33',
+                                                            confirmButtonText: 'Sí, eliminar platillo'
+                                                        });
 
-                                                        // Primero, obtener los ingredientes del platillo
-                                                        const platilloIngredientes = await loadPlatilloIngredientesDelete(item);
+                                                        if (result.isConfirmed) {
+                                                            const token = localStorage.getItem('token');
 
-                                                        // Luego, eliminar cada ingrediente del platillo
-                                                        for (const ingrediente of platilloIngredientes) {
-                                                            for (const platilloIngrediente of ingrediente.platilloIngredienteBean) {
-                                                                if (platilloIngrediente.platillo.idPlatillo === item.idPlatillo) {
-                                                                    const deleteIngredientResponse = await fetch(`${API_BASE_URL}/platilloingredientes/${platilloIngrediente.idPlatilloIngrediente}`, {
-                                                                        method: 'DELETE',
-                                                                        headers: {
-                                                                            'Authorization': `Bearer ${token}`
+                                                            // Primero, obtener los ingredientes del platillo
+                                                            const platilloIngredientes = await loadPlatilloIngredientesDelete(item);
+
+                                                            // Luego, eliminar cada ingrediente del platillo
+                                                            for (const ingrediente of platilloIngredientes) {
+                                                                for (const platilloIngrediente of ingrediente.platilloIngredienteBean) {
+                                                                    if (platilloIngrediente.platillo.idPlatillo === item.idPlatillo) {
+                                                                        const deleteIngredientResponse = await fetch(`${API_BASE_URL}/platilloingredientes/${platilloIngrediente.idPlatilloIngrediente}`, {
+                                                                            method: 'DELETE',
+                                                                            headers: {
+                                                                                'Authorization': `Bearer ${token}`
+                                                                            }
+                                                                        });
+
+                                                                        if (!deleteIngredientResponse.ok) {
+                                                                            console.error('Algo salió mal al eliminar un ingrediente del platillo');
+                                                                            return;
                                                                         }
-                                                                    });
-
-                                                                    if (!deleteIngredientResponse.ok) {
-                                                                        console.error('Algo salió mal al eliminar un ingrediente del platillo');
-                                                                        return;
                                                                     }
                                                                 }
                                                             }
-                                                        }
 
-                                                        // Finalmente, eliminar el platillo
-                                                        const deletePlatilloResponse = await fetch(`${API_BASE_URL}/platillo/${item.idPlatillo}`, {
-                                                            method: 'DELETE',
-                                                            headers: {
-                                                                'Authorization': `Bearer ${token}`
+                                                            // Finalmente, eliminar el platillo
+                                                            const deletePlatilloResponse = await fetch(`${API_BASE_URL}/platillo/${item.idPlatillo}`, {
+                                                                method: 'DELETE',
+                                                                headers: {
+                                                                    'Authorization': `Bearer ${token}`
+                                                                }
+                                                            });
+
+                                                            if (deletePlatilloResponse.ok) {
+                                                                console.log("Se elimino correctamente")
+                                                                Swal.fire({
+                                                                    title: 'Eliminado!',
+                                                                    text:  'El platillo ha sido eliminado exitosamente.',
+                                                                    icon: 'success',
+                                                                    showConfirmButton: false,
+                                                                    timer: 800
+                                                                  });
+                                                                fetchData();
+                                                            } else {
+                                                                // Si algo salió mal, muestra un mensaje de error
+                                                                console.error('Algo salió mal al eliminar el platillo');
                                                             }
-                                                        });
-
-                                                        if (deletePlatilloResponse.ok) {
-                                                            console.log("Se elimino correctamente")
-                                                            fetchData();
-                                                        } else {
-                                                            // Si algo salió mal, muestra un mensaje de error
-                                                            console.error('Algo salió mal al eliminar el platillo');
                                                         }
                                                     }}
                                                 >

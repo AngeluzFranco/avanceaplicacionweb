@@ -23,6 +23,7 @@ import Checkbox from '@mui/material/Checkbox';
 
 import { API_BASE_URL } from '../backend.js';
 import{useNavigate} from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 
 function VistaMenu() {
@@ -74,28 +75,58 @@ function VistaMenu() {
     const [descripcion, setDescripcion] = useState('');
 
     const crearMenu = async () => {
-        const token = localStorage.getItem('token');
-        const response = await fetch(`${API_BASE_URL}/menus/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({
-                nombre: nombre,
-                descripcion: descripcion,
-
-            })
+    try {
+        // Antes de hacer la petición, muestra la alerta de confirmación
+        const result = await Swal.fire({
+            title: '¿Estás seguro?',
+            text: '¿Deseas crear este menú?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, crear menú'
         });
 
-        if (!response.ok) {
-            throw new Error('Hubo un error en la petición');
-        }
+        if (result.isConfirmed) {
+            // Usuario confirmó, procede con la creación del menú
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_BASE_URL}/menus/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    nombre: nombre,
+                    descripcion: descripcion,
+                })
+            });
 
-        const jsonData = await response.json();
-        console.log(jsonData);
-        return jsonData.data.idMenu; // Asume que el ID del platillo se devuelve en la propiedad idPlatillo
-    };
+            if (!response.ok) {
+                throw new Error('Hubo un error en la petición');
+            }
+
+            const jsonData = await response.json();
+            console.log(jsonData);
+            Swal.fire({
+                title: 'Menú creado',
+                text: 'Menú creado con exito',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 800
+              });
+            return jsonData.data.idMenu; // Asume que el ID del menú se devuelve en la propiedad idMenu
+        }
+    } catch (error) {
+        console.error(error);
+        // Muestra una alerta de error si algo sale mal
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Hubo un error al crear el menú. Por favor, inténtalo de nuevo.'
+        });
+    }
+};
 
     //   GUARDAR LOS PLATILLOS DEL MENU 
     const asignarPlatillos = async (idMenu, platillosSeleccionados) => {
@@ -221,17 +252,55 @@ function VistaMenu() {
 
     //ELIMINAR MENU
     const MenuDelete = async (idMenu) => {
-        const token = localStorage.getItem('token');
-        const response = await fetch(`${API_BASE_URL}/menus/${idMenu}`, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${token}`
+        try {
+            const result = await Swal.fire({
+                title: '¿Estás seguro?',
+                text: '¿Deseas eliminar este menú?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, eliminar menú'
+            });
+    
+            if (result.isConfirmed) {
+                const token = localStorage.getItem('token');
+                const response = await fetch(`${API_BASE_URL}/menus/${idMenu}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Hubo un error en la petición');
+                }
+    
+                // Aquí puedes actualizar tu estado o refetch los datos para reflejar la eliminación
+    
+                // Muestra una alerta de éxito después de eliminar
+                Swal.fire(
+                    '¡Eliminado!',
+                    'El menú ha sido eliminado exitosamente.',
+                    'success'
+                );
+                Swal.fire({
+                    title: '¡Eliminado!',
+                    text:  'El menú ha sido eliminado exitosamente.',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 800
+                  });
             }
-        });
-        if (!response.ok) {
-            throw new Error('Hubo un error en la petición');
+        } catch (error) {
+            console.error(error);
+            // Muestra una alerta de error si algo sale mal
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Hubo un error al eliminar el menú. Por favor, inténtalo de nuevo.'
+            });
         }
-        // Aquí puedes actualizar tu estado o refetch los datos para reflejar la eliminación
     };
 
     const updatePlatillos = async (idMenu) => {
@@ -288,31 +357,63 @@ function VistaMenu() {
     }
 
     const actualizarMenu = async (idMenu) => {
-        const token = localStorage.getItem('token');
-        const response = await fetch(`${API_BASE_URL}/menus/${idMenu}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({
-                nombre: nombre,
-                descripcion: descripcion,
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error('Hubo un error en la petición');
+        try {
+            const result = await Swal.fire({
+                title: '¿Estás seguro?',
+                text: '¿Deseas actualizar este menú?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, actualizar menú'
+            });
+    
+            if (result.isConfirmed) {
+                const token = localStorage.getItem('token');
+                const response = await fetch(`${API_BASE_URL}/menus/${idMenu}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        nombre: nombre,
+                        descripcion: descripcion,
+                    })
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Hubo un error en la petición');
+                }
+    
+                const jsonData = await response.json();
+                console.log(jsonData);
+    
+                // Muestra una alerta de éxito después de actualizar
+                Swal.fire(
+                    '¡Actualizado!',
+                    'El menú ha sido actualizado exitosamente.',
+                    'success'
+                );
+                Swal.fire({
+                    title: '¡Actualizado!',
+                    text:  'El menú ha sido actualizado exitosamente.',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 800
+                  });
+    
+                return jsonData.data.idMenu; // Asume que el ID del menú se devuelve en la propiedad idMenu
+            }
+        } catch (error) {
+            console.error(error);
+            // Muestra una alerta de error si algo sale mal
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Hubo un error al actualizar el menú. Por favor, inténtalo de nuevo.'
+            });
         }
-
-        const jsonData = await response.json();
-        console.log(jsonData);
-
-
-        return jsonData.data.idMenu; // Asume que el ID del menú se devuelve en la propiedad idMenu
-
-
-
     };
 
     useEffect(() => {
@@ -531,7 +632,7 @@ function VistaMenu() {
                     <div className="space-y-4">
                         <div className="flex justify-between gap-4">
                             <div className='w-1/3'>
-                                <FloatingLabel variant="outlined" label="Nombre" className='text-base' value={nombre} onChange={(e) => setNombre(e.target.value)} />
+                                <FloatingLabel required variant="outlined" label="Nombre" className='text-base' value={nombre} onChange={(e) => setNombre(e.target.value)} />
                             </div>
                             <div className='w-2/3'>
                                 <FloatingLabel variant="outlined" label="Descripcion" className='text-base' value={descripcion} onChange={(e) => setDescripcion(e.target.value)} />
