@@ -371,6 +371,7 @@ function VistaUsuarios() {
                       >
                         <option value="">Selecciona un rol</option>
                         <option value="1">Administrador</option>
+                        <option value="2">Mesero</option>
                         <option value="3">Chef</option>
                         <option value="4">Recepción</option>
                       </Select>
@@ -449,6 +450,7 @@ function VistaUsuarios() {
                       >
                         <option value="">Selecciona un rol</option>
                         <option value="1">Administrador</option>
+                        <option value="2">Mesero</option>
                         <option value="3">Chef</option>
                         <option value="4">Recepción</option>
                       </Select>

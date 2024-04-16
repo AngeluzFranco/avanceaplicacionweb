@@ -74,11 +74,14 @@ export default function LoginComponent() {
           case 'RECEPTIONIST_ROLE':
             navigate('/recepcion');
             break;
-          case 'WAITER_ROLE':
-            navigate('/waiter');
-            break;
           default:
             // Redirigir a la página de inicio de sesión si el rol no es reconocido
+            Swal.fire({
+          title: 'Error',
+          text: 'Usuario o contraseña incorrectos',
+          icon: 'error',
+          confirmButtonColor: '#ff0000', // Color rojo
+        });
             navigate('/login');
             break;
         }

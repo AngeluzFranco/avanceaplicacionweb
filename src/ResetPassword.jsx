@@ -25,7 +25,7 @@ function Password() {
         }
 
         // Validar longitud mínima de contraseña
-        if (password.length < 8) {
+        if (password.length < 5 ) {
             Swal.fire({
                 title: 'Error',
                 text: 'La contraseña debe tener al menos 8 caracteres',
