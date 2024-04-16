@@ -262,10 +262,11 @@ function VistaInsumos() {
                                                     <option value="Quesos">Quesos</option>
                                                     <option value="Legumbres">Legumbres</option>
                                                     <option value="Especias">Especias</option>
-
+                                                    <option value="Mariscos">Mariscos</option>
                                                     <option value="Bebidas">Bebidas</option>
                                                     <option value="Postres">Postres</option>
                                                     <option value="Pastas">Pastas</option>
+                                                    <option value="Pan">Pan</option>
                                                 </Select>
                                             )}
                                         </Field>
@@ -340,9 +341,16 @@ function VistaInsumos() {
                                         {({ field }) => (
                                             <Select id="role" style={{ fontSize: 16, height: 52 }} {...field}>
                                                 <option value="">Selecciona el tipo de insumo</option>
-                                                <option value="verduras">Verduras</option>
-                                                <option value="postres">Postres</option>
-                                                <option value="carnes">Carnes</option>
+                                                <option value="Verduras">Verduras</option>
+                                                    <option value="Carnes">Carnes</option>
+                                                    <option value="Quesos">Quesos</option>
+                                                    <option value="Legumbres">Legumbres</option>
+                                                    <option value="Especias">Especias</option>
+                                                    <option value="Mariscos">Mariscos</option>
+                                                    <option value="Bebidas">Bebidas</option>
+                                                    <option value="Postres">Postres</option>
+                                                    <option value="Pastas">Pastas</option>
+                                                    <option value="Pan">Pan</option>
                                             </Select>
                                         )}
                                     </Field>

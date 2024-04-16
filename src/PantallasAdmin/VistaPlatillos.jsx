@@ -750,6 +750,7 @@ const actualizarPlatillo = async () => {
                                     <option value="Entrada">Entrada</option>
                                     <option value="Fuerte">Fuerte</option>
                                     <option value="Postre">Postre</option>
+                                    <option value="Bebidas">Bebidas</option>
                                 </SelectFlow>
                             </div >
                             <div className='w-1/12'>
@@ -857,6 +858,7 @@ const actualizarPlatillo = async () => {
                                     <option value="Entrada">Entrada</option>
                                     <option value="Fuerte">Fuerte</option>
                                     <option value="Postre">Postre</option>
+                                    <option value="Bebidas">Bebidas</option>
                                 </SelectFlow>
                             </div >
                             <div className='w-1/12'>

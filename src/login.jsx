@@ -55,7 +55,7 @@ export default function LoginComponent() {
         const data = fullResponse.data;
         localStorage.setItem('token', data.token);
         console.log('Token almacenado:', data.token);
-        Swal.fire({ title: 'Perfecto', text: 'Inicio de sesión exitoso', icon: 'success', confirmButtonColor: '#0f80f2' });
+        Swal.fire({ title: 'Perfecto', text: `Inicio de sesión exitoso. Bienvenido ${data.user.user}` , icon: 'success', confirmButtonColor: '#0f80f2' });
 
         // Establecer la información del usuario en el contexto
         setUser({
