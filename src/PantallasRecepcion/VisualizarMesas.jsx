@@ -81,15 +81,19 @@ const openModal = async (mesa) => {
     const jsonData = await response.json();
     const detallePedidos = jsonData.data;
 
-    // Procesar los detalles de los pedidos
-    const pedidosData = detallePedidos.map(detalle => ({
-      nombre: detalle.platillo.nombre,
-      cantidad: detalle.cantidad,
-      precio: detalle.precio_total / detalle.cantidad
-    }));
+    // Filtrar los detalles de pedidos en estado "Pagar"
+    const pedidosData = detallePedidos
+      .filter(detalle => detalle.pedido.estado === 'Pagar')
+      .map(detalle => ({
+        nombre: detalle.platillo.nombre,
+        cantidad: detalle.cantidad,
+        precio: detalle.precio_total / detalle.cantidad
+      }));
 
     // Calcular subtotales
-    const subtotalesArray = detallePedidos.map(detalle => detalle.precio_total);
+    const subtotalesArray = detallePedidos
+      .filter(detalle => detalle.pedido.estado === 'Pagar')
+      .map(detalle => detalle.precio_total);
     setSubtotales(subtotalesArray);
 
     setPedidoData(pedidosData); // Almacenar los detalles del pedido
@@ -268,8 +272,8 @@ const handleRealizarPago = async () => {
           <div className="space-y-4">
             <div className="flex justify-between gap-4">
               <div className="w-full lg:w-4/5 p-4 h-100" style={{ border: 'solid 1px #d6d6d6', borderRadius: '5px' }} >
-                <div className="mt-2 flex flex-wrap gap-2 overflow-y-auto max-h-64 min-h-64 divScroll">
-                  <div className="overflow-x-auto max-w-full">
+                <div className="mt-2 flex flex-wrap gap-2 overflow-y-auto max-h-100 min-h-64 divScroll">
+                  <div className="overflow-x-auto w-full">
                     <Table className="w-full">
                       <Table.Head>
                         <Table.HeadCell>Nombre</Table.HeadCell>
