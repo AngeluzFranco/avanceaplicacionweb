@@ -747,7 +747,7 @@ const actualizarPlatillo = async () => {
                             <div className='w-6/12 text-base'>
                                 <SelectFlow id="countries" style={{ fontSize: 16, height: 52 }} value={categoria} onChange={cambioCategoria} required>
                                     <option disabled value="">Categoria</option>
-                                    <option value="Entrada">Entrada</option>
+                                    <option value="Entrada">Entradas</option>
                                     <option value="Fuerte">Fuerte</option>
                                     <option value="Postre">Postre</option>
                                     <option value="Bebidas">Bebidas</option>
@@ -855,7 +855,7 @@ const actualizarPlatillo = async () => {
                             <div className='w-6/12 text-base'>
                                 <SelectFlow id="countries" style={{ fontSize: 16, height: 52 }} value={categoria} onChange={cambioCategoria} required>
                                     <option disabled value="">Categoria</option>
-                                    <option value="Entrada">Entrada</option>
+                                    <option value="Entrada">Entradas</option>
                                     <option value="Fuerte">Fuerte</option>
                                     <option value="Postre">Postre</option>
                                     <option value="Bebidas">Bebidas</option>
